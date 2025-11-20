@@ -1,10 +1,4 @@
 
-A great README acts as the **virtual storefront** and **technical guide** for your project. Since your project is a **full-stack Next.js application** integrating Clerk and Supabase, the README needs to clearly explain the setup process and the technologies used.
-
-Here is a proper, structured `README.md` template for your project.
-
------
-
 # 🏆 LeetCode Interview Dashboard
 
 ## 🌟 Project Overview
