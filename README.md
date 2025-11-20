@@ -1,8 +1,13 @@
------
+Here is your **Final, Polished README.md**.
 
+I have arranged the 4 images so that the **DSA Home Page** is the "Hero" (main) image at the top, and the **System Design**, **Chatbot**, and **Video** screenshots are arranged in a clean "Feature Gallery" below.
+
+### ⚠️ Important Before You Copy:
+
+````markdown
 # 🚀 0Algo - Master DSA & System Design
 
-*(Tip: Replace this image link with a screenshot of your actual dashboard)*
+![0Algo DSA Dashboard](./assets/hm-dsa.png)
 
 **0Algo** is a high-performance, full-stack DSA tracker designed to help engineers ace technical interviews. Unlike generic trackers, 0Algo focuses on **Company-Specific Questions** and features an **AI-powered Assistant** to guide users through complex algorithms and system design concepts.
 
@@ -10,14 +15,19 @@ Live Demo: **[0algo.com](https://0algo.com)**
 
 ## ✨ Key Features
 
-  * **🤖 AI Study Assistant:** A built-in context-aware chatbot that helps explain problems, debug logic, and answer system design queries. It persists chat history so you never lose a conversation.
-  * **🏢 Company-Centric Filtering:** Target specific companies (Google, Amazon, Meta) and filter questions by how recently they were asked (30 days, 3 months, 6 months).
-  * **💾 Hybrid Persistence:**
-      * **Database Sync:** User progress and Chat history are securely stored in Supabase via Drizzle ORM.
-      * **Optimistic UI:** Instant feedback on the frontend using React state, backed by Server Actions.
-  * **📊 Live Statistics:** Real-time dashboard visualizing progress across Easy, Medium, and Hard difficulties.
-  * **🎥 Integrated Video Solutions:** One-click access to video explanations for specific problems directly within the UI.
-  * **🔐 Secure Authentication:** Seamless sign-up and session management via Clerk.
+* **🤖 AI Study Assistant:** A built-in context-aware chatbot that helps explain problems, debug logic, and answer system design queries.
+* **🏢 Company-Centric Filtering:** Target specific companies (Google, Amazon, Meta) and filter questions by how recently they were asked.
+* **💾 Hybrid Persistence:** Syncs progress to Supabase via Drizzle ORM while using Optimistic UI for instant feedback.
+* **📊 Live Statistics:** Real-time dashboard visualizing progress across Easy, Medium, and Hard difficulties.
+* **🎥 Integrated Video Solutions:** One-click access to video explanations directly within the UI.
+* **🛠 System Design Hub:** Dedicated section for system design resources and roadmaps.
+
+## 📸 Feature Preview
+
+| **System Design Hub** | **AI Chatbot** | **Video Solutions** |
+|:---:|:---:|:---:|
+| ![System Design](./assets/hm-sys.png) | ![Chatbot](./assets/sys-design-ss.png) | ![Video](./assets/vid-sol.png) |
+| *Curated roadmaps & resources* | *Context-aware explanations* | *Integrated video player* |
 
 ## 🛠 Tech Stack
 
@@ -53,7 +63,7 @@ A quick look at the core structure of the application:
 │   ├── db.ts                # Drizzle Client Connection
 │   └── schema.ts            # Database Schema (Questions, Progress, Chats)
 └── public/
-```
+````
 
 ## 🚀 Getting Started
 
@@ -62,7 +72,7 @@ Follow these steps to run 0Algo locally.
 ### 1\. Clone the Repository
 
 ```bash
-git clone https://github.com/MrAsacker/0Algo.git
+git clone [https://github.com/MrAsacker/0Algo.git](https://github.com/MrAsacker/0Algo.git)
 cd 0Algo
 ```
 
@@ -86,7 +96,7 @@ NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
 CLERK_SECRET_KEY=sk_test_...
 
 # Database (Supabase + Drizzle)
-DATABASE_URL=postgresql://postgres.xxxx:[password]@aws-0-region.pooler.supabase.com:6543/postgres
+DATABASE_URL=postgresql://postgres.xxxx:[password]@[aws-0-region.pooler.supabase.com:6543/postgres](https://aws-0-region.pooler.supabase.com:6543/postgres)
 
 # AI Chatbot
 OPENAI_API_KEY=sk-proj-...
@@ -133,8 +143,11 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 -----
 
-<p align="center">
-  <a href="https://github.com/MrAsacker">
-    <img src="https://img.shields.io/badge/Built%20with%20❤️%20by-MrAsacker-blue?style=for-the-badge" alt="Built with Love">
-  </a>
-</p>
+\<p align="center"\>
+\<a href="https://github.com/MrAsacker"\>
+\<img src="https://img.shields.io/badge/Built%20with%20❤️%20by-MrAsacker-blue?style=for-the-badge" alt="Built with Love"\>
+\</a\>
+\</p\>
+
+```
+```
