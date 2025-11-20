@@ -133,6 +133,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 -----
 
-\<p align="center"\>
+
 Built with ❤️ by \<a href="[https://github.com/MrAsacker](https://www.google.com/search?q=https://github.com/MrAsacker)"\>MrAsacker\</a\>
-\</p\>
