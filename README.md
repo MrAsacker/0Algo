@@ -58,4 +58,72 @@ A quick look at the core structure of the application:
 └── public/
 
 
+🚀 Getting Started
+Follow these steps to run 0Algo locally.
 
+1. Clone the Repository
+Bash
+
+git clone [https://github.com/MrAsacker/0Algo.git](https://github.com/MrAsacker/0Algo.git)
+cd 0Algo
+2. Install Dependencies
+We recommend using pnpm.
+
+Bash
+
+pnpm install
+# or
+npm install
+3. Environment Setup
+Create a .env.local file in the root directory and add the following keys:
+
+Code snippet
+
+# Authentication (Clerk)
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
+CLERK_SECRET_KEY=sk_test_...
+
+# Database (Supabase + Drizzle)
+# Note: Use the Transaction Pooler URL (port 6543)
+DATABASE_URL=postgresql://postgres.xxxx:[password]@[aws-0-region.pooler.supabase.com:6543/postgres](https://aws-0-region.pooler.supabase.com:6543/postgres)
+
+# AI Chatbot
+OPENAI_API_KEY=sk-proj-...
+4. Database Migration
+Push the Drizzle schema to your Supabase instance:
+
+Bash
+
+npx drizzle-kit push
+5. Run the Development Server
+Bash
+
+pnpm dev
+Open http://localhost:3000 to view the app.
+
+🔄 Data Flow & Architecture
+0Algo uses a modern Next.js Server Action pattern for data mutation:
+
+Read: When the dashboard loads, it fetches static question data + user progress + chat history via parallel API requests.
+
+Write: When a user checks a box, an Optimistic Update flips the UI instantly.
+
+Sync: A Server Action (toggleQuestionProgress) runs asynchronously to INSERT or DELETE the record in Supabase.
+
+AI Context: The Chatbot utilizes the userChats table to store conversation history (JSONB), allowing users to revisit previous discussions.
+
+🤝 Contributing
+Contributions are welcome!
+
+Fork the project.
+
+Create your feature branch (git checkout -b feature/AmazingFeature).
+
+Commit your changes (git commit -m 'Add some AmazingFeature').
+
+Push to the branch (git push origin feature/AmazingFeature).
+
+Open a Pull Request.
+
+📄 License
+Distributed under the MIT License. See LICENSE for more information.
