@@ -72,3 +72,84 @@
 │   ├── db.ts                # Drizzle Client Connection
 │   └── schema.ts            # Database Schema (Questions, Progress, Chats)
 └── public/                  # Static assets (images, icons)
+
+## 🚀 Getting Started
+
+Follow these steps to run 0Algo locally:
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/MrAsacker/0Algo.git
+cd 0Algo
+2. Install Dependencies
+We recommend using pnpm:
+
+bash
+Copy code
+pnpm install
+# or
+npm install
+3. Environment Setup
+Create a .env.local file in the root directory and add the following keys:
+
+env
+Copy code
+# Authentication (Clerk)
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
+CLERK_SECRET_KEY=sk_test_...
+
+# Database (Supabase + Drizzle)
+DATABASE_URL=postgresql://postgres.xxxx:[password]@[aws-0-region.pooler.supabase.com:6543/postgres
+
+# AI Chatbot
+OPENAI_API_KEY=sk-proj-...
+4. Database Migration
+Push the Drizzle schema to your Supabase instance:
+
+bash
+Copy code
+npx drizzle-kit push
+5. Run the Development Server
+bash
+Copy code
+pnpm dev
+Open http://localhost:3000 in your browser to view the app.
+
+🔄 Data Flow & Architecture
+0Algo uses Next.js Server Actions for smooth UI & database interactions:
+
+Read: Fetches static question data, user progress, and chat history in parallel.
+
+Write: User interactions trigger Optimistic Updates for instant UI feedback.
+
+Sync: toggleQuestionProgress Server Action inserts/deletes records asynchronously in Supabase.
+
+AI Context: Chatbot stores conversation history in userChats (JSONB) for revisiting previous discussions.
+
+🤝 Contributing
+Contributions are welcome!
+
+Fork the project.
+
+Create your feature branch:
+
+bash
+Copy code
+git checkout -b feature/AmazingFeature
+Commit your changes:
+
+bash
+Copy code
+git commit -m 'Add some AmazingFeature'
+Push to your branch:
+
+bash
+Copy code
+git push origin feature/AmazingFeature
+Open a Pull Request.
+
+📄 License
+Distributed under the MIT License. See LICENSE for more information.
+
+<p align="center"> <a href="https://github.com/MrAsacker"> <img src="https://img.shields.io/badge/Built%20with%20❤️%20by-MrAsacker-blue?style=for-the-badge" alt="Built with Love"> </a> </p> ```
