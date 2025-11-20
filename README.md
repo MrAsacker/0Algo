@@ -1,6 +1,4 @@
 
-# 🏆 LeetCode Interview Dashboard
-
 ## 🌟 Project Overview
 
 This is a comprehensive Data Structures and Algorithms (DSA) interview question tracker designed for software engineers preparing for technical interviews. It aggregates popular questions, tracks user progress persistently, and provides quick links to solutions.
