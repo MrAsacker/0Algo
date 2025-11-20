@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 // Use the '@/lib/database' and '@/lib/db' path aliases
 import { getVideoSolutions } from "@/lib/database";
 import { VideoSolution } from "@/lib/db"; // 'db.ts' exports the types from 'schema.ts'
@@ -8,7 +8,7 @@ import { VideoSolution } from "@/lib/db"; // 'db.ts' exports the types from 'sch
  * This route fetches video solutions for a specific question ID.
  */
 export async function GET(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { questionId: string } } // <-- This is the correct, complete signature
 ) {
   try {
@@ -35,13 +35,9 @@ export async function GET(
 
     // Success: return the array of video objects
     return NextResponse.json(videos);
-
   } catch (error) {
     console.error("API error fetching videos:", error);
     // Handle any unexpected server errors
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
