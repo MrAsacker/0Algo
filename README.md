@@ -133,5 +133,8 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 -----
 
-
-Built with ❤️ by \<a href="[https://github.com/MrAsacker](https://www.google.com/search?q=https://github.com/MrAsacker)"\>MrAsacker\</a\>
+<p align="center">
+  <a href="https://github.com/MrAsacker">
+    <img src="https://img.shields.io/badge/Built%20with%20❤️%20by-MrAsacker-blue?style=for-the-badge" alt="Built with Love">
+  </a>
+</p>
