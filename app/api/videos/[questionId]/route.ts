@@ -2,13 +2,13 @@ import { NextResponse } from "next/server";
 import { getVideoSolutions } from "@/lib/database";
 import { VideoSolution } from "@/lib/db";
 
-interface Context {
-  params: { questionId: string };
+interface Params {
+  questionId: string;
 }
 
-export async function GET(context: Context) {
+export async function GET(req: Request, { params }: { params: Params }) {
   try {
-    const { questionId } = context.params;
+    const { questionId } = params;
     const qId = parseInt(questionId, 10);
 
     if (isNaN(qId)) {
