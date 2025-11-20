@@ -1,102 +1,140 @@
-
-## 🌟 Project Overview
-
-This is a comprehensive Data Structures and Algorithms (DSA) interview question tracker designed for software engineers preparing for technical interviews. It aggregates popular questions, tracks user progress persistently, and provides quick links to solutions.
-
-### Key Features
-
-  * **Persistent Progress Tracking:** Tracks solved/unsolved status for each question per user, saved securely in the database.
-  * **Powerful Filtering:** Filter questions by Difficulty (Easy, Medium, Hard), Company, Topic, and Recency (Timeframe).
-  * **Dynamic Statistics:** Live progress bars and stats for total solved, Easy, Medium, and Hard categories.
-  * **Video Solution Links:** Provides integrated links to external video solutions (YouTube/other sources).
-
-## ⚙️ Tech Stack
-
-| Category | Technology | Purpose |
-| :--- | :--- | :--- |
-| **Frontend** | **Next.js** (App Router), **React**, **TypeScript** | Full-stack framework for rendering and routing. |
-| **Styling** | **Tailwind CSS**, **Shadcn/UI** | Utility-first CSS framework and accessible UI components. |
-| **Authentication** | **Clerk** | Secure, drop-in solution for user sign-up and sign-in. |
-| **Database** | **Supabase** (PostgreSQL) | Primary database and backend-as-a-Service. |
-| **ORM** | **Drizzle ORM** | TypeScript ORM for interacting with the Supabase database. |
-| **API** | **Next.js Route Handlers** | Secure endpoints for fetching questions and updating user progress. |
-| **AI (Optional)** | **OpenAI / Gemini** | Used for generating explanations or summary content (if implemented). |
-
 -----
 
-## 🚀 Getting Started (Local Setup)
+# 🚀 0Algo - Master DSA & System Design
 
-Follow these steps to get a development environment running locally.
+*(Tip: Replace this image link with a screenshot of your actual dashboard)*
+
+**0Algo** is a high-performance, full-stack DSA tracker designed to help engineers ace technical interviews. Unlike generic trackers, 0Algo focuses on **Company-Specific Questions** and features an **AI-powered Assistant** to guide users through complex algorithms and system design concepts.
+
+Live Demo: **[0algo.com](https://0algo.com)**
+
+## ✨ Key Features
+
+  * **🤖 AI Study Assistant:** A built-in context-aware chatbot that helps explain problems, debug logic, and answer system design queries. It persists chat history so you never lose a conversation.
+  * **🏢 Company-Centric Filtering:** Target specific companies (Google, Amazon, Meta) and filter questions by how recently they were asked (30 days, 3 months, 6 months).
+  * **💾 Hybrid Persistence:**
+      * **Database Sync:** User progress and Chat history are securely stored in Supabase via Drizzle ORM.
+      * **Optimistic UI:** Instant feedback on the frontend using React state, backed by Server Actions.
+  * **📊 Live Statistics:** Real-time dashboard visualizing progress across Easy, Medium, and Hard difficulties.
+  * **🎥 Integrated Video Solutions:** One-click access to video explanations for specific problems directly within the UI.
+  * **🔐 Secure Authentication:** Seamless sign-up and session management via Clerk.
+
+## 🛠 Tech Stack
+
+| Category | Technology |
+| :--- | :--- |
+| **Framework** | **Next.js 15 (App Router)** |
+| **Language** | **TypeScript** |
+| **Styling** | **Tailwind CSS** + **Shadcn/UI** |
+| **Database** | **Supabase** (PostgreSQL) |
+| **ORM** | **Drizzle ORM** |
+| **AI Integration** | **OpenAI API / Vercel AI SDK** |
+| **Auth** | **Clerk** |
+| **State Mgmt** | React Hooks + Optimistic Updates |
+| **Deployment** | **Vercel** |
+
+## 📂 Project Structure
+
+A quick look at the core structure of the application:
+
+```bash
+├── app/
+│   ├── actions.ts           # Server Actions (DB writes)
+│   ├── api/                 # Route Handlers
+│   │   ├── chat/            # AI Chatbot Endpoint
+│   │   └── user-progress/   # User Progress Sync
+│   ├── dashboard/           # Protected Dashboard Client Page
+│   └── system-design/       # System Design resources
+├── components/
+│   ├── Chatbot.tsx          # AI Chat Interface
+│   ├── LeetCodeDashboard.tsx # Main Question Table
+│   └── VideoDialog.tsx      # Video Solution Modal
+├── lib/
+│   ├── db.ts                # Drizzle Client Connection
+│   └── schema.ts            # Database Schema (Questions, Progress, Chats)
+└── public/
+```
+
+## 🚀 Getting Started
+
+Follow these steps to run 0Algo locally.
 
 ### 1\. Clone the Repository
 
 ```bash
-git clone YOUR_GITHUB_REPO_URL
-cd leetcode-interview-dashboard
+git clone https://github.com/MrAsacker/0Algo.git
+cd 0Algo
 ```
 
 ### 2\. Install Dependencies
 
+We recommend using `pnpm`.
+
 ```bash
-npm install
+pnpm install
 # or
-yarn install
+npm install
 ```
 
-### 3\. Setup Environment Variables
+### 3\. Environment Setup
 
-You must create a local file named `.env.local` and populate it with your keys.
+Create a `.env.local` file in the root directory and add the following keys:
 
-| Variable Name | Example Value | Description |
-| :--- | :--- | :--- |
-| **`NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`** | `pk_test_...` | Clerk's public key (Client-side). |
-| **`CLERK_SECRET_KEY`** | `sk_test_...` | Clerk's secret key (Server-side). |
-| **`DATABASE_URL`** | `postgresql://postgres....` | **Supabase Pooler URL** for Drizzle ORM. |
-| `NEXT_PUBLIC_SUPABASE_URL` | `https://[project-id].supabase.co` | Supabase Project URL. |
-| `openai_api_key` | `sk-proj-...` | AI API key for backend functions. |
+```env
+# Authentication (Clerk)
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
+CLERK_SECRET_KEY=sk_test_...
 
-### 4\. Database Setup (Drizzle Migrations)
+# Database (Supabase + Drizzle)
+DATABASE_URL=postgresql://postgres.xxxx:[password]@aws-0-region.pooler.supabase.com:6543/postgres
 
-Run your database migrations to ensure your Supabase schema matches the Drizzle schema (`schema.ts`).
+# AI Chatbot
+OPENAI_API_KEY=sk-proj-...
+```
+
+### 4\. Database Migration
+
+Push the Drizzle schema to your Supabase instance:
 
 ```bash
-# Example command (adjust based on your Drizzle setup)
-npx drizzle-kit push:pg
+npx drizzle-kit push
 ```
 
 ### 5\. Run the Development Server
 
 ```bash
-npm run dev
-# or
-yarn dev
+pnpm dev
 ```
 
-Open [http://localhost:3000](https://www.google.com/search?q=http://localhost:3000) in your browser.
+Open [http://localhost:3000](https://www.google.com/search?q=http://localhost:3000) to view the app.
 
------
+## 🔄 Data Flow & Architecture
 
-## 🌍 Deployment
+0Algo uses a modern **Next.js Server Action** pattern for data mutation:
 
-This application is optimized for **Vercel** deployment, which offers seamless integration with Next.js, Clerk, and Supabase.
+1.  **Read:** When the dashboard loads, it fetches static question data + user progress + chat history via parallel API requests.
+2.  **Write:** When a user checks a box, an **Optimistic Update** flips the UI instantly.
+3.  **Sync:** A **Server Action** (`toggleQuestionProgress`) runs asynchronously to `INSERT` or `DELETE` the record in Supabase.
+4.  **AI Context:** The Chatbot utilizes the `userChats` table to store conversation history (JSONB), allowing users to revisit previous discussions.
 
-1.  Push your code to the `main` branch on GitHub.
-2.  Import the project into Vercel.
-3.  Set the environment variables (listed above) in the Vercel project settings, ensuring **Runtime** is selected for all secret keys (`CLERK_SECRET_KEY`, `DATABASE_URL`, etc.).
+## 🤝 Contributing
 
------
+Contributions are welcome\!
 
-## 👨‍💻 Contributing
-
-We welcome contributions\! If you find a bug, have a feature request, or want to submit a pull request:
-
-1.  Fork the repository.
-2.  Create a new branch (`git checkout -b feature/new-feature`).
-3.  Commit your changes (`git commit -m 'feat: added a new filter option'`).
-4.  Push to the branch (`git push origin feature/new-feature`).
+1.  Fork the project.
+2.  Create your feature branch (`git checkout -b feature/AmazingFeature`).
+3.  Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+4.  Push to the branch (`git push origin feature/AmazingFeature`).
 5.  Open a Pull Request.
 
+## 📄 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
 -----
 
-## 📜 License
-
+<p align="center">
+  <a href="https://github.com/MrAsacker">
+    <img src="https://img.shields.io/badge/Built%20with%20❤️%20by-MrAsacker-blue?style=for-the-badge" alt="Built with Love">
+  </a>
+</p>
