@@ -73,3 +73,8 @@
 │   └── schema.ts            # Database Schema (Questions, Progress, Chats)
 └── public/                  # Static assets (images, icons)
 ```
+
+## 🚀 Getting Started
+Follow these steps to run 0Algo locally.
+
+1. Clone the Repository
