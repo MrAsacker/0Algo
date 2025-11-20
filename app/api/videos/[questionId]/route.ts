@@ -2,12 +2,9 @@ import { NextResponse } from "next/server";
 import { getVideoSolutions } from "@/lib/database";
 import { VideoSolution } from "@/lib/db";
 
-interface Params {
-  questionId: string;
-}
-
-export async function GET(req: Request, { params }: { params: Params }) {
+export async function GET(req: Request, context: any) {
   try {
+    const { params } = context;
     const { questionId } = params;
     const qId = parseInt(questionId, 10);
 
