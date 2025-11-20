@@ -8,40 +8,73 @@ import { useRouter } from "next/navigation";
 export default function DashboardClient() {
   const { userId } = useAuth();
   const router = useRouter();
+
   const [questions, setQuestions] = useState([]);
   const [companies, setCompanies] = useState([]);
+  // This new state holds the list of questions the user has completed from the DB
+  const [completedSlugs, setCompletedSlugs] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!userId) return;
+
+    // 1. Prepare to fetch User Progress (Always fetch fresh from DB)
+    // Ensure you have created the file: app/api/user-progress/route.ts
+    const progressPromise = fetch("/api/user-progress")
+      .then((res) => res.json())
+      .catch((err) => {
+        console.error("Error fetching progress:", err);
+        return { slugs: [] };
+      });
+
+    // 2. Prepare to fetch Questions (Check cache first)
+    let questionsPromise;
+    let isCached = false;
+
     try {
       const cached = localStorage.getItem("dashboard-cache-v1");
       if (cached) {
         const parsed = JSON.parse(cached);
         if (parsed && Array.isArray(parsed.questions) && Array.isArray(parsed.companies)) {
-          setQuestions(parsed.questions);
-          setCompanies(parsed.companies);
-          setLoading(false);
-          return;
+          questionsPromise = Promise.resolve(parsed);
+          isCached = true;
         }
       }
-    } catch {}
+    } catch (e) {
+      // If cache parse fails, ignore and fetch fresh
+    }
 
-    fetch("/api/questions")
-      .then((res) => res.json())
-      .then((data) => {
-        setQuestions(data.questions);
-        setCompanies(data.companies);
+    if (!questionsPromise) {
+      questionsPromise = fetch("/api/questions").then((res) => res.json());
+    }
+
+    // 3. Execute both requests in parallel
+    Promise.all([questionsPromise, progressPromise])
+      .then(([questionsData, progressData]) => {
+        // Update Questions & Companies
+        setQuestions(questionsData.questions || []);
+        setCompanies(questionsData.companies || []);
+
+        // Update User Progress (The list of completed question slugs)
+        setCompletedSlugs(progressData.slugs || []);
+
         setLoading(false);
-        try {
-          localStorage.setItem(
-            "dashboard-cache-v1",
-            JSON.stringify({ questions: data.questions, companies: data.companies })
-          );
-        } catch {}
+
+        // Update cache if we performed a fresh fetch
+        if (!isCached) {
+          try {
+            localStorage.setItem(
+              "dashboard-cache-v1",
+              JSON.stringify({
+                questions: questionsData.questions,
+                companies: questionsData.companies,
+              })
+            );
+          } catch {}
+        }
       })
       .catch((error) => {
-        console.error("Error loading questions:", error);
+        console.error("Error loading dashboard data:", error);
         setLoading(false);
       });
   }, [userId]);
@@ -142,7 +175,11 @@ export default function DashboardClient() {
 
   return (
     <div className="container mx-auto py-8">
-      <LeetCodeDashboard questions={questions} companies={companies} />
+      <LeetCodeDashboard
+        questions={questions}
+        companies={companies}
+        initialCompleted={completedSlugs} // Pass the DB data here
+      />
     </div>
   );
 }

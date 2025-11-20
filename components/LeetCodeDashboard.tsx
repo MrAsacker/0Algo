@@ -26,6 +26,8 @@ import { capitalizeWords } from "@/utils/utils";
 import { VideoDialog } from "@/components/VideoDialog";
 import { DifficultyBadge } from "@/components/ui/difficulty-badge";
 import TopicDropdown from "@/components/TopicDropdown";
+// IMPORT THE SERVER ACTION
+import { toggleQuestionProgress } from "@/app/actions";
 
 const LEETCODE_BASE_URL = "https://leetcode.com";
 
@@ -36,16 +38,13 @@ const useOutsideClick = (ref: React.RefObject<HTMLElement | null>, callback: () 
         callback();
       }
     };
-
     const handleEscapeKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         callback();
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     document.addEventListener("keydown", handleEscapeKey);
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("keydown", handleEscapeKey);
@@ -64,7 +63,7 @@ interface Question {
   frequency: number;
   timeframe: string;
   topics: string[];
-  ID: string;
+  ID: string; // IMPORTANT: Ensure this maps to slug or unique ID
   Title: string;
   URL: string;
   Difficulty: string;
@@ -77,17 +76,28 @@ interface Question {
 interface LeetCodeDashboardProps {
   questions: Question[];
   companies: string[];
+  initialCompleted?: string[]; // NEW PROP
 }
 
 const LeetCodeDashboard: React.FC<LeetCodeDashboardProps> = ({
   questions = [],
   companies = [],
+  initialCompleted = [], // Default to empty
 }) => {
   const [isClient, setIsClient] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [difficultyFilter, setDifficultyFilter] = useState<string[]>([]);
   const [selectedCompany] = useState("");
-  const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>({});
+
+  // INITIALIZE STATE FROM DB DATA
+  const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(() => {
+    const state: { [key: string]: boolean } = {};
+    initialCompleted.forEach((slug) => {
+      state[slug] = true;
+    });
+    return state;
+  });
+
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
@@ -103,25 +113,10 @@ const LeetCodeDashboard: React.FC<LeetCodeDashboardProps> = ({
 
   useEffect(() => {
     setIsClient(true);
-    const savedItems = localStorage.getItem("leetcode-checked-items");
-    if (savedItems) {
-      try {
-        const parsed = JSON.parse(savedItems);
-        if (typeof parsed === "object" && parsed !== null) {
-          setCheckedItems(parsed);
-        } else {
-          setCheckedItems({});
-        }
-      } catch (err) {
-        console.error("Error parsing localStorage data:", err);
-        setCheckedItems({});
-        localStorage.removeItem("leetcode-checked-items");
-      }
-    } else {
-      setCheckedItems({});
-    }
+    // Removed LocalStorage "read" logic here because we are reading from DB now via props
   }, []);
 
+  // Only save to local storage as a backup/cache, not primary source
   useEffect(() => {
     if (isClient) {
       localStorage.setItem("leetcode-checked-items", JSON.stringify(checkedItems));
@@ -129,44 +124,25 @@ const LeetCodeDashboard: React.FC<LeetCodeDashboardProps> = ({
   }, [checkedItems, isClient]);
 
   const handleCheckboxChange = async (id: string, value: boolean) => {
+    // 1. Optimistic Update (Update UI immediately)
     setCheckedItems((prev) => ({
       ...prev,
       [id]: value,
     }));
+
+    // 2. Call Server Action to update Database
+    try {
+      // Pass 'id' which acts as the questionSlug based on your data structure
+      await toggleQuestionProgress(id, value);
+    } catch (error) {
+      console.error("Failed to save to DB:", error);
+      // Revert UI if DB fails
+      setCheckedItems((prev) => ({
+        ...prev,
+        [id]: !value,
+      }));
+    }
   };
-  
-  // const handleCheckboxChange = async (questionSlug: string, value: boolean) => {
-  //     // 1. Optimistically update local state
-  //     setCheckedItems((prev) => ({
-  //       ...prev,
-  //       [questionSlug]: value,
-  //     }));
-
-  //     // 2. Persist to API
-  //     try {
-  //       await fetch("/api/progress", {
-  //         method: "POST", // Or PUT
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({ questionSlug, completed: value }),
-  //       });
-        
-  //       // 3. Update local storage only on success
-  //       if (isClient) {
-  //           // Get current local state, update it with new value, and save
-  //           const updatedItems = { 
-  //               ...JSON.parse(localStorage.getItem("leetcode-checked-items") || '{}'),
-  //               [questionSlug]: value 
-  //           };
-  //           localStorage.setItem("leetcode-checked-items", JSON.stringify(updatedItems));
-  //       }
-
-  //     } catch (error) {
-  //       console.error("Failed to save progress:", error);
-  //       // Optional: Revert local state on failure
-  //     }
-  //   };
 
   const totalQuestions = questions.length;
 
@@ -365,6 +341,7 @@ const LeetCodeDashboard: React.FC<LeetCodeDashboardProps> = ({
         </CardHeader>
         <CardContent>
           <div className="flex flex-col gap-6">
+            {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <Card className="bg-background/50">
                 <CardContent className="pt-6">
@@ -418,7 +395,7 @@ const LeetCodeDashboard: React.FC<LeetCodeDashboardProps> = ({
               <Card className="bg-background/50">
                 <CardContent className="pt-6">
                   <div className="flex justify-between items-baseline">
-                    <div className="text-2xl font-bold text-red-#f8615c dark:text-red-400">
+                    <div className="text-2xl font-bold text-red-600 dark:text-red-400">
                       {statistics.hardSolved}
                     </div>
                     <div className="text-sm text-muted-foreground">/ {statistics.hard}</div>
@@ -427,13 +404,14 @@ const LeetCodeDashboard: React.FC<LeetCodeDashboardProps> = ({
                   <div className="mt-2">
                     <Progress
                       value={(statistics.hardSolved / statistics.hard) * 100}
-                      className="h-2 [&>div]:bg-red-#f8615c dark:[&>div]:bg-red-400 bg-red-200 dark:bg-red-950"
+                      className="h-2 [&>div]:bg-red-600 dark:[&>div]:bg-red-400 bg-red-200 dark:bg-red-950"
                     />
                   </div>
                 </CardContent>
               </Card>
             </div>
 
+            {/* Filters */}
             <div className="flex flex-col md:flex-row gap-4">
               <div className="md:w-[260px] relative" ref={companySearchRef}>
                 <Input
@@ -500,6 +478,7 @@ const LeetCodeDashboard: React.FC<LeetCodeDashboardProps> = ({
               />
             </div>
 
+            {/* Table */}
             {filteredQuestions.length === 0 ? (
               <div className="p-4 text-center text-muted-foreground">
                 No questions found , try some other filters?
@@ -596,6 +575,8 @@ const LeetCodeDashboard: React.FC<LeetCodeDashboardProps> = ({
                       ))}
                     </TableBody>
                   </Table>
+
+                  {/* Pagination Controls */}
                   <div className="hidden md:flex flex-col sm:flex-row items-center justify-between py-4 px-2 gap-4">
                     <div className="flex items-center space-x-2 w-full sm:w-auto">
                       <p className="text-sm text-muted-foreground whitespace-nowrap">
@@ -660,6 +641,7 @@ const LeetCodeDashboard: React.FC<LeetCodeDashboardProps> = ({
                   </div>
                 </div>
 
+                {/* Mobile View */}
                 <div className="grid gap-4 md:hidden">
                   {currentItems.map((question) => (
                     <Card
@@ -681,7 +663,6 @@ const LeetCodeDashboard: React.FC<LeetCodeDashboardProps> = ({
                               rel="noopener noreferrer"
                               className="font-medium hover:underline"
                             >
-                              
                               {question.Title}
                             </a>
                             <div className="capitalize text-xs text-muted-foreground">
@@ -711,6 +692,7 @@ const LeetCodeDashboard: React.FC<LeetCodeDashboardProps> = ({
                     </Card>
                   ))}
 
+                  {/* Mobile Pagination */}
                   <div className="flex md:hidden items-center justify-center py-4 px-2 gap-4 w-full">
                     <div className="flex items-center space-x-2">
                       <Button
@@ -745,4 +727,3 @@ const LeetCodeDashboard: React.FC<LeetCodeDashboardProps> = ({
 };
 
 export default LeetCodeDashboard;
-
