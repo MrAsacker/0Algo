@@ -78,3 +78,5 @@
 Follow these steps to run 0Algo locally.
 
 1. Clone the Repository
+``` git clone https://github.com/MrAsacker/0Algo.git
+cd 0Algo```
