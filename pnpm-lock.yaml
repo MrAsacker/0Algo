@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  next: 15.4.1
+  next: 15.4.10
   react: 19.1.0
   react-dom: 19.1.0
   '@types/react': 19.1.8
@@ -489,7 +489,7 @@ packages:
     resolution: {integrity: sha512-smlGYujMNMkbFAwziUPcPlNQqmk0K014f9EitPOUozynPc5+n27RMzTNDIQzSSpE8NSKPMz5Cf5dOn+7Dxd03Q==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
-      next: 15.4.1
+      next: 15.4.10
       react: 19.1.0
       react-dom: 19.1.0
 
@@ -1401,7 +1401,7 @@ packages:
   '@next/third-parties@15.4.10':
     resolution: {integrity: sha512-puO2KW8Uf4cBiptKhrSyuY8aZ5s36PTn9RHCbzMmLiV0Dn+ldFvggZkKeS5e62hwVwvRImYpWNI39ePpNdJHbg==}
     peerDependencies:
-      next: 15.4.1
+      next: 15.4.10
       react: 19.1.0
 
   '@nodelib/fs.scandir@2.1.5':
