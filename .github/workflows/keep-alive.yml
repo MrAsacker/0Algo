@@ -2,8 +2,6 @@ name: Keep Supabase Alive
 
 on:
   schedule:
-    # Runs at 00:00 UTC every day
-    # This prevents Supabase from pausing the project due to inactivity.
     - cron: '0 0 * * *'
   workflow_dispatch: 
 
@@ -11,8 +9,19 @@ jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping Supabase
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Real API Ping
         run: |
-          curl -X GET "${{ secrets.SUPABASE_URL }}/rest/v1/" \
+          curl -X GET "${{ secrets.SUPABASE_URL }}/rest/v1/YOUR_TABLE_NAME?select=*&limit=1" \
           -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
           -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}"
+
+      - name: Prevent GitHub Inactivity Pause
+        # This keeps the repo "active" so GitHub doesn't stop the cron
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git commit --allow-empty -m "Heartbeat to keep workflow active"
+          git push
