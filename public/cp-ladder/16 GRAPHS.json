@@ -1,0 +1,542 @@
+[
+  {
+    "title": "Road Construction",
+    "videoUrl": "https://www.youtube.com/embed/Uod4bXla38k",
+    "solveLink": "https://cses.fi/problemset/task/1676",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Number of Shortest paths",
+    "videoUrl": "https://www.youtube.com/embed/pbZRc72hGnY",
+    "solveLink": "https://atcoder.jp/contests/abc211/tasks/abc211_d",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Belt Conveyor",
+    "videoUrl": "https://www.youtube.com/embed/FIynoKkmSjw",
+    "solveLink": "https://atcoder.jp/contests/abc265/tasks/abc265_c",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Make Takahashi Happy",
+    "videoUrl": "https://www.youtube.com/embed/KSy4kSfvMDo",
+    "solveLink": "https://atcoder.jp/contests/abc293/tasks/abc293_c",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Count Simple Paths",
+    "videoUrl": "https://www.youtube.com/embed/ogoyf5Oh7rc",
+    "solveLink": "https://atcoder.jp/contests/abc284/tasks/abc284_e",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Ameba",
+    "videoUrl": "https://www.youtube.com/embed/-6TtJdNEG34",
+    "solveLink": "https://atcoder.jp/contests/abc274/tasks/abc274_c",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "\"redocta\".swap(i,i+1)",
+    "videoUrl": "https://www.youtube.com/embed/16vS2TnyjSU",
+    "solveLink": "https://atcoder.jp/contests/abc264/tasks/abc264_d",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": ".. (Double Dots)",
+    "videoUrl": "https://www.youtube.com/embed/2y1Co6iMw_s",
+    "solveLink": "https://atcoder.jp/contests/abc168/tasks/abc168_d",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Takahashi's Secret",
+    "videoUrl": "https://www.youtube.com/embed/x7RCftHJJMA",
+    "solveLink": "https://atcoder.jp/contests/abc228/tasks/abc228_b",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Martial artist",
+    "videoUrl": "No Video",
+    "solveLink": "https://atcoder.jp/contests/abc226/tasks/abc226_c",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Product",
+    "videoUrl": "https://www.youtube.com/embed/7JGU_ms2ufw",
+    "solveLink": "https://atcoder.jp/contests/abc233/tasks/abc233_c",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Takahashi Tour",
+    "videoUrl": "https://www.youtube.com/embed/hJru3phQRYg",
+    "solveLink": "https://atcoder.jp/contests/abc213/tasks/abc213_d",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Friends",
+    "videoUrl": "https://youtube.com/embed/FP315bHT5JU",
+    "solveLink": "https://atcoder.jp/contests/abc177/tasks/abc177_d",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "KAIBUNsyo",
+    "videoUrl": "https://www.youtube.com/embed/LvnG6Fl8ABg",
+    "solveLink": "https://atcoder.jp/contests/abc206/tasks/abc206_d",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Ladder Takahashi",
+    "videoUrl": "https://youtube.com/embed/jLKKe6ZsXh0",
+    "solveLink": "https://atcoder.jp/contests/abc277/tasks/abc277_c",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Connect Cities",
+    "videoUrl": "https://youtube.com/embed/rzStiJBK96w",
+    "solveLink": "https://atcoder.jp/contests/abl/tasks/abl_c",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Multiply and Rotate",
+    "videoUrl": "https://www.youtube.com/embed/iHsCZlBJfjI",
+    "solveLink": "https://atcoder.jp/contests/abc235/tasks/abc235_d",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Round Trip",
+    "videoUrl": "https://www.youtube.com/embed/4waMaDSO_2s",
+    "solveLink": "https://atcoder.jp/contests/abc276/tasks/abc276_e",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Bridge",
+    "videoUrl": "https://www.youtube.com/embed/9I-sULHnE5Y",
+    "solveLink": "https://atcoder.jp/contests/abc075/tasks/abc075_c",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Dance",
+    "videoUrl": "https://www.youtube.com/embed/rFfNkqcUedo",
+    "solveLink": "https://atcoder.jp/contests/abc236/tasks/abc236_d",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Maximum Sum of Minimum",
+    "videoUrl": "https://www.youtube.com/embed/3F3oPoW6Cz8",
+    "solveLink": "https://atcoder.jp/contests/m-solutions2019/tasks/m_solutions2019_d",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Counting Rooms",
+    "videoUrl": "https://www.youtube.com/embed/BEHqOuw8U2A",
+    "solveLink": "https://cses.fi/problemset/task/1192",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Message Route",
+    "videoUrl": "https://www.youtube.com/embed/1nBrvboDwPw",
+    "solveLink": "https://cses.fi/problemset/task/1667",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Tree Matching",
+    "videoUrl": "https://youtube.com/embed/w7-ia3GDF9I?si=XvLBU1nmt2b9BBhS",
+    "solveLink": "https://cses.fi/problemset/task/1130",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "D. Valid BFS?",
+    "videoUrl": "https://www.youtube.com/embed/Q9B3AFPs3cc",
+    "solveLink": "https://codeforces.com/problemset/problem/1037/D",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "D. Cow and Snacks",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1209/D",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Small d and k",
+    "videoUrl": "https://www.youtube.com/embed/3KSmOarM7us",
+    "solveLink": "https://atcoder.jp/contests/abc254/tasks/abc254_e",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Round Trip",
+    "videoUrl": "https://www.youtube.com/embed/O8iEYIXhZek",
+    "solveLink": "https://cses.fi/problemset/task/1669",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Subordinates",
+    "videoUrl": "https://youtube.com/embed/IRY9G-GCy34?si=7EZmx_w8DI-ZgrOd",
+    "solveLink": "https://cses.fi/problemset/task/1674",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "C. The Tag Game",
+    "videoUrl": "https://www.youtube.com/embed/MU3ezZc1XG8",
+    "solveLink": "https://codeforces.com/problemset/problem/813/C",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "D. Mouse Hunt",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1027/D",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Number Of Islands",
+    "videoUrl": "https://www.youtube.com/embed/lRWD3Tl-AKU",
+    "solveLink": "https://leetcode.com/problems/number-of-islands",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "C. Peaceful Rooks",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1411/C",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Unique Username",
+    "videoUrl": "No Video",
+    "solveLink": "https://atcoder.jp/contests/abc268/tasks/abc268_d",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "8 Puzzle on Graph",
+    "videoUrl": "No Video",
+    "solveLink": "https://atcoder.jp/contests/abc224/tasks/abc224_d",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Monsters",
+    "videoUrl": "No Video",
+    "solveLink": "https://cses.fi/problemset/task/1194",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Tree Diameter",
+    "videoUrl": "https://youtube.com/embed/CeJQstno2Y0?si=S63Fh2iHV-LkQEot",
+    "solveLink": "https://cses.fi/problemset/task/1131",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Tree Distances I",
+    "videoUrl": "https://youtube.com/embed/RZbN-I8qbI4?si=Y0CMTmLfOxvWa0_l",
+    "solveLink": "https://cses.fi/problemset/task/1132",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Tree Distances II",
+    "videoUrl": "https://youtube.com/embed/r9Idsgm--As?si=UGsxdDXHJYNK_csp",
+    "solveLink": "https://cses.fi/problemset/task/1133",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "D. Beautiful Graph",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1093/D",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Surrounded Regions",
+    "videoUrl": "https://www.youtube.com/embed/SjGShl9kZCs",
+    "solveLink": "https://leetcode.com/problems/surrounded-regions",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "A. Maze",
+    "videoUrl": "https://www.youtube.com/embed/r88InkUkt_Q",
+    "solveLink": "https://codeforces.com/problemset/problem/377/A",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "D. Subway",
+    "videoUrl": "https://www.youtube.com/embed/UhhaHsFC3Bs",
+    "solveLink": "https://codeforces.com/problemset/problem/131/D",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "C. The Labyrinth",
+    "videoUrl": "https://www.youtube.com/embed/_NXaGKpBLl4",
+    "solveLink": "https://codeforces.com/problemset/problem/616/C",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "B. Cthulhu",
+    "videoUrl": "https://www.youtube.com/embed/lCTi56J_DHM",
+    "solveLink": "https://codeforces.com/problemset/problem/103/B",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Unique Color",
+    "videoUrl": "https://www.youtube.com/embed/eeMHB_k8CI4",
+    "solveLink": "https://atcoder.jp/contests/abc198/tasks/abc198_e",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Ranges on Tree",
+    "videoUrl": "No Video",
+    "solveLink": "https://atcoder.jp/contests/abc240/tasks/abc240_e",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Labyrinth",
+    "videoUrl": "https://www.youtube.com/embed/NqLKNQ8SVQo",
+    "solveLink": "https://cses.fi/problemset/task/1193",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Building Roads",
+    "videoUrl": "https://www.youtube.com/embed/XzSjBQIU2bM",
+    "solveLink": "https://cses.fi/problemset/task/1666",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Building Teams",
+    "videoUrl": "https://www.youtube.com/embed/jTfh7UZNor8",
+    "solveLink": "https://cses.fi/problemset/task/1668",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "F. Graph Without Long Directed Paths",
+    "videoUrl": "https://www.youtube.com/embed/oWM4oS9EVRg",
+    "solveLink": "https://codeforces.com/problemset/problem/1144/F",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Distance Queries",
+    "videoUrl": "https://www.youtube.com/embed/S1uPJB5q6lQ?si=lTGBjI3v1wVvQGzL",
+    "solveLink": "https://cses.fi/problemset/task/1135",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Distinct Colors",
+    "videoUrl": "https://youtube.com/embed/5JpaXAnrkIU?si=VAIGehAu6-SimGhm",
+    "solveLink": "https://cses.fi/problemset/task/1139",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Path Queries 1",
+    "videoUrl": "https://youtube.com/embed/OSIi4Az_Pbc?si=KFAdBa6kWdNlx21T",
+    "solveLink": "https://cses.fi/problemset/task/1138",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Company Queries I",
+    "videoUrl": "https://youtube.com/embed/RuUN9N8Xrfw?si=ZpsbuITiaS1qPuJ_",
+    "solveLink": "https://cses.fi/problemset/task/1687",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Counting Paths",
+    "videoUrl": "https://youtube.com/embed/eMFawQ7VnMc?si=PolHtOzYnCLF6jtz",
+    "solveLink": "https://cses.fi/problemset/task/1136",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Subtree Queries",
+    "videoUrl": "https://youtube.com/embed/wo--reAZJZU?si=NMR4wDhDRvVyspwh",
+    "solveLink": "https://cses.fi/problemset/task/1137",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Path Queries II",
+    "videoUrl": "https://youtube.com/embed/d7CRA54BWIA?si=UQI2b1aHcqWMWi2r",
+    "solveLink": "https://cses.fi/problemset/task/2134",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Fixed-Length Paths II",
+    "videoUrl": "https://youtube.com/embed/LJRdok3kPMc?si=tjaJHAg9q1SyUhgI",
+    "solveLink": "https://cses.fi/problemset/task/2081",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Company Queries II",
+    "videoUrl": "https://youtube.com/embed/95sQTRgbYWo?si=L08-iqnbgkgguGkW",
+    "solveLink": "https://cses.fi/problemset/task/1688",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Finding a Centroid",
+    "videoUrl": "https://youtube.com/embed/e-mxm5bykrQ?si=QDGzZ5wFWeW3_xIo",
+    "solveLink": "https://cses.fi/problemset/task/2079",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Fixed-Length Paths I",
+    "videoUrl": "https://youtube.com/embed/qbnn3sCi5Jw?si=N5m85zFH7YRhjGXj",
+    "solveLink": "https://cses.fi/problemset/task/2080",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Shortest Routes 2",
+    "videoUrl": "https://www.youtube.com/embed/WQmV3QBmEdA",
+    "solveLink": "https://cses.fi/problemset/task/1672",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Game Routes",
+    "videoUrl": "https://www.youtube.com/embed/Hl44x4LJjoQ",
+    "solveLink": "https://cses.fi/problemset/task/1681",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Investigation",
+    "videoUrl": "https://www.youtube.com/embed/7gIh7QBzIec",
+    "solveLink": "https://cses.fi/problemset/task/1202",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Planets Queries IIInputOutputConstraintsExample",
+    "videoUrl": "No Video",
+    "solveLink": "https://cses.fi/problemset/task/1160",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Road Reparation",
+    "videoUrl": "https://www.youtube.com/embed/eOjj9VXbFPI",
+    "solveLink": "https://cses.fi/problemset/task/1675",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Coin CollectorInputOutputConstraintsExample",
+    "videoUrl": "No Video",
+    "solveLink": "https://cses.fi/problemset/task/1686",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Mail DeliveryInputOutputConstraintsExample",
+    "videoUrl": "No Video",
+    "solveLink": "https://cses.fi/problemset/task/1691",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Download Speed",
+    "videoUrl": "https://www.youtube.com/embed/Oky88gtP_v0",
+    "solveLink": "https://cses.fi/problemset/task/1694",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Flight Discount",
+    "videoUrl": "https://www.youtube.com/embed/vl7uhlM0Q-c",
+    "solveLink": "https://cses.fi/problemset/task/1195",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Cycle Finding",
+    "videoUrl": "https://www.youtube.com/embed/sRxKbUdDaz8",
+    "solveLink": "https://cses.fi/problemset/task/1197",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Course Schedule",
+    "videoUrl": "https://www.youtube.com/embed/hLtzROUUMiM",
+    "solveLink": "https://cses.fi/problemset/task/1679",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Longest Flight RouteInputOutputConstraintsExample",
+    "videoUrl": "No Video",
+    "solveLink": "https://cses.fi/problemset/task/1680",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Flight Routes CheckInputOutputConstraintsExample",
+    "videoUrl": "No Video",
+    "solveLink": "https://cses.fi/problemset/task/1682",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Planets and KingdomsInputOutputConstraintsExample",
+    "videoUrl": "No Video",
+    "solveLink": "https://cses.fi/problemset/task/1683",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "De Bruijn SequenceInputOutputConstraintsExample",
+    "videoUrl": "No Video",
+    "solveLink": "https://cses.fi/problemset/task/1692",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Hamiltonian FlightsInputOutputConstraintsExample",
+    "videoUrl": "No Video",
+    "solveLink": "https://cses.fi/problemset/task/1690",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Knight's TourInputOutputConstraintsExample",
+    "videoUrl": "No Video",
+    "solveLink": "https://cses.fi/problemset/task/1689",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Police ChaseInputOutputConstraintsExample",
+    "videoUrl": "No Video",
+    "solveLink": "https://cses.fi/problemset/task/1695",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Shortest Routes I",
+    "videoUrl": "https://www.youtube.com/embed/dKJmhs6qbY0",
+    "solveLink": "https://cses.fi/problemset/task/1671",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Flight Routes",
+    "videoUrl": "https://www.youtube.com/embed/tKZJAhZjaW8",
+    "solveLink": "https://cses.fi/problemset/task/1196",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Planets Queries IInputOutputConstraintsExample",
+    "videoUrl": "No Video",
+    "solveLink": "https://cses.fi/problemset/task/1750",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Teleporters PathInputOutputConstraintsExample",
+    "videoUrl": "No Video",
+    "solveLink": "https://cses.fi/problemset/task/1693",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "High ScoreInputOutputConstraintsExample",
+    "videoUrl": "No Video",
+    "solveLink": "https://cses.fi/problemset/task/1673",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Round Trip 2",
+    "videoUrl": "https://www.youtube.com/embed/LR8kEqBDWsc",
+    "solveLink": "https://cses.fi/problemset/task/1678",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Planets CyclesInputOutputConstraintsExample",
+    "videoUrl": "No Video",
+    "solveLink": "https://cses.fi/problemset/task/1751",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Giant PizzaInputOutputConstraintsExample",
+    "videoUrl": "No Video",
+    "solveLink": "https://cses.fi/problemset/task/1684",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "School DanceInputOutputConstraintsExample",
+    "videoUrl": "No Video",
+    "solveLink": "https://cses.fi/problemset/task/1696",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  },
+  {
+    "title": "Distinct RoutesInputOutputConstraintsExample",
+    "videoUrl": "No Video",
+    "solveLink": "https://cses.fi/problemset/task/1711",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6XW2QKV5yIqZcWahOt1UuU"
+  }
+]

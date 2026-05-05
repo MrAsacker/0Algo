@@ -14,28 +14,51 @@ const Navbar = () => {
 
   return (
     <div className="border-b sticky top-0 z-50 bg-background">
-      <div className="flex h-16 items-center px-4 container mx-auto">
-        <div className="font-bold text-2xl flex-1">
+      <div className="flex h-[60px] items-center justify-between px-4 container mx-auto">
+        {/* Left Side: Logo */}
+        <div className="font-bold text-2xl flex items-center min-w-[150px]">
           <Link href="/" className="flex items-center">
             <Image
               src="/white-icon.svg"
               alt="0algo"
-              // Reduced logo size to 36px to fit the new navbar height
-              width={36}
-              height={36}
-              // Removed the "ml-12" class
-              className="object-contain  ml-6"
+              width={32}
+              height={32}
+              className="object-contain ml-6"
               priority
             />
           </Link>
         </div>
 
-        <div className="flex items-center space-x-4 mr-5">
-          {/* You can add this back if you want a GitHub link:
-            <Button variant="ghost" size="icon" onClick={handleStarProject}>
-              <Github className="h-5 w-5" />
-            </Button>
-          */}
+        {/* Middle: Navigation Links */}
+        <div className="hidden md:flex items-center space-x-16">
+          <Link
+            href="/dashboard"
+            className="font-mono text-[15px] font-bold uppercase tracking-wider text-zinc-300 hover:text-white transition-colors"
+          >
+            DSA
+          </Link>
+          <Link
+            href="/system-design"
+            className="font-mono text-[15px] font-bold uppercase tracking-wider text-zinc-300 hover:text-white transition-colors"
+          >
+            System Design
+          </Link>
+          <Link
+            href="/roadmaps"
+            className="font-mono text-[15px] font-bold uppercase tracking-wider text-zinc-300 hover:text-white transition-colors"
+          >
+            Roadmaps
+          </Link>
+          <Link
+            href="/cp-ladder"
+            className="font-mono text-[15px] font-bold uppercase tracking-wider text-zinc-300 hover:text-white transition-colors"
+          >
+            CP Ladder
+          </Link>
+        </div>
+
+        {/* Right Side: Auth / Actions */}
+        <div className="flex items-center justify-end space-x-4 mr-5 min-w-[150px]">
           <SignedIn>
             <UserButton />
           </SignedIn>

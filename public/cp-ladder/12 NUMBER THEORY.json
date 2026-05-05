@@ -1,0 +1,344 @@
+[
+  {
+    "title": "Number of Shortest paths",
+    "videoUrl": "https://www.youtube.com/embed/pbZRc72hGnY",
+    "solveLink": "https://atcoder.jp/contests/abc211/tasks/abc211_d",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "Ubiquity",
+    "videoUrl": "https://www.youtube.com/embed/INKvLJ5eFK8",
+    "solveLink": "https://atcoder.jp/contests/abc178/tasks/abc178_c",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "Count Order",
+    "videoUrl": "https://www.youtube.com/embed/-hFUkAgPToo",
+    "solveLink": "https://atcoder.jp/contests/abc150/tasks/abc150_c",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "Banned K",
+    "videoUrl": "https://www.youtube.com/embed/MvcVOqnfA40",
+    "solveLink": "https://atcoder.jp/contests/abc159/tasks/abc159_d",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "Uniformly Distributed",
+    "videoUrl": "https://www.youtube.com/embed/6g6581YOD5w",
+    "solveLink": "https://atcoder.jp/contests/arc120/tasks/arc120_b",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "Counting Divisors",
+    "videoUrl": "https://www.youtube.com/embed/0p3wxBfubOg",
+    "solveLink": "https://cses.fi/problemset/task/1713",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "Sum of Divisors",
+    "videoUrl": "https://www.youtube.com/embed/dT0WXJVLHPs",
+    "solveLink": "https://cses.fi/problemset/task/1082",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "Binomial Coefficients",
+    "videoUrl": "https://www.youtube.com/embed/kwJX3-QvW8Q",
+    "solveLink": "https://cses.fi/problemset/task/1079",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "Fibonacci Numbers",
+    "videoUrl": "https://www.youtube.com/embed/_IuwyhVL6cM",
+    "solveLink": "https://cses.fi/problemset/task/1722",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Zero Quantity Maximization",
+    "videoUrl": "https://www.youtube.com/embed/uTcSIEt7zsE",
+    "solveLink": "https://codeforces.com/contest/1133/problem/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Deleting Divisors",
+    "videoUrl": "https://www.youtube.com/embed/7Vnh_mP45VU",
+    "solveLink": "https://codeforces.com/problemset/problem/1537/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "Counting of Trees",
+    "videoUrl": "https://www.youtube.com/embed/st4Ck8H686U",
+    "solveLink": "https://atcoder.jp/contests/nikkei2019-2-qual/tasks/nikkei2019_2_qual_b",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "Painting Balls with AtCoDeer",
+    "videoUrl": "https://www.youtube.com/embed/ISVXI9g1R6k",
+    "solveLink": "https://atcoder.jp/contests/abc046/tasks/abc046_b",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "Poker",
+    "videoUrl": "https://www.youtube.com/embed/umHONHZkTj0",
+    "solveLink": "https://atcoder.jp/contests/abc193/tasks/abc193_d",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "Josephus Queries",
+    "videoUrl": "https://www.youtube.com/embed/G47V9XYt0GU",
+    "solveLink": "https://cses.fi/problemset/task/2164",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "Divisor Analysis",
+    "videoUrl": "https://www.youtube.com/embed/Yh9vL0Szyws",
+    "solveLink": "https://cses.fi/problemset/task/2182",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "Creating Strings II",
+    "videoUrl": "https://www.youtube.com/embed/tzDikHbJkEM",
+    "solveLink": "https://cses.fi/problemset/task/1715",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "Distributing Apples",
+    "videoUrl": "https://www.youtube.com/embed/dql-TfZnYks",
+    "solveLink": "https://cses.fi/problemset/task/1716",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "K. Indivisibility",
+    "videoUrl": "https://www.youtube.com/embed/WWPs9vPgAW0",
+    "solveLink": "https://codeforces.com/problemset/problem/630/K",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "B. Little Dima and Equation",
+    "videoUrl": "https://www.youtube.com/embed/4NQjGxUO0x0",
+    "solveLink": "https://codeforces.com/problemset/problem/460/B",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "C. Pythagorean Triples",
+    "videoUrl": "https://www.youtube.com/embed/2SorEqLtBRM",
+    "solveLink": "https://codeforces.com/problemset/problem/707/C",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "B. Plus and Multiply",
+    "videoUrl": "https://www.youtube.com/embed/4cd_goA0y4E",
+    "solveLink": "https://codeforces.com/contest/1542/problem/B",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "C. Strange Function",
+    "videoUrl": "https://www.youtube.com/embed/WGa2BHXycY0",
+    "solveLink": "https://codeforces.com/problemset/problem/1542/C",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. X-Magic Pair",
+    "videoUrl": "https://www.youtube.com/embed/RST-81vYJvo",
+    "solveLink": "https://codeforces.com/problemset/problem/1612/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "A. Row GCD",
+    "videoUrl": "https://www.youtube.com/embed/wI63Zd0vk_M",
+    "solveLink": "https://codeforces.com/problemset/problem/1458/A",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "B. Nastya Studies Informatics",
+    "videoUrl": "https://www.youtube.com/embed/fvdW-2-eJyA",
+    "solveLink": "https://codeforces.com/problemset/problem/992/B",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Another Problem About Dividing Numbers",
+    "videoUrl": "https://www.youtube.com/embed/qWrfqhUrtc0",
+    "solveLink": "https://codeforces.com/problemset/problem/1538/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "Blue and Red Balls",
+    "videoUrl": "https://www.youtube.com/embed/-0nSA-lBJac",
+    "solveLink": "https://atcoder.jp/contests/abc132/tasks/abc132_d",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "Dice and Coin",
+    "videoUrl": "https://www.youtube.com/embed/B2zz7jJJG48",
+    "solveLink": "https://atcoder.jp/contests/abc126/tasks/abc126_c",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "Exponentiation",
+    "videoUrl": "https://www.youtube.com/embed/tW7B1frZOR4",
+    "solveLink": "https://cses.fi/problemset/task/1095",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "Exponentiation II",
+    "videoUrl": "https://www.youtube.com/embed/dH8ZCR6-SeM",
+    "solveLink": "https://cses.fi/problemset/task/1712",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "Prime Multiples",
+    "videoUrl": "https://www.youtube.com/embed/noy2no0--mM",
+    "solveLink": "https://cses.fi/problemset/task/2185",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "Counting Coprime Pairs",
+    "videoUrl": "https://www.youtube.com/embed/0E3C9h3B-gg",
+    "solveLink": "https://cses.fi/problemset/task/2417",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "Christmas Party",
+    "videoUrl": "https://www.youtube.com/embed/KXlFulRi_Iw",
+    "solveLink": "https://cses.fi/problemset/task/1717",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "Counting Necklaces",
+    "videoUrl": "https://www.youtube.com/embed/-HCQPTIbazw",
+    "solveLink": "https://cses.fi/problemset/task/2209",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "Dice Probability",
+    "videoUrl": "https://www.youtube.com/embed/QzPNTvNu6Jw",
+    "solveLink": "https://cses.fi/problemset/task/1725",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "F. Interesting Function",
+    "videoUrl": "https://www.youtube.com/embed/GkOxRpkAezI",
+    "solveLink": "https://codeforces.com/problemset/problem/1538/F",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Almost All Divisors",
+    "videoUrl": "https://www.youtube.com/embed/T1UcaenaP5U",
+    "solveLink": "https://codeforces.com/problemset/problem/1165/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "C. Yet Another Counting Problem",
+    "videoUrl": "https://www.youtube.com/embed/Jn_31wqoHu4",
+    "solveLink": "https://codeforces.com/problemset/problem/1342/C",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Taxes",
+    "videoUrl": "https://www.youtube.com/embed/FwaxJq0lKy4",
+    "solveLink": "https://codeforces.com/problemset/problem/735/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "A. LCM Challenge",
+    "videoUrl": "https://www.youtube.com/embed/pUywCqluvls",
+    "solveLink": "https://codeforces.com/problemset/problem/235/A",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "B. Modular Equations",
+    "videoUrl": "https://www.youtube.com/embed/8AuCcLD3KPw",
+    "solveLink": "https://codeforces.com/problemset/problem/495/B",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "A. Divisible by Seven",
+    "videoUrl": "https://www.youtube.com/embed/w47WRfRe7hY",
+    "solveLink": "https://codeforces.com/problemset/problem/375/A",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "A. Rational Resistance",
+    "videoUrl": "https://www.youtube.com/embed/mYjTaW1ctu4",
+    "solveLink": "https://codeforces.com/problemset/problem/343/A",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "Remainder Reminder",
+    "videoUrl": "https://www.youtube.com/embed/BQSX_E31QX8",
+    "solveLink": "https://atcoder.jp/contests/abc090/tasks/arc091_b",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "Common Divisors",
+    "videoUrl": "https://www.youtube.com/embed/5gjPkvMPpYY",
+    "solveLink": "https://cses.fi/problemset/task/1081",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "Bracket Sequences I",
+    "videoUrl": "https://www.youtube.com/embed/-GHd0j6MJVM",
+    "solveLink": "https://cses.fi/problemset/task/2064",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Lucky Chains",
+    "videoUrl": "https://www.youtube.com/embed/5AO_hksAgTs",
+    "solveLink": "https://codeforces.com/contest/1766/problem/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "B. Good Sequences",
+    "videoUrl": "https://www.youtube.com/embed/lyGM7jemfnA",
+    "solveLink": "https://codeforces.com/problemset/problem/264/B",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "B. Factorial Divisibility",
+    "videoUrl": "https://www.youtube.com/embed/1koUpC1jDwY",
+    "solveLink": "https://codeforces.com/problemset/problem/1753/B",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "C. Product 1 Modulo N",
+    "videoUrl": "https://www.youtube.com/embed/4aQqSuRWCWc",
+    "solveLink": "https://codeforces.com/problemset/problem/1514/C",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "B. Colliders",
+    "videoUrl": "https://www.youtube.com/embed/iinvD-MclQQ",
+    "solveLink": "https://codeforces.com/problemset/problem/154/B",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "G1. Magic Triples (Easy Version)",
+    "videoUrl": "https://www.youtube.com/embed/QtA2TegFee4",
+    "solveLink": "https://codeforces.com/problemset/problem/1822/G1",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Iterated Linear Function",
+    "videoUrl": "https://www.youtube.com/embed/bJvsIBoeLs4",
+    "solveLink": "https://codeforces.com/contest/678/problem/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "C. Primes and Multiplication",
+    "videoUrl": "https://www.youtube.com/embed/vLLx5vYhuq0",
+    "solveLink": "https://codeforces.com/contest/1228/problem/C",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "A. The Meaningless Game",
+    "videoUrl": "https://www.youtube.com/embed/WiTbDN-Csqo",
+    "solveLink": "https://codeforces.com/problemset/problem/833/A",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "A. Primal Sport",
+    "videoUrl": "https://www.youtube.com/embed/zf5uCv43a9Y",
+    "solveLink": "https://codeforces.com/problemset/problem/923/A",
+    "topicLink": "No Link"
+  }
+]

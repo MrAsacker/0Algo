@@ -60,6 +60,7 @@ interface Question {
   acceptance_rate: number;
   link: string;
   company: string;
+  allCompanies?: string[];
   frequency: number;
   timeframe: string;
   topics: string[];
@@ -150,7 +151,8 @@ const LeetCodeDashboard: React.FC<LeetCodeDashboardProps> = ({
     return companies
       .map((company) => ({
         name: company,
-        count: questions.filter((q) => q.company === company).length,
+        count: questions.filter((q) => q.allCompanies?.includes(company) || q.company === company)
+          .length,
       }))
       .sort((a, b) => b.count - a.count);
   }, [questions, companies]);
@@ -171,17 +173,21 @@ const LeetCodeDashboard: React.FC<LeetCodeDashboardProps> = ({
   const filteredQuestions = useMemo(() => {
     const queryWords = searchQuery.trim().toLowerCase().split(/\s+/);
     return questions.filter((question) => {
+      const allCompaniesStr = question.allCompanies?.join(", ") || question.company;
       const matchesSearch = queryWords.every(
         (word) =>
           question.Title.toLowerCase().includes(word) ||
-          question.company.toLowerCase().includes(word) ||
+          allCompaniesStr.toLowerCase().includes(word) ||
           question.Topics.toLowerCase()
             .split(",")
             .some((topic) => topic.trim().includes(word))
       );
       const matchesDifficulty =
         difficultyFilter.length === 0 || difficultyFilter.includes(question.Difficulty);
-      const matchesCompany = !selectedCompany || question.company === selectedCompany;
+      const matchesCompany =
+        !selectedCompany ||
+        question.allCompanies?.includes(selectedCompany) ||
+        question.company === selectedCompany;
       const matchesTopic =
         selectedTopics.length === 0 ||
         selectedTopics.every((topic) =>
@@ -238,8 +244,8 @@ const LeetCodeDashboard: React.FC<LeetCodeDashboardProps> = ({
   };
 
   const statistics = useMemo(() => {
-    const uniqueQuestions = Array.from(new Set(filteredQuestions.map((q) => q.ID)));
-    const total = uniqueQuestions.length;
+    // We already deduplicated in the backend, so questions.length is the unique count
+    const total = filteredQuestions.length;
 
     const solvedQuestions = new Set(
       filteredQuestions.filter((q) => checkedItems[q.ID]).map((q) => q.ID)
@@ -547,7 +553,13 @@ const LeetCodeDashboard: React.FC<LeetCodeDashboardProps> = ({
                             </a>
                           </TableCell>
                           <TableCell>
-                            <div className="capitalize">{capitalizeWords(question.company)}</div>
+                            <div
+                              className="capitalize text-xs text-muted-foreground line-clamp-2 max-w-[140px]"
+                              title={question.allCompanies?.join(", ") || question.company}
+                            >
+                              {question.allCompanies?.map((c) => capitalizeWords(c)).join(", ") ||
+                                capitalizeWords(question.company)}
+                            </div>
                           </TableCell>
                           <TableCell>
                             <DifficultyBadge
@@ -665,8 +677,12 @@ const LeetCodeDashboard: React.FC<LeetCodeDashboardProps> = ({
                             >
                               {question.Title}
                             </a>
-                            <div className="capitalize text-xs text-muted-foreground">
-                              {capitalizeWords(question.company)}
+                            <div
+                              className="capitalize text-xs text-muted-foreground line-clamp-1"
+                              title={question.allCompanies?.join(", ") || question.company}
+                            >
+                              {question.allCompanies?.map((c) => capitalizeWords(c)).join(", ") ||
+                                capitalizeWords(question.company)}
                             </div>
                           </div>
                         </div>

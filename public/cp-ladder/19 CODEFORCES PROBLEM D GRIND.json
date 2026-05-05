@@ -1,0 +1,596 @@
+[
+  {
+    "title": "E. Apollo versus Pan",
+    "videoUrl": "https://www.youtube.com/embed/PhwjXx4PEpI",
+    "solveLink": "https://codeforces.com/problemset/problem/1466/E",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "B. Connecting Universities",
+    "videoUrl": "https://www.youtube.com/embed/i9BwzVdkbkk",
+    "solveLink": "https://codeforces.com/problemset/problem/700/B",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Armchairs",
+    "videoUrl": "https://www.youtube.com/embed/u-ln9ldVdEI",
+    "solveLink": "https://codeforces.com/problemset/problem/1525/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Array Differentiation",
+    "videoUrl": "https://www.youtube.com/embed/oCB8tcKyU_E",
+    "solveLink": "https://codeforces.com/problemset/problem/1552/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "B. XOR-pyramid",
+    "videoUrl": "https://www.youtube.com/embed/t2NH6a-SJCg",
+    "solveLink": "https://codeforces.com/problemset/problem/983/B",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Power Products",
+    "videoUrl": "https://www.youtube.com/embed/EgIYqZBYN2o",
+    "solveLink": "https://codeforces.com/problemset/problem/1225/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "E. Count The Blocks",
+    "videoUrl": "https://www.youtube.com/embed/0TpBPWYN28A",
+    "solveLink": "https://codeforces.com/problemset/problem/1327/E",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Same GCDs",
+    "videoUrl": "https://www.youtube.com/embed/sapkgrnsv6o",
+    "solveLink": "https://codeforces.com/problemset/problem/1295/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "A. Fancy Fence",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1402/A",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Explorer Space",
+    "videoUrl": "https://www.youtube.com/embed/NZNb_Ei9oeo",
+    "solveLink": "https://codeforces.com/problemset/problem/1517/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "E. Packmen",
+    "videoUrl": "https://www.youtube.com/embed/wKej5hqav_M",
+    "solveLink": "https://codeforces.com/problemset/problem/847/E",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "A. Garland",
+    "videoUrl": "https://www.youtube.com/embed/Uq61KSKdAFk",
+    "solveLink": "https://codeforces.com/problemset/problem/1286/A",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "A. The Fair Nut and the Best Path",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1083/A",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Carousel",
+    "videoUrl": "https://www.youtube.com/embed/-60u5oxmt8k",
+    "solveLink": "https://codeforces.com/problemset/problem/1328/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "F. The Treasure of The Segments",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1462/F",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Zookeeper and The Infinite Zoo",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1491/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "A. Going Home",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1500/A",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Lost Tree",
+    "videoUrl": "https://www.youtube.com/embed/mDvzmvGhBMU",
+    "solveLink": "https://codeforces.com/problemset/problem/1534/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Playoff Tournament",
+    "videoUrl": "https://www.youtube.com/embed/JZIgi7iE8vM",
+    "solveLink": "https://codeforces.com/problemset/problem/1535/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "C. Table Decorations",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/478/C",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "J. The Parade",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1250/J",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "C. The Sports Festival",
+    "videoUrl": "https://www.youtube.com/embed/h2EJRucPWRE",
+    "solveLink": "https://codeforces.com/problemset/problem/1509/C",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Cleaning the Phone",
+    "videoUrl": "https://www.youtube.com/embed/3Pzs_vFDEPY",
+    "solveLink": "https://codeforces.com/problemset/problem/1475/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "C. Maximize the Intersections",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1552/C",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "C. Mikasa",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1554/C",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "C. Compressed Bracket Sequence",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1556/C",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Design Tutorial: Inverse the Problem",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/472/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. The Best Vacation",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1358/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "E2. Escape The Maze (hard version)",
+    "videoUrl": "https://www.youtube.com/embed/SxXbJUWO9mY",
+    "solveLink": "https://codeforces.com/problemset/problem/1611/E2",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. MEX Sequences",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1613/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "G. MinOr Tree",
+    "videoUrl": "https://www.youtube.com/embed/HJefkWl9NgY",
+    "solveLink": "https://codeforces.com/problemset/problem/1624/G",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Lost Arithmetic Progression",
+    "videoUrl": "https://www.youtube.com/embed/HrSLjPy1DlQ",
+    "solveLink": "https://codeforces.com/problemset/problem/1673/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Permutation Graph",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1696/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "F. Cards and Joy",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/999/F",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "B. Wrong Answer",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1129/B",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "F1. Microtransactions (easy version)",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1165/F1",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D1. Kirk and a Binary String (easy version)",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1204/D1",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "C. Kamil and Making a Stream",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1210/C",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Sequence Sorting",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1223/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "E. Yet Another Division Into Teams",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1256/E",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "E. Messenger Simulator",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1288/E",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Time to Run",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1301/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "E. 1-Trees and Queries",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1304/E",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "C2. Not So Simple Polygon Embedding",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1354/C2",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Diane",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1554/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "A. Book",
+    "videoUrl": "https://www.youtube.com/embed/E9j7bK90WD0",
+    "solveLink": "https://codeforces.com/problemset/problem/1572/A",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "C. Painting Fence",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/448/C",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "G. Strange Beauty",
+    "videoUrl": "https://www.youtube.com/embed/6InmKkqwxoM",
+    "solveLink": "https://codeforces.com/problemset/problem/1475/G",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "E. Enemy is weak",
+    "videoUrl": "https://www.youtube.com/embed/9rtQcUOfOtg",
+    "solveLink": "https://codeforces.com/problemset/problem/61/E",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "C. Need for Pink Slips",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1543/C",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "F2. Spanning Tree with One Fixed Degree",
+    "videoUrl": "https://www.youtube.com/embed/Psou6bEnIVs",
+    "solveLink": "https://codeforces.com/problemset/problem/1133/F2",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Magazine Ad",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/803/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "B. AquaMoon and Chess",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1545/B",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Toss a Coin to Your Graph...",
+    "videoUrl": "https://www.youtube.com/embed/SpeEg2W6AEU",
+    "solveLink": "https://codeforces.com/problemset/problem/1679/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Divisors",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1033/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. GCD Counting",
+    "videoUrl": "https://www.youtube.com/embed/PgEGOMCkaTs",
+    "solveLink": "https://codeforces.com/problemset/problem/1101/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "F. Clear the String",
+    "videoUrl": "https://www.youtube.com/embed/XE4pm88lfD0",
+    "solveLink": "https://codeforces.com/problemset/problem/1132/F",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "B. Game with modulo",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1103/B",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "F2. Microtransactions (hard version)",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1165/F2",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "C. Matching vs Independent Set",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1198/C",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "E. Subsequences (easy version)",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1183/E",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Three Integers",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1311/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "B. Integers Have Friends",
+    "videoUrl": "https://www.youtube.com/embed/xyUJM1QbshE",
+    "solveLink": "https://codeforces.com/problemset/problem/1548/B",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "F. ATM and Students",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1611/F",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "C. Connect the Points",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1666/C",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Genius's Gambit",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1492/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Ehab and the Expected XOR Problem",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1174/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "C. Magic Ship",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1117/C",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Non-Secret Cypher",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/190/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "B2. Palindrome Game (hard version)",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1527/B2",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "F1. Nearest Beautiful Number (easy version)",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1560/F1",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "B. Frog Traveler",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1601/B",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Prefixes and Suffixes",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/432/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "C. Sereja and Brackets",
+    "videoUrl": "https://www.youtube.com/embed/7DSGtKpbge0",
+    "solveLink": "https://codeforces.com/problemset/problem/380/C",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "E. Increasing Frequency",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1082/E",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. TV Shows",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1061/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "A. Right Expansion Of The Mind",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1090/K",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "C. Thanos Nim",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1147/C",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "G1. Into Blocks (easy version)",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1209/G1",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "E. Minimizing Difference",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1244/E",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "E2. String Coloring (hard version)",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1296/E2",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "F1. Korney Korneevich and XOR (easy version)",
+    "videoUrl": "https://www.youtube.com/embed/ZRTGS7x4FYA",
+    "solveLink": "https://codeforces.com/problemset/problem/1582/F1",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "E. Polycarp and String Transformation",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1560/E",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Omkar and the Meaning of Life",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1583/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "E. Tree Queries",
+    "videoUrl": "https://www.youtube.com/embed/JP9LM-NL2v0",
+    "solveLink": "https://codeforces.com/problemset/problem/1328/E",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "F. Unusual Matrix",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1475/F",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Phoenix and Science",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1348/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "B. Up the Strip",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1558/B",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Inconvenient Pairs",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1569/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D2. Half of Same",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1593/D2",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "E. Replace the Numbers",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1620/E",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "E. Expand the Path",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1644/E",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. K-good",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1656/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "C. Tyler and Strings",
+    "videoUrl": "https://www.youtube.com/embed/S6wHEAYCBqQ",
+    "solveLink": "https://codeforces.com/problemset/problem/1648/C",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "B. The hat",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1019/B",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "F. Maximum Balanced Circle",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1157/F",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Balanced Playlist",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1237/D",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "F. Three Paths on a Tree",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1294/F",
+    "topicLink": "No Link"
+  },
+  {
+    "title": "D. Decreasing Debts",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1266/D",
+    "topicLink": "No Link"
+  }
+]

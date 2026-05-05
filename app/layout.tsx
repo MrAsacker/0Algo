@@ -3,6 +3,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "sonner";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
@@ -34,8 +35,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="min-h-screen bg-background flex flex-col">
               <Navbar />
               <main className="flex-1">{children}</main>
-              <Footer />
               <Toaster />
+              <Sonner theme="dark" richColors position="bottom-center" />
             </div>
           </ThemeProvider>
         </body>

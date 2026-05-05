@@ -32,7 +32,7 @@ export default function DashboardClient() {
     let isCached = false;
 
     try {
-      const cached = localStorage.getItem("dashboard-cache-v1");
+      const cached = localStorage.getItem("dashboard-cache-v2");
       if (cached) {
         const parsed = JSON.parse(cached);
         if (parsed && Array.isArray(parsed.questions) && Array.isArray(parsed.companies)) {
@@ -64,7 +64,7 @@ export default function DashboardClient() {
         if (!isCached) {
           try {
             localStorage.setItem(
-              "dashboard-cache-v1",
+              "dashboard-cache-v2",
               JSON.stringify({
                 questions: questionsData.questions,
                 companies: questionsData.companies,

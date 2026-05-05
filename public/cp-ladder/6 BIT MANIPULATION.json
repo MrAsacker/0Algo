@@ -1,0 +1,446 @@
+[
+  {
+    "title": "Gray Code",
+    "videoUrl": "https://www.youtube.com/embed/m-KsJFvtNf8",
+    "solveLink": "https://cses.fi/problemset/task/2205",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "B. Arpa’s obvious problem and Mehrdad’s terrible solution",
+    "videoUrl": "https://www.youtube.com/embed/U9ZiRZpbx-U",
+    "solveLink": "https://codeforces.com/problemset/problem/742/B",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "A. Bits",
+    "videoUrl": "https://www.youtube.com/embed/Pj4lr2r1MM8",
+    "solveLink": "https://codeforces.com/problemset/problem/484/A",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "B. The Child and Set",
+    "videoUrl": "https://www.youtube.com/embed/6OtPzLXwddc?si=-VxTSadZe3uR_fPQ",
+    "solveLink": "https://codeforces.com/problemset/problem/437/B",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "Bitwise Exclusive Or",
+    "videoUrl": "https://www.youtube.com/embed/J2yCVLNV9Fk",
+    "solveLink": "https://atcoder.jp/contests/abc213/tasks/abc213_a",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "C. Magic Formulas",
+    "videoUrl": "https://www.youtube.com/embed/3ke-jv7mUUw",
+    "solveLink": "https://codeforces.com/problemset/problem/424/C",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "Hanjo",
+    "videoUrl": "https://www.youtube.com/embed/kCDClcgGdXs",
+    "solveLink": "https://atcoder.jp/contests/abc196/tasks/abc196_d",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "XXOR",
+    "videoUrl": "https://www.youtube.com/embed/FSqZJc97cIY?si=YiBGQ2bj1lQ_PYVK",
+    "solveLink": "https://atcoder.jp/contests/abc117/tasks/abc117_d",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "Xor Sum 4",
+    "videoUrl": "https://www.youtube.com/embed/1ZXLNDmrfKg?si=BvHjZdaAhPr7LoQJ",
+    "solveLink": "https://atcoder.jp/contests/abc147/tasks/abc147_d",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "A. The Brand New Function",
+    "videoUrl": "https://www.youtube.com/embed/yqFyvBwNrgE",
+    "solveLink": "https://codeforces.com/problemset/problem/243/A",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "XOR World",
+    "videoUrl": "https://www.youtube.com/embed/hh1gb2PXRfI?si=0ZkvCOKAJ_919FYo",
+    "solveLink": "https://atcoder.jp/contests/abc121/tasks/abc121_d",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "NEQ",
+    "videoUrl": "https://www.youtube.com/embed/HlIMNKb9JHw",
+    "solveLink": "https://atcoder.jp/contests/abc172/tasks/abc172_e",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "Red Scarf",
+    "videoUrl": "https://www.youtube.com/embed/IHit2mhWxVg",
+    "solveLink": "https://atcoder.jp/contests/abc171/tasks/abc171_e",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "B. MEXor Mixup",
+    "videoUrl": "https://www.youtube.com/embed/mebZy8iz1Cs",
+    "solveLink": "https://codeforces.com/contest/1567/problem/B",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "A. You Are Given Two Binary Strings...",
+    "videoUrl": "https://www.youtube.com/embed/AVaxYoYU7Zw",
+    "solveLink": "https://codeforces.com/problemset/problem/1202/A",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "H. Maximal AND",
+    "videoUrl": "https://www.youtube.com/embed/Q9NJiW41wJ4",
+    "solveLink": "https://codeforces.com/contest/1669/problem/H",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "C. Divan and bitwise operations",
+    "videoUrl": "https://www.youtube.com/embed/79lM4abp2ZI",
+    "solveLink": "https://codeforces.com/problemset/problem/1614/C",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "I hate Matrix Construction",
+    "videoUrl": "No Video",
+    "solveLink": "https://atcoder.jp/contests/abc164/tasks/abc164_f",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "XOR Matching",
+    "videoUrl": "No Video",
+    "solveLink": "https://atcoder.jp/contests/abc126/tasks/abc126_f",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "B. And It's Non-Zero",
+    "videoUrl": "https://www.youtube.com/embed/PwBL_y4256Q",
+    "solveLink": "https://codeforces.com/contest/1615/problem/B",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "C. Johnny and Another Rating Drop",
+    "videoUrl": "https://www.youtube.com/embed/e6jak4pLhaM",
+    "solveLink": "https://codeforces.com/contest/1362/problem/C",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "C. Powers Of Two",
+    "videoUrl": "https://www.youtube.com/embed/hncSCcIQcaM",
+    "solveLink": "https://codeforces.com/contest/1095/problem/C",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "B. Fortune Telling",
+    "videoUrl": "https://www.youtube.com/embed/L0LsTZ_vvvo",
+    "solveLink": "https://codeforces.com/problemset/problem/1634/B",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "A. And Matching",
+    "videoUrl": "https://www.youtube.com/embed/lOQb1TWSvQ4?si=y_-gcGysqOxgO3YV",
+    "solveLink": "https://codeforces.com/problemset/problem/1630/A",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "C. Vanya and Label",
+    "videoUrl": "https://www.youtube.com/embed/WU0iW_8_CrY",
+    "solveLink": "https://codeforces.com/problemset/problem/677/C",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "C. Interesting Sequence",
+    "videoUrl": "https://www.youtube.com/embed/kKDFHVTa9t8",
+    "solveLink": "https://codeforces.com/problemset/problem/1775/C",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "Bitmask",
+    "videoUrl": "https://www.youtube.com/embed/BYSB_DINCPk",
+    "solveLink": "https://atcoder.jp/contests/abc301/tasks/abc301_d",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "B. Special Numbers",
+    "videoUrl": "https://www.youtube.com/embed/RQApT9VeNHI",
+    "solveLink": "https://codeforces.com/problemset/problem/1594/B",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "B. Rock and Lever",
+    "videoUrl": "https://www.youtube.com/embed/lC1WslRlJp0",
+    "solveLink": "https://codeforces.com/contest/1420/problem/B",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "B. Johnny and His Hobbies",
+    "videoUrl": "https://www.youtube.com/embed/7hf_j4-Y95o",
+    "solveLink": "https://codeforces.com/problemset/problem/1362/B",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "B. AND 0, Sum Big",
+    "videoUrl": "https://www.youtube.com/embed/xVDpyZ95fpY?si=MkjXmHGuO4ALEub-",
+    "solveLink": "https://codeforces.com/problemset/problem/1514/B",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "G. Even-Odd XOR",
+    "videoUrl": "https://www.youtube.com/embed/ulSNGwQWkk0",
+    "solveLink": "https://codeforces.com/problemset/problem/1722/G",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "B. Preparing Olympiad",
+    "videoUrl": "https://www.youtube.com/embed/uvRE00E0Pbc",
+    "solveLink": "https://codeforces.com/contest/550/problem/B",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "A. The Very Beautiful Blanket",
+    "videoUrl": "https://www.youtube.com/embed/j8Dj9WJ1iZ0",
+    "solveLink": "https://codeforces.com/problemset/problem/1801/A",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "D1. 388535 (Easy Version)",
+    "videoUrl": "https://www.youtube.com/embed/febReBHPilU",
+    "solveLink": "https://codeforces.com/contest/1658/problem/D1",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "A. Short Program",
+    "videoUrl": "https://www.youtube.com/embed/VQZNG6bu72A",
+    "solveLink": "https://codeforces.com/problemset/problem/878/A",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "B2. Permutations",
+    "videoUrl": "https://www.youtube.com/embed/mcQSrJAveQA",
+    "solveLink": "https://codeforces.com/problemset/problem/513/B2",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "Sort Integers By The Number Of 1 Bits",
+    "videoUrl": "https://www.youtube.com/embed/ePVpcd-jfFo?si=7T_qNcFfORGq3sol",
+    "solveLink": "https://leetcode.com/problems/sort-integers-by-the-number-of-1-bits",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "Bitwise Xor Of All Pairings",
+    "videoUrl": "https://www.youtube.com/embed/DitFrERyPUE?si=25KbTaNpaw7FfB4s",
+    "solveLink": "https://leetcode.com/problems/bitwise-xor-of-all-pairings",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "Power Of Two",
+    "videoUrl": "https://www.youtube.com/embed/HKxastXdUKY?si=HGr15lEaeb3iRk7a",
+    "solveLink": "https://leetcode.com/problems/power-of-two",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "Circular Permutation In Binary Representation",
+    "videoUrl": "https://www.youtube.com/embed/DoltOFAZA20",
+    "solveLink": "https://leetcode.com/problems/circular-permutation-in-binary-representation",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "Divide Two Integers",
+    "videoUrl": "https://www.youtube.com/embed/FePClqeFlyQ",
+    "solveLink": "https://leetcode.com/problems/divide-two-integers",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "Minimum Flips To Make A Or B Equal To C",
+    "videoUrl": "https://www.youtube.com/embed/0aZxiKWIM9s?si=N7OTFgSPWvX-COE4",
+    "solveLink": "https://leetcode.com/problems/minimum-flips-to-make-a-or-b-equal-to-c",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "Minimize Xor",
+    "videoUrl": "https://www.youtube.com/embed/GA9A9olmlDM?si=rYwQ6WMrTDLDKihB",
+    "solveLink": "https://leetcode.com/problems/minimize-xor",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "Minimum Number Of K Consecutive Bit Flips",
+    "videoUrl": "https://www.youtube.com/embed/ukWhEChoxdw",
+    "solveLink": "https://leetcode.com/problems/minimum-number-of-k-consecutive-bit-flips",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "The Number Of Good Subsets",
+    "videoUrl": "https://www.youtube.com/embed/RkVbdOxjTu4",
+    "solveLink": "https://leetcode.com/problems/the-number-of-good-subsets",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "B. Dima and a Bad XOR",
+    "videoUrl": "https://www.youtube.com/embed/sIqtZhigBns",
+    "solveLink": "https://codeforces.com/problemset/problem/1151/B",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "C. Even Subarrays",
+    "videoUrl": "https://www.youtube.com/embed/WPcX2BR8_xE?si=s_QrZX0alaVb6CsL",
+    "solveLink": "https://codeforces.com/problemset/problem/1731/C",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "E. Apollo versus Pan",
+    "videoUrl": "https://www.youtube.com/embed/PhwjXx4PEpI",
+    "solveLink": "https://codeforces.com/problemset/problem/1466/E",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "Single Number",
+    "videoUrl": "https://www.youtube.com/embed/x4W8m2E3x4M",
+    "solveLink": "https://leetcode.com/problems/single-number",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "Sum Of All Subset Xor Totals",
+    "videoUrl": "https://www.youtube.com/embed/GUS34sj6nDU",
+    "solveLink": "https://leetcode.com/problems/sum-of-all-subset-xor-totals",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "Sum Of Two Integers",
+    "videoUrl": "https://www.youtube.com/embed/-vhpr57FfQY",
+    "solveLink": "https://leetcode.com/problems/sum-of-two-integers",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "Single Number Ii",
+    "videoUrl": "https://www.youtube.com/embed/yZFae4XrPqA?si=FWo94YhlOe5ZghDj",
+    "solveLink": "https://leetcode.com/problems/single-number-ii",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "Number Of Wonderful Substrings",
+    "videoUrl": "https://www.youtube.com/embed/dk33sw0AlAU",
+    "solveLink": "https://leetcode.com/problems/number-of-wonderful-substrings",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "Longest Nice Subarray",
+    "videoUrl": "https://www.youtube.com/embed/bERMnf9IkNI",
+    "solveLink": "https://leetcode.com/problems/longest-nice-subarray",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "B. Dreamoon Likes Sequences",
+    "videoUrl": "https://www.youtube.com/embed/ewaJUC0rBfo",
+    "solveLink": "https://codeforces.com/problemset/problem/1329/B",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "D. Walk on Matrix",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1332/D",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "C1. Sheikh (Easy version)",
+    "videoUrl": "No Video",
+    "solveLink": "https://codeforces.com/problemset/problem/1732/C1",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "Decode Xored Array",
+    "videoUrl": "https://www.youtube.com/embed/x52uCyaaUw4",
+    "solveLink": "https://leetcode.com/problems/decode-xored-array",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "Score After Flipping Matrix",
+    "videoUrl": "https://www.youtube.com/embed/nR1AxXXgVtM",
+    "solveLink": "https://leetcode.com/problems/score-after-flipping-matrix",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "Find Xor Sum Of All Pairs Bitwise And",
+    "videoUrl": "https://www.youtube.com/embed/HUwhX_Nck84",
+    "solveLink": "https://leetcode.com/problems/find-xor-sum-of-all-pairs-bitwise-and",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "Minimum Xor Sum Of Two Arrays",
+    "videoUrl": "https://www.youtube.com/embed/P0Pb5XxLO04",
+    "solveLink": "https://leetcode.com/problems/minimum-xor-sum-of-two-arrays",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "K Th Symbol In Grammar",
+    "videoUrl": "https://www.youtube.com/embed/PFYGAdT7iow?si=zPqumdB8pOoPgIRv",
+    "solveLink": "https://leetcode.com/problems/k-th-symbol-in-grammar",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "C. p-binary",
+    "videoUrl": "https://www.youtube.com/embed/WmVfWlRE1vw",
+    "solveLink": "https://codeforces.com/problemset/problem/1225/C",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "B. Cobb",
+    "videoUrl": "https://www.youtube.com/embed/zgJ-zoVxO7s",
+    "solveLink": "https://codeforces.com/contest/1554/problem/B",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "D. AND, OR and square sum",
+    "videoUrl": "https://www.youtube.com/embed/HJU-rKF_luE",
+    "solveLink": "https://codeforces.com/problemset/problem/1368/D",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "D. Maximum AND",
+    "videoUrl": "https://www.youtube.com/embed/YhOVrtR8Mq8",
+    "solveLink": "https://codeforces.com/problemset/problem/1721/D",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "C. The Number Of Good Substrings",
+    "videoUrl": "https://www.youtube.com/embed/u7vqmZXhhpY",
+    "solveLink": "https://codeforces.com/problemset/problem/1217/C",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "Minimum Bit Flips To Convert Number",
+    "videoUrl": "https://www.youtube.com/embed/0P6lKieoSQk",
+    "solveLink": "https://leetcode.com/problems/minimum-bit-flips-to-convert-number",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "Maximum Xor For Each Query",
+    "videoUrl": "https://www.youtube.com/embed/qAs3N3O_U8E",
+    "solveLink": "https://leetcode.com/problems/maximum-xor-for-each-query",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "Maximize Score After N Operations",
+    "videoUrl": "https://www.youtube.com/embed/lWobYlc0gSQ",
+    "solveLink": "https://leetcode.com/problems/maximize-score-after-n-operations",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "Transform To Chessboard",
+    "videoUrl": "https://www.youtube.com/embed/CCn7w4q4B_U",
+    "solveLink": "https://leetcode.com/problems/transform-to-chessboard",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "Make The Xor Of All Segments Equal To Zero",
+    "videoUrl": "https://www.youtube.com/embed/UQ7ZqlL_W_U",
+    "solveLink": "https://leetcode.com/problems/make-the-xor-of-all-segments-equal-to-zero",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  },
+  {
+    "title": "B. MEXor Mixup",
+    "videoUrl": "https://www.youtube.com/embed/N99NB73un68",
+    "solveLink": "https://codeforces.com/problemset/problem/1567/B",
+    "topicLink": "https://www.youtube.com/playlist?list=PLUpPy1Tkgmu6l-5TGD0Ti_Ed65TqhTAUC"
+  }
+]

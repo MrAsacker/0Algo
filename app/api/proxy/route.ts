@@ -25,16 +25,12 @@ export async function POST(req: Request) {
     // 2. Return the raw stream response to the client component
     return new Response(response.body, {
       headers: {
-        "Content-Type": "application/json", // We return JSON chunks
+        "Content-Type": "text/event-stream",
         "Cache-Control": "no-cache",
-        "Connection": "keep-alive",
+        Connection: "keep-alive",
       },
     });
-
   } catch (error: any) {
-    return NextResponse.json(
-      { error: error.message || "Internal Proxy Error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: error.message || "Internal Proxy Error" }, { status: 500 });
   }
 }

@@ -1,0 +1,1860 @@
+[
+  {
+    "section_name": "1. Sorting Algorithms",
+    "units": [
+      {
+        "unit_name": "Intro",
+        "text": "Sorting arranges elements in a specific order. Once data is sorted,you can binary search in O(logn),find duplicates in O(n),and merge arrays efficiently. Without sorting,many problems require O(n2)brute force. With sorting,they become O(nlogn).\nI'll teach you comparison-based sorts(selection,insertion,merge,quick,heap)and non-comparison sorts(counting,radix). You'll learn when each applies and why library sorts usually win.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Why Sorting Matters",
+        "text": "Sorting is a preprocessing step that makes hard problems easy.\nWhat sorting enables:\n1. Binary search: Find elements in O(logn)instead of O(n).\n2. Two pointers: Find pairs with a target sum in O(n)instead of O(n2).\n3. Greedy algorithms: Many greedy solutions start by sorting(activity selection,interval scheduling).\n4. Duplicate detection: Adjacent elements after sorting reveal duplicates in O(n).\n5. Efficient merging: Merge k sorted lists in O(∑length of arrays)or O(n).\nIf you skip sorting,you'll write O(n2)solutions where O(nlogn)exists.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Stability Explained",
+        "text": "A stable sort preserves the relative order of equal elements. If two items compare equal,they appear in the same order in the output as in the input.\nExample: Sort students by grade. With a stable sort,students with the same grade stay in their original order(perhaps alphabetical). With an unstable sort,their order is arbitrary.\nStable sorts: Merge sort,insertion sort,counting sort.\nUnstable sorts: Quick sort,heap sort,selection sort.\nStability matters when you sort by multiple keys. Sort by secondary key first,then by primary key with a stable sort. Both orderings are preserved.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Selection Sort",
+        "text": "Selection sort repeatedly finds the minimum element and moves it to its correct position.\nThe idea: Divide the array into sorted(left)and unsorted(right)portions. Find the minimum in the unsorted portion. Swap it to the end of the sorted portion. Repeat.\nWalkthrough for [64,25,12,22,11]:\n1. Find min(11),swap with first: [11,25,12,22,64]\n2. Find min in rest(12),swap: [11,12,25,22,64]\n3. Find min in rest(22),swap: [11,12,22,25,64]\n4. Find min in rest(25),already in place: [11,12,22,25,64]",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Selection Sort - Code",
+        "text": "",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Insertion Sort",
+        "text": "Insertion sort: Build sorted array by inserting each element into correct position.\nLeft portion sorted. Take next unsorted element. Shift larger elements right. Insert.\nExample [5,2,4,6,1,3]:\n1. [5] sorted. Insert 2: [2,5]\n2. Insert 4: [2,4,5]\n3. Insert 6: [2,4,5,6]\n4. Insert 1: [1,2,4,5,6]\n5. Insert 3: [1,2,3,4,5,6]\nTime: O(n2)worst,O(n)nearly sorted.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Insertion Sort - Code",
+        "text": "Here is the implementation of insertion sort:\ntext\n\n\n```\nfunction insertionSort(arr):\n    n=arr.length\n    for i from 1 to n-1:\n        key=arr[i]\n        j=i - 1\n        while j >=0 and arr[j] > key:\n            arr[j+1]=arr[j]\n            j=j - 1\n        arr[j+1]=key\n\n```\n\nTime: O(n2)worst case(reverse sorted). O(n)best case(already sorted).\nSpace: O(1). Only a few variables for indices(except for the input array itself).\nStability: Stable. Equal elements never swap past each other.\nInsertion sort works well on nearly-sorted data and small arrays. Many library sorts use insertion sort for subarrays below a threshold(often 10-20 elements).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Merge Sort",
+        "text": "Merge sort divides the array in half,recursively sorts each half,then merges the sorted halves.\nThe idea:\n1. Divide: Split the array into two halves.\n2. Conquer: Recursively sort each half.\n3. Combine: Merge the two sorted halves into one sorted array.\nExample for [38,27,43,3,9,82,10]:\nSplit into [38,27,43,3] and [9,82,10].\nRecursively sort each to get [3,27,38,43] and [9,10,82].\nMerge to get [3,9,10,27,38,43,82].\nThe merge step does the real work. Each element is compared and placed in order.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "The Merge Step",
+        "text": "Merging two sorted arrays into one takes O(n).\nTwo pointers,one per array. Compare,take smaller,advance pointer.\nExample: Merge [3,27,38] and [9,10,82]:\n1. 3<9: take 3 → [3]\n2. 27>9: take 9 → [3,9]\n3. 27>10: take 10 → [3,9,10]\n4. 27<82: take 27 → [3,9,10,27]\n5. 38<82: take 38 → [3,9,10,27,38]\n6. Take 82 → [3,9,10,27,38,82]",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Merge Sort - Code",
+        "text": "Here is the implementation of merge sort:\ntext\n\n\n```\nfunction mergeSort(arr,left,right):\n    if left >=right:\n        return\n    mid=(left+right)/ 2\n    mergeSort(arr,left,mid)mergeSort(arr,mid+1,right)merge(arr,left,mid,right)function merge(arr,left,mid,right):\n    create temp arrays L and R\n    copy arr[left..mid] to L\n    copy arr[mid+1..right] to R\n    merge L and R back into arr[left..right]\n\n```\n\nTime: O(nlogn)always. Each level of recursion does O(n)work. There are logn levels.\nSpace: O(n)for the temporary arrays during merge(excluding input array).\nStability: Stable. When equal elements compare,take from the left array first.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "QuickSort",
+        "text": "QuickSort picks a pivot element,partitions the array so smaller elements are left and larger elements are right,then recursively sorts each side.\nThe idea:\n1. Choose a pivot(often the last element).\n2. Partition: rearrange so elements < pivot are left,elements > pivot are right.\n3. Recursively sort left and right partitions.\nExample for [10,80,30,90,40,50,70] with pivot 70:\nAfter partition: [10,30,40,50,70,90,80]. Pivot 70 is in its final position. Recursively sort [10,30,40,50] and [90,80].\nUnlike merge sort,quicksort does work before recursing(partition)rather than after(merge).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "QuickSort - Partitioning",
+        "text": "Lomuto partition rearranges around pivot:\n1. Choose last as pivot.\n2. Index i tracks boundary of < pivot.\n3. Scan with j. If arr[j]<pivot,swap with arr[i+1],increment i.\n4. Swap pivot to i+1.\ntext\n\n\n```\nfunction partition(arr,low,high):\n    pivot=arr[high]\n    i=low - 1\n    for j from low to high-1:\n        if arr[j] < pivot:\n            i++; swap(arr[i],arr[j])swap(arr[i+1],arr[high])\nreturn i+1\n\n```\n\nPivot ends at final sorted position.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "QuickSort - Code",
+        "text": "Here is the implementation of quicksort:\ntext\n\n\n```\nfunction quickSort(arr,low,high):\n    if low < high:\n        pivotIdx=partition(arr,low,high)quickSort(arr,low,pivotIdx - 1)quickSort(arr,pivotIdx+1,high)\n```\n\nTime: O(nlogn)average. O(n2)worst case(already sorted with bad pivot choice).\nSpace: O(logn)average for recursion stack. O(n)worst case.\nStability: Unstable. Partitioning swaps elements across the pivot.\nOptimization: Use randomized pivot or median-of-three to avoid O(n2)on sorted input. Most library implementations use introsort: quicksort that switches to heapsort if recursion gets too deep.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Comparison Sort Summary",
+        "text": "SortTime(avg)Time(worst)SpaceStableSelectionO(n2)O(n2)O(1)NoInsertionO(n2)O(n2)O(1)YesMergeO(nlogn)O(nlogn)O(n)YesQuickO(nlogn)O(n2)O(logn)No\nUse insertion sort for small arrays or nearly-sorted data.\nUse merge sort when stability matters or you need guaranteed O(nlogn).\nUse quicksort for general purpose(with randomization).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Lower Bound for Comparison Sorts",
+        "text": "Comparison-based sorts can only compare pairs of elements. Each comparison has 2 outcomes(less or greater). With n! possible orderings,you need at least log2​(n!)comparisons to distinguish them all.\nStirling's approximation: log2​(n!)≈nlog2​n\nSo any comparison-based sort needs Ω(nlogn)comparisons in the worst case.\nThis is a lower bound,not an upper bound. You cannot do better than O(nlogn)with comparisons alone.\nEscape hatch: Non-comparison sorts(counting sort,radix sort)avoid comparisons entirely. They can achieve O(n)when the data has special properties.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Counting Sort",
+        "text": "Counting sort works when values are integers in a known range [0,k]. It counts how many times each value appears,then reconstructs the sorted array.\nThe idea:\n1. Create a count array of size k+1,initialized to 0.\n2. For each element,increment its count.\n3. Compute prefix sums of counts(cumulative counts).\n4. Place each element in its correct position using the counts.\nExample for [4,2,2,8,3,3,1] with max 8:\nCounts: [0,1,2,2,1,0,0,0,1]\nPrefix sums tell you where each value ends up.\nOutput: [1,2,2,3,3,4,8]\nNo comparisons are made between input elements.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Counting Sort - Code",
+        "text": "Here is the implementation of counting sort:\ntext\n\n\n```\nfunction countingSort(arr,k):\n    n=arr.length\n    count=array of size k+1,all zeros\n    output=array of size n\n\n    // Count occurrences\n    for i from 0 to n-1:\n        count[arr[i]]=count[arr[i]]+1\n\n    // Prefix sums\n    for i from 1 to k:\n        count[i]=count[i]+count[i-1]\n\n    // Build output(iterate backwards for stability)for i from n-1 down to 0:\n        output[count[arr[i]] - 1]=arr[i]\n        count[arr[i]]=count[arr[i]] - 1\n\n    return output\n\n```\n\nTime: O(n+k)where k is the range of values.\nSpace: O(n+k)for count and output arrays(excluding input array).\nStability: Stable(if you iterate backwards in the last step).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Radix Sort",
+        "text": "Radix sort: Sort digit by digit using stable counting sort.\n1. Find max to know digit count.\n2. For each digit position,counting sort on that digit.\nExample [170,45,75,90,802,24,2,66]:\n\nOnes: [170,90,802,2,24,45,75,66]\nTens: [802,2,24,45,66,170,75,90]\nHundreds: [2,24,45,66,75,90,170,802]\n\nEach pass stable,preserving earlier order when equal.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Radix Sort - Code",
+        "text": "Here is the implementation of radix sort:\ntext\n\n\n```\nfunction radixSort(arr):\n    maxVal=max(arr)exp=1\n    while maxVal / exp >=1:\n        countingSortByDigit(arr,exp)exp=exp * 10\n\nfunction countingSortByDigit(arr,exp):\n    n=arr.length\n    output=array of size n\n    count=array of size 10,all zeros\n\n    for i from 0 to n-1:\n        digit=(arr[i] / exp)mod 10\n        count[digit]=count[digit]+1\n\n    for i from 1 to 9:\n        count[i]=count[i]+count[i-1]\n\n    for i from n-1 down to 0:\n        digit=(arr[i] / exp)mod 10\n        output[count[digit] - 1]=arr[i]\n        count[digit]=count[digit] - 1\n\n    copy output to arr\n\n```\n\nTime: O(d⋅(n+k))where d is the number of digits and k is the base(10 for decimal).\nSpace: O(n+k)(excluding input array).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "When to Use Non-Comparison Sorts",
+        "text": "Non-comparison sorts beat O(nlogn)but only under specific conditions.\nUse counting sort when:\n\nValues are integers in a small range [0,k] where k=O(n).\nExample: Sorting exam scores from 0 to 100 for n=1000 students.\n\nUse radix sort when:\n\nValues are integers or strings with bounded length.\nThe number of digits d is small compared to logn.\nExample: Sorting n integers up to n2. Radix sort takes O(n)because d=2 in base n.\n\nAvoid them when:\n\nRange is huge(counting sort needs O(k)space).\nValues are floats or arbitrary objects.\nYou need in-place sorting with O(1)extra space.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Library Sorting",
+        "text": "Use library sorting by default. Heavily optimized.\nC++:  `std::sort`(introsort),`std::stable_sort`(merge sort).\nPython:  `sorted()`,`list.sort()`(Timsort). Stable.\nJava:  `Arrays.sort()`  dual-pivot quicksort for primitives,Timsort for objects.\nBenefits: Optimized for real data,correct edge cases,cache-friendly.\nCustom sort: When needing specific properties or sorting as part of algorithm(e.g.,counting inversions).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Custom Comparators",
+        "text": "Custom comparators let you sort by any criteria. A comparator takes two elements and returns whether the first should come before the second.\nC++example: Sort by absolute value.\ntext\n\n\n```\nsort(arr.begin(),arr.end(),[](int a,int b){\n    return abs(a)< abs(b);\n});\n\n```\n\nPython example: Sort by second element of tuples.\ntext\n\n\n```\narr.sort(key=lambda x: x[1])\n```\n\nCommon patterns:\n\nSort strings by length:  `key=len`  in Python.\nSort by multiple keys: return a tuple as the key.\nReverse order: negate the key or use  `reverse=True` .\n\nCustom comparators must define a consistent ordering. If a<b and b<c,then a<c(transitivity).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Sort Colors - Read Statement",
+        "text": "You're given an array with n objects colored red,white,or blue(represented as 0,1,2). Sort them in-place so objects of the same color are adjacent,in the order red,white,blue.\nYou must solve this without using the library sort function. The follow-up asks: can you do it in one pass using only constant extra space?",
+        "questions": [
+          {
+            "title": "Sort Colors - Read Statement",
+            "url": "https://leetcode.com/problems/sort-colors/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Sort Colors - Three Pointers",
+        "text": "The Dutch National Flag algorithm uses 3 pointers:  `low`,`mid`,and  `high` . The idea is to partition the array into three regions as you scan.\n1. Everything before  `low`  is 0(red).\n2. Everything between  `low`  and  `mid`  is 1(white).\n3. Everything after  `high`  is 2(blue).\n4. Everything between  `mid`  and  `high`  is unprocessed.\nYou process elements at  `mid`  and swap them into the correct region.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Sort Colors - Implementation",
+        "text": "Here is the implementation using the Dutch National Flag algorithm:\ntext\n\n\n```\nfunction sortColors(nums):\n    low=0\n    mid=0\n    high=nums.length - 1\n\n    while mid <=high:\n        if nums[mid]==0:\n            swap(nums,low,mid)low+=1\n            mid+=1\n        else if nums[mid]==1:\n            mid+=1\n        else:\n            swap(nums,mid,high)high -=1\n\n```\n\nThis runs in O(n)time with O(1)space(excluding input). Each element is visited at most twice.",
+        "questions": [
+          {
+            "title": "Sort Colors - Implementation",
+            "url": "https://leetcode.com/problems/sort-colors/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Merge Intervals - Read Statement",
+        "text": "Given an array of intervals where  `intervals[i]=[start,end]`,merge all overlapping intervals and return an array of non-overlapping intervals that cover all the input intervals.\nExample:  `[[1,3],[2,6],[8,10],[15,18]]`  becomes  `[[1,6],[8,10],[15,18]]`  because [1,3] and [2,6] overlap.",
+        "questions": [
+          {
+            "title": "Merge Intervals - Read Statement",
+            "url": "https://leetcode.com/problems/merge-intervals/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Merge Intervals - Approach",
+        "text": "The key insight: if you sort intervals by start time,overlapping intervals become adjacent. Then you can merge them in one pass.\n1. Sort intervals by their start value.\n2. Initialize result with the first interval.\n3. For each subsequent interval,check if it overlaps with the last interval in result.\n4. If overlap(current start≤last end),merge by updating last end to max(last end,current end).\n5. Otherwise,add current interval to result.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Merge Intervals - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction merge(intervals):\n    sort intervals by start\n    result=[intervals[0]]\n\n    for i from 1 to intervals.length - 1:\n        last=result[result.length - 1]\n        current=intervals[i]\n\n        if current[0] <=last[1]:\n            last[1]=max(last[1],current[1])else:\n            result.append(current)\nreturn result\n\n```\n\nSorting takes O(nlogn). The merge pass is O(n). Total: O(nlogn)time,O(n)space for output.",
+        "questions": [
+          {
+            "title": "Merge Intervals - Implementation",
+            "url": "https://leetcode.com/problems/merge-intervals/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Kth Largest Element - Read Statement",
+        "text": "Given an integer array  `nums`  and an integer  `k`,return the kth largest element. Note that it's the kth largest in sorted order,not the kth distinct element.\nExample: For  `[3,2,1,5,6,4]`  and k=2,the answer is 5(the sorted array is [6,5,4,3,2,1]). You could sort in O(nlogn),but can you do better?",
+        "questions": [
+          {
+            "title": "Kth Largest Element - Read Statement",
+            "url": "https://leetcode.com/problems/kth-largest-element-in-an-array/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Kth Largest Element - QuickSelect",
+        "text": "QuickSelect is a selection algorithm based on QuickSort's partition. Instead of sorting both halves,you only recurse into the half containing the kth element.\n1. Pick a pivot and partition the array.\n2. If the pivot lands at position k−1,you found the answer.\n3. If pivot position >k−1,recurse left.\n4. If pivot position <k−1,recurse right.\nAverage case is O(n)because you halve the problem each time: n+n/2+n/4+...=2n.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Kth Largest Element - Implementation",
+        "text": "Here is the implementation using QuickSelect:\ntext\n\n\n```\nfunction findKthLargest(nums,k):\n    target=nums.length - k\n    return quickSelect(nums,0,nums.length - 1,target)function quickSelect(nums,left,right,target):\n    pivotIdx=partition(nums,left,right)\nif pivotIdx==target:\n        return nums[pivotIdx]\n    else if pivotIdx < target:\n        return quickSelect(nums,pivotIdx+1,right,target)else:\n        return quickSelect(nums,left,pivotIdx - 1,target)\n```\n\nAverage O(n)time,worst case O(n2). Use random pivot to avoid worst case. Space is O(1)(excluding input)with tail recursion.",
+        "questions": [
+          {
+            "title": "Kth Largest Element - Implementation",
+            "url": "https://leetcode.com/problems/kth-largest-element-in-an-array/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Count Smaller Numbers - Read Statement",
+        "text": "Given an integer array  `nums`,return an array  `counts`  where  `counts[i]`  is the number of smaller elements to the right of  `nums[i]` .\nExample: For  `[5,2,6,1]`,output is  `[2,1,1,0]` . To the right of 5 there are 2 smaller elements(2 and 1). To the right of 2 there is 1 smaller(1).",
+        "questions": [
+          {
+            "title": "Count Smaller Numbers - Read Statement",
+            "url": "https://leetcode.com/problems/count-of-smaller-numbers-after-self/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Count Smaller Numbers - Merge Sort Approach",
+        "text": "This is a modified merge sort where you count inversions during the merge step. The key insight: when merging two sorted halves,if an element from the left half is placed after elements from the right half,those right elements are smaller and to its right.\n1. Instead of sorting values directly,sort indices paired with values.\n2. During merge,when placing a left element,count how many right elements were already placed.\n3. That count represents smaller elements to the right.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Count Smaller Numbers - Implementation",
+        "text": "Here is the implementation using merge sort:\ntext\n\n\n```\nfunction countSmaller(nums):\n    n=nums.length\n    counts=array of n zeros\n    indices=[0,1,2,...,n-1]\n\n    mergeSort(nums,indices,counts,0,n - 1)\nreturn counts\n\nfunction merge(nums,indices,counts,left,mid,right):\n    temp=[]\n    i=left,j=mid+1\n    rightCount=0\n\n    while i <=mid and j <=right:\n        if nums[indices[j]] < nums[indices[i]]:\n            temp.append(indices[j])rightCount+=1\n            j+=1\n        else:\n            counts[indices[i]]+=rightCount\n            temp.append(indices[i])i+=1\n\n```\n\nThis runs in O(nlogn)time and O(n)space.",
+        "questions": [
+          {
+            "title": "Count Smaller Numbers - Implementation",
+            "url": "https://leetcode.com/problems/count-of-smaller-numbers-after-self/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Largest Number - Read Statement",
+        "text": "Given a list of non-negative integers  `nums`,arrange them such that they form the largest number and return it as a string.\nExample: For  `[10,2]`,output is  `\"210\"`  not  `\"102\"` . For  `[3,30,34,5,9]`,output is  `\"9534330\"` . The challenge is defining the right comparison.",
+        "questions": [
+          {
+            "title": "Largest Number - Read Statement",
+            "url": "https://leetcode.com/problems/largest-number/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Largest Number - Custom Comparator",
+        "text": "You cannot sort by numeric value(30>3 but \"330\">\"303\"). The key insight: compare two numbers a and b by checking if ab>ba when concatenated as strings.\nFor 3 and 30: compare \"330\" vs \"303\". Since \"330\">\"303\",3 should come before 30.\nThis comparison is transitive,so standard sorting algorithms work correctly with this custom comparator.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Largest Number - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction largestNumber(nums):\n    strs=convert nums to strings\n\n    sort strs with comparator:\n        compare(a,b): return(b+a)compared to(a+b)\nif strs[0]==\"0\":\n        return \"0\"\n\n    return join(strs,\"\")\n```\n\nThe edge case check handles inputs like  `[0,0]`  which should return  `\"0\"`  not  `\"00\"` .\nSorting takes O(nlogn)comparisons. Each comparison is O(k)where k is digit count. Total: O(nklogn)time.",
+        "questions": [
+          {
+            "title": "Largest Number - Implementation",
+            "url": "https://leetcode.com/problems/largest-number/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Section Recap",
+        "text": "You've learned comparison sorts(selection,insertion,merge,quick,heap)and non-comparison sorts(counting,radix).\nQuick reference:\n\nSmall/nearly sorted: Insertion sort\nGeneral purpose: Library sort\nNeed stability: Merge sort/Timsort\nO(1)space,O(nlogn)guarantee: Heap sort\nIntegers in small range: Counting sort\nFew digits: Radix sort\n\nLower bound: Comparison sorts can't beat O(nlogn).",
+        "questions": [],
+        "articles": []
+      }
+    ]
+  },
+  {
+    "section_name": "2. Binary Search",
+    "units": [
+      {
+        "unit_name": "Intro",
+        "text": "Binary search finds a target in a sorted array by repeatedly halving the search space. Instead of checking every element(O(n)),you check only O(logn)elements.\nThe core insight: If the array is sorted and your target is greater than the middle element,it must be in the right half. Discard the left half. Repeat.\nI'll teach you classic binary search,lower/upper bounds,binary search on the answer(for optimization problems),and binary search on real numbers. You'll also learn the common mistakes that cause infinite loops and off-by-one errors.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "The Core Idea",
+        "text": "Binary search works on any space with a yes/no question that partitions it.\n1. Define [low,high].\n2. Pick mid=(low+high)/2.\n3. Check condition at mid.\n4. Narrow to [low,mid] or [mid+1,high].\n5. Repeat until one element.\nO(logn): Each step halves the space. After k steps: n/2k elements. When n/2k=1,k=log2​n.\nRequires monotonic property: condition true on one side,false on the other.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Classic Binary Search",
+        "text": "",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Classic Binary Search - Code",
+        "text": "Here is the implementation of binary search:\ntext\n\n\n```\nfunction binarySearch(arr,target):\n    low=0\n    high=arr.length - 1\n\n    while low <=high:\n        mid=low+(high - low)/ 2\n        if arr[mid]==target:\n            return mid\n        else if arr[mid] < target:\n            low=mid+1\n        else:\n            high=mid - 1\n\n    return -1\n\n```\n\nWhy  `low+(high - low)/ 2` ? To avoid integer overflow.  `(low+high)/ 2`  can overflow if  `low`  and  `high`  are both large.\nWhy  `low <=high` ? The search space is valid as long as there's at least one element. When  `low > high`,the space is empty.\nTime: O(logn).\nSpace: O(1)(excluding input array).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Lower Bound",
+        "text": "Lower bound: First position where target could insert while keeping sorted. Index of first≥target.\nExamples in [1,3,5,5,7,9]:\n\nLower bound of 5: index 2\nLower bound of 6: index 4\nLower bound of 10: index 6(past end)Uses: First occurrence,count elements < value,insert position.\nMore versatile than exact match. Check if lower bound equals target for exact match.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Lower Bound - Code",
+        "text": "Here is the implementation of lower bound:\ntext\n\n\n```\nfunction lowerBound(arr,target):\n    low=0\n    high=arr.length\n\n    while low < high:\n        mid=low+(high - low)/ 2\n        if arr[mid] < target:\n            low=mid+1\n        else:\n            high=mid\n\n    return low\n\n```\n\nKey differences from exact-match:\n1.  `high=arr.length`(not  `arr.length - 1`)because the answer can be past the end.\n2.  `while low < high`(not  `<=`)because we narrow to a single point.\n3. When  `arr[mid] >=target`,set  `high=mid`(not  `mid - 1`)because  `mid`  might be the answer.\nResult:  `low`  is the first index where  `arr[low] >=target` . If all elements are smaller,`low==arr.length` .",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Upper Bound",
+        "text": "Upper bound finds the first element strictly greater than the target. Combined with lower bound,you can count occurrences.\nExample: Upper bound of 5 in [1,3,5,5,7,9] is index 4(the 7).\nCounting occurrences: The count of 5 is  `upperBound(5)- lowerBound(5)=4 - 2=2` .\ntext\n\n\n```\nfunction upperBound(arr,target):\n    low=0\n    high=arr.length\n\n    while low < high:\n        mid=low+(high - low)/ 2\n        if arr[mid] <=target:\n            low=mid+1\n        else:\n            high=mid\n\n    return low\n\n```\n\nThe only difference from lower bound: use  `<=`  instead of  `<`  when comparing.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Find First and Last",
+        "text": "Using lower bound and upper bound together,you can find the first and last occurrence of a value.\nProblem: Find the starting and ending position of a target in a sorted array.\nSolution:\ntext\n\n\n```\nfunction searchRange(arr,target):\n    first=lowerBound(arr,target)\nif first==arr.length or arr[first] !=target:\n        return [-1,-1]\n\n    last=upperBound(arr,target)- 1\n    return [first,last]\n\n```\n\nExample: Find range of 5 in [1,3,5,5,5,7,9].\n\nLower bound of 5: index 2.\nUpper bound of 5: index 5.\nRange: [2,4].\n\nTime: O(logn)for two binary searches.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Binary Search on the Answer",
+        "text": "Search for the answer in a range of possible values.\nPattern: If checking validity is O(f(n))and validity is monotonic,binary search finds optimal in O(f(n)⋅log(range)).\nExample: Minimum speed to finish trip in h hours.\n\nAnswer in [1,maxDist].\nCheck if speed v finishes in h hours.\nHigher speeds valid if lower are. Monotonic.\n\nBinary search on speed,check feasibility at midpoint.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Koko Eating Bananas - Code",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction minEatingSpeed(piles,h):\n    low=1\n    high=max(piles)while low < high:\n        mid=low+(high - low)/ 2\n        if canFinish(piles,mid,h):\n            high=mid\n        else:\n            low=mid+1\n\n    return low\n\nfunction canFinish(piles,k,h):\n    hours=0\n    for pile in piles:\n        hours=hours+ceil(pile / k)\nreturn hours <=h\n\n```\n\nPattern recognition: Whenever you see \"minimum X such that condition is satisfied\" or \"maximum X such that condition is satisfied,\" think binary search on the answer.\nThe answer is low after the loop. Since we use  `high=mid`  when valid,we find the smallest valid answer.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Example - Capacity to Ship Packages",
+        "text": "Problem: Ship packages over D days. Find minimum capacity.\nApproach: Binary search on capacity [max(weights),∑(weights)]. For each capacity,simulate loading and count days.\ntext\n\n\n```\nfunction shipWithinDays(weights,D):\n    low=max(weights)high=sum(weights)while low < high:\n        mid=(low+high)/ 2\n        if canShip(weights,mid,D):\n            high=mid\n        else:\n            low=mid+1\n    return low\n\n```\n\nTime: O(nlog(∑weights)). Space: O(1).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Binary Search on Real Numbers",
+        "text": "Binary search on reals uses precision threshold or fixed iterations.\nExample: x​\ntext\n\n\n```\nfunction sqrt(x):\n    lo=0,hi=max(1,x)for i from 1 to 100:\n        mid=(lo+hi)/ 2\n        if mid * mid < x: lo=mid\n        else: hi=mid\n    return lo\n\n```\n\nWhy 100 iterations? Each halves error. After 100: error <(hi−lo)/2100,negligible.\nAlternative:  `while hi - lo > 1e-9` . Careful with floating-point comparison.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Infinite Loops",
+        "text": "",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Off-by-One Errors",
+        "text": "Mistake 1: Using  `high=arr.length - 1`  for lower bound.\nLower bound can return  `arr.length`  if all elements are smaller. Initialize  `high=arr.length` .\nMistake 2: Using  `while low <=high`  for lower bound.\nLower bound converges when  `low==high` . Using  `<=`  causes extra iterations or wrong answers.\nMistake 3: Returning  `mid`  instead of  `low`  after the loop.\nFor lower bound,the answer is  `low`(which equals  `high`)after the loop ends.\nDebugging tip: Trace through with a 2-element array like [1,3] searching for 0,1,2,3,and 4. Cover all edge cases.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Midpoint Overflow",
+        "text": "In languages with fixed-size integers(C++,Java),`low+high`  can overflow.\nExample:  `low=2^30`,`high=2^30` . Sum is 231,which overflows a signed 32-bit integer.\nFix: Use  `mid=low+(high - low)/ 2` . This is mathematically equivalent but avoids overflow.\nPython note: Python integers have arbitrary precision,so overflow isn't a concern. But using the safe formula is good practice.\nAlternative in some languages: Use unsigned integers or 64-bit integers. But  `low+(high - low)/ 2`  is the universal fix.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Template - Find Minimum Valid",
+        "text": "Problem type: Find the minimum x such that  `isValid(x)`  is true,where validity is monotonic(once true,stays true for larger x).\ntext\n\n\n```\nfunction findMinValid(lo,hi):\n    while lo < hi:\n        mid=lo+(hi - lo)/ 2\n        if isValid(mid):\n            hi=mid\n        else:\n            lo=mid+1\n    return lo\n\n```\n\nInvariant:  `hi`  is always a valid answer(or past the range).  `lo`  is the first potentially valid answer.\nAfter loop:  `lo==hi`  is the minimum valid value.\nExample uses:\n\nMinimum speed to finish in time.\nMinimum capacity to ship in days.\nFirst version that is bad(git bisect).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Template - Find Maximum Valid",
+        "text": "Find max x where  `isValid(x)`  is true(monotonic: once false,stays false).\ntext\n\n\n```\nfunction findMaxValid(lo,hi):\n    while lo < hi:\n        mid=lo+(hi - lo+1)/ 2\n        if isValid(mid): lo=mid\n        else: hi=mid - 1\n    return lo\n\n```\n\nNote:  `+1`  in mid rounds up to avoid infinite loops.\nUses: Max weight in bag,largest square in grid,last good version.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "First Bad Version - Read Statement",
+        "text": "You're a product manager with n versions [1,2,...,n]. One version is bad,and all versions after it are also bad. You have an API  `isBadVersion(version)`  that returns whether a version is bad.\nFind the first bad version while minimizing API calls. It's the classic lower bound problem in disguise.",
+        "questions": [
+          {
+            "title": "First Bad Version - Read Statement",
+            "url": "https://leetcode.com/problems/first-bad-version/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "First Bad Version - Lower Bound Pattern",
+        "text": "The versions form a pattern:  `[good,good,good,bad,bad,bad]` . You need to find the first  `bad` . This is exactly lower bound: find the first position where a condition becomes true.\n1. Set  `left=1`,`right=n` .\n2. While  `left < right`,compute  `mid=left+(right - left)/ 2` .\n3. If  `isBadVersion(mid)`  is true,the first bad is at  `mid`  or earlier. Set  `right=mid` .\n4. Otherwise,set  `left=mid+1` .\n5. Return  `left` .",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "First Bad Version - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction firstBadVersion(n):\n    left=1\n    right=n\n\n    while left < right:\n        mid=left+(right - left)/ 2\n\n        if isBadVersion(mid):\n            right=mid\n        else:\n            left=mid+1\n\n    return left\n\n```\n\nNote: use  `left+(right - left)/ 2`  instead of  `(left+right)/ 2`  to avoid integer overflow. This runs in O(logn)time with O(1)space(excluding input).",
+        "questions": [
+          {
+            "title": "First Bad Version - Implementation",
+            "url": "https://leetcode.com/problems/first-bad-version/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Search in Rotated Array - Read Statement",
+        "text": "An ascending sorted array was rotated at an unknown pivot. For example,`[0,1,2,4,5,6,7]`  might become  `[4,5,6,7,0,1,2]` .\nGiven the rotated array and a target,return the index of the target or−1 if not found. You must achieve O(logn)time.",
+        "questions": [
+          {
+            "title": "Search in Rotated Array - Read Statement",
+            "url": "https://leetcode.com/problems/search-in-rotated-sorted-array/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Search in Rotated Array - Approach",
+        "text": "Even though the array is rotated,one half is always sorted. Use this to decide which half to search.\n1. Find  `mid`  and check if  `nums[mid]==target` .\n2. Determine which half is sorted by comparing  `nums[left]`  with  `nums[mid]` .\n3. If left half is sorted(`nums[left] <=nums[mid]`):\n\nIf target is in range  `[nums[left],nums[mid])`,search left.\nOtherwise search right.\n\n4. If right half is sorted:\n\nIf target is in range  `(nums[mid],nums[right]]`,search right.\nOtherwise search left.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Search in Rotated Array - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction search(nums,target):\n    left=0\n    right=nums.length - 1\n\n    while left <=right:\n        mid=(left+right)/ 2\n\n        if nums[mid]==target:\n            return mid\n\n        if nums[left] <=nums[mid]:\n            if nums[left] <=target < nums[mid]:\n                right=mid - 1\n            else:\n                left=mid+1\n        else:\n            if nums[mid] < target <=nums[right]:\n                left=mid+1\n            else:\n                right=mid - 1\n\n    return -1\n\n```\n\nThis runs in O(logn)time and O(1)space(excluding input).",
+        "questions": [
+          {
+            "title": "Search in Rotated Array - Implementation",
+            "url": "https://leetcode.com/problems/search-in-rotated-sorted-array/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Koko Eating Bananas - Read Statement",
+        "text": "Koko loves bananas. There are n piles with  `piles[i]`  bananas. Guards return in h hours. Koko eats at speed k bananas per hour. Each hour she picks one pile and eats k bananas. If the pile has fewer than k,she eats the whole pile and doesn't eat more that hour.\nFind the minimum integer k such that she can eat all bananas within h hours.",
+        "questions": [
+          {
+            "title": "Koko Eating Bananas - Read Statement",
+            "url": "https://leetcode.com/problems/koko-eating-bananas/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Koko Eating Bananas - Binary Search on Answer",
+        "text": "Instead of searching an array,you search over possible eating speeds. The key insight: if speed k works,any speed >k also works. This monotonicity enables binary search.\n1. Search range: [1,max(piles)].\n2. For each candidate speed  `mid`,compute total hours needed: ∑⌈piles[i]/mid⌉.\n3. If hours≤h,the speed works. Try smaller speeds(set  `right=mid`).\n4. If hours >h,speed is too slow. Set  `left=mid+1` .\n5. Return  `left`  as the minimum valid speed.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Koko Eating Bananas - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction minEatingSpeed(piles,h):\n    left=1\n    right=max(piles)while left < right:\n        mid=(left+right)/ 2\n        hours=hoursNeeded(piles,mid)\nif hours <=h:\n            right=mid\n        else:\n            left=mid+1\n\n    return left\n\nfunction hoursNeeded(piles,speed):\n    total=0\n    for pile in piles:\n        total+=ceil(pile / speed)\nreturn total\n\n```\n\nBinary search is O(logM)where M=max(piles). Each feasibility check is O(n). Total: O(nlogM)time.",
+        "questions": [
+          {
+            "title": "Koko Eating Bananas - Implementation",
+            "url": "https://leetcode.com/problems/koko-eating-bananas/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Find First and Last Position - Read Statement",
+        "text": "Given a sorted array of integers and a target,find the starting and ending position of the target. If the target is not found,return  `[-1,-1]` .\nYou must write an algorithm with O(logn)runtime.\nExample: For  `[5,7,7,8,8,10]`  and target 8,return  `[3,4]` . You need both lower bound and upper bound.",
+        "questions": [
+          {
+            "title": "Find First and Last Position - Read Statement",
+            "url": "https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Find First and Last Position - Two Binary Searches",
+        "text": "Run two binary searches: one for the leftmost occurrence(lower bound)and one for the rightmost(upper bound).\nLower bound: Find first index where  `nums[i] >=target` .\nUpper bound: Find first index where  `nums[i] > target`,then subtract 1.\nAlternatively,find lower bound of  `target`  and lower bound of  `target+1`,then subtract 1 from the second result.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Find First and Last Position - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction searchRange(nums,target):\n    left=lowerBound(nums,target)\nif left==nums.length or nums[left] !=target:\n        return [-1,-1]\n\n    right=lowerBound(nums,target+1)- 1\n    return [left,right]\n\nfunction lowerBound(nums,target):\n    left=0\n    right=nums.length\n\n    while left < right:\n        mid=(left+right)/ 2\n        if nums[mid] < target:\n            left=mid+1\n        else:\n            right=mid\n\n    return left\n\n```\n\nTwo binary searches: O(logn)time,O(1)space(excluding input).",
+        "questions": [
+          {
+            "title": "Find First and Last Position - Implementation",
+            "url": "https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Median of Two Sorted Arrays - Read Statement",
+        "text": "Given two sorted arrays  `nums1`  and  `nums2`  of sizes m and n,return the median of the combined sorted array.\nThe overall runtime must be O(log(m+n)).",
+        "questions": [
+          {
+            "title": "Median of Two Sorted Arrays - Read Statement",
+            "url": "https://leetcode.com/problems/median-of-two-sorted-arrays/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Median of Two Sorted Arrays - Partition Approach",
+        "text": "Binary search to find the correct partition in both arrays. If you take i elements from  `nums1`  and j elements from  `nums2`  where i+j=(m+n+1)/2,the median is determined by the boundary elements.\n1. Binary search on i(partition point in smaller array).\n2. j=(m+n+1)/2−i.\n3. Valid partition:  `maxLeft1 <=minRight2`  and  `maxLeft2 <=minRight1` .\n4. If  `maxLeft1 > minRight2`,decrease i. If  `maxLeft2 > minRight1`,increase i.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Median of Two Sorted Arrays - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction findMedianSortedArrays(nums1,nums2):\n    if nums1.length > nums2.length:\n        swap(nums1,nums2)m=nums1.length,n=nums2.length\n    left=0,right=m\n    half=(m+n+1)/ 2\n\n    while left <=right:\n        i=(left+right)/ 2\n        j=half - i\n\n        left1=nums1[i-1] if i > 0 else -INF\n        right1=nums1[i] if i < m else+INF\n        left2=nums2[j-1] if j > 0 else -INF\n        right2=nums2[j] if j < n else+INF\n\n        if left1 <=right2 and left2 <=right1:\n            if(m+n)is odd:\n                return max(left1,left2)return(max(left1,left2)+min(right1,right2))/ 2\n        else if left1 > right2:\n            right=i - 1\n        else:\n            left=i+1\n\n```\n\nO(log(min(m,n)))time,O(1)space(excluding input).",
+        "questions": [
+          {
+            "title": "Median of Two Sorted Arrays - Implementation",
+            "url": "https://leetcode.com/problems/median-of-two-sorted-arrays/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Section Recap",
+        "text": "You've learned classic binary search,lower/upper bounds,and binary search on the answer.\nWhen to use:\n\nSorted array lookups\nBoundaries(first/last occurrence)Optimization with monotonic feasibility\n\nKey patterns:\n\nLower bound: First≥target\nUpper bound: First > target\nOn the answer: Binary search feasibility checks\n\nWatch for: Integer overflow in  `mid`,off-by-one in bounds,and infinite loops from wrong rounding.",
+        "questions": [],
+        "articles": []
+      }
+    ]
+  },
+  {
+    "section_name": "3. Two Pointers",
+    "units": [
+      {
+        "unit_name": "Intro",
+        "text": "Two pointers uses two indices to traverse a data structure,reducing time complexity from O(n2)to O(n).\nThe core insight: Instead of nested loops where the inner loop starts from scratch,move pointers based on the current state. Each pointer moves at most n times,giving O(n)total.\nI'll teach you three patterns: opposite direction(converging),same direction(fast and slow),and sorted array pairing. You'll learn when each applies and how to identify two-pointer problems in interviews.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Why Two Pointers Works",
+        "text": "Finding a pair with target sum in sorted array:\nBrute force: All pairs. O(n2).\nTwo pointers:  `left=0`,`right=n-1` .\n\nSum < target: move left right(need larger)Sum > target: move right left(need smaller)Equal: found\n\nWhy it works: Moving left discards pairs with current left and smaller rights. Sorted property guarantees those sums are smaller. No need to check.\nEach pointer moves at most n times. O(n).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Pattern 1 - Opposite Direction",
+        "text": "",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Pattern 2 - Same Direction",
+        "text": "The same direction pattern has both pointers starting at the beginning(or end),moving in the same direction at different speeds.\nWhen to use:\n\nRemoving elements in place.\nPartitioning arrays.\nDetecting cycles(fast/slow).\n\nSubpatterns:\n1. Fast and slow: One pointer moves twice as fast. Used for cycle detection.\n2. Read and write: One pointer reads,one writes valid elements. Used for in-place removal.\n3. Anchor and explorer: One pointer stays,one explores ahead.\ncore idea: The slow pointer tracks the \"good\" portion. The fast pointer scans ahead.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Example - Remove Duplicates",
+        "text": "Problem: Remove duplicates from sorted array in place.\ntext\n\n\n```\nfunction removeDuplicates(nums):\n    if nums.length==0: return 0\n    write=1\n    for read from 1 to nums.length - 1:\n        if nums[read] !=nums[read-1]:\n            nums[write]=nums[read]\n            write++return write\n\n```\n\nExample: [1,1,2,2,3] → [1,2,3,...],length 3.\nTime: O(n). Space: O(1).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Example - Move Zeroes",
+        "text": "Problem: Move zeroes to end,maintain order. In place.\ntext\n\n\n```\nfunction moveZeroes(nums):\n    write=0\n    for read from 0 to nums.length - 1:\n        if nums[read] !=0:\n            nums[write]=nums[read]\n            write++for i from write to nums.length - 1:\n        nums[i]=0\n\n```\n\nAlternative: Swap non-zeros to front in single pass.\nTime: O(n). Space: O(1).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Fast and Slow Pointers",
+        "text": "Fast/slow pointers(Floyd's): fast moves 2×slow's speed.\nCycle detection:\ntext\n\n\n```\nslow=fast=head\nwhile fast and fast.next:\n    slow=slow.next\n    fast=fast.next.next\n    if slow==fast: return true\nreturn false\n\n```\n\nWhy it works: In a cycle,fast laps slow. Distance decreases by 1 each step.\nMiddle of list: When fast reaches end,slow is at middle.\nTime: O(n). Space: O(1).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Linked List Cycle II",
+        "text": "Problem: Find where a linked list cycle begins.\nApproach:\n1. Fast/slow pointers find meeting point in cycle.\n2. Reset one to head,move both at same speed.\n3. They meet at cycle start.\nMath: Fast travels a+b+c,slow travels a+b. Since 2(a+b)=a+b+c,we get a=c−b. From meeting point,c−b steps reaches cycle start,same as a steps from head.\nTime: O(n). Space: O(1).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Pattern 3 - Sorted Array Tricks",
+        "text": "Container With Most Water: Two pointers from ends. Move shorter line inward(taller can't help with shorter).\nTrapping Rain Water: Water at i=min(maxLeft,maxRight)−height[i]. Precompute or use two pointers.\nMerge Sorted Arrays: Compare heads,take smaller. Advance that pointer.\nLinked List Intersection: Sync lengths or switch heads at end.\nAll use sorted property or structural monotonicity to avoid nested loops.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Example - Sort Colors",
+        "text": "Problem: Sort array with values 0,1,2 in one pass.\nApproach: Dutch National Flag with three pointers.\ntext\n\n\n```\nfunction sortColors(nums):\n    low=mid=0\n    high=nums.length - 1\n\n    while mid <=high:\n        if nums[mid]==0:\n            swap(nums[low],nums[mid])low++; mid++else if nums[mid]==1:\n            mid++else:\n            swap(nums[mid],nums[high])high--\n\n```\n\nTime: O(n). Space: O(1).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "When Two Pointers Fails",
+        "text": "Two pointers fails when:\nUnsorted without monotonic property: Need hash maps if sorting changes answer.\nAll pairs needed: Can't avoid O(n2).\nNon-monotonic constraints: Product with negatives may miss solutions.\nPointer movement unclear: If moving doesn't narrow search space,rethink.\nAlternatives: Hash maps for unsorted two-sum,sliding window for subarrays,binary search for jumps.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Two Pointers vs Sliding Window",
+        "text": "Two pointers:\n\nPointers move independently\nCan move opposite directions\nFocus on pairs or partitioning\nExamples: Two Sum,3Sum,Container\n\nSliding window:\n\nContiguous subarray/substring\nLeft and right form bounds\nUsually both move right\nExamples: Max sum,longest substring\n\nKey difference: Two pointers for pairs,sliding window for contiguous ranges. Sliding window is a specialization of two pointers.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Two Sum II - Read Statement",
+        "text": "Given a 1-indexed sorted array and a target,find two numbers that add up to the target. Return their indices as  `[index1,index2]` .\nYou may not use the same element twice. There is exactly one solution.\nExample: For  `[2,7,11,15]`  and target 9,return  `[1,2]`  because 2+7=9.",
+        "questions": [
+          {
+            "title": "Two Sum II - Read Statement",
+            "url": "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Two Sum II - Converging Pointers",
+        "text": "Place one pointer at the start and one at the end. The sorted property lets you decide which pointer to move.\n1. Compute  `sum=nums[left]+nums[right]` .\n2. If  `sum==target`,return the indices.\n3. If  `sum < target`,you need a larger sum. Move  `left`  right.\n4. If  `sum > target`,you need a smaller sum. Move  `right`  left.\nThis works because moving the wrong pointer can only make things worse.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Two Sum II - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction twoSum(numbers,target):\n    left=0\n    right=numbers.length - 1\n\n    while left < right:\n        sum=numbers[left]+numbers[right]\n\n        if sum==target:\n            return [left+1,right+1]\n        else if sum < target:\n            left+=1\n        else:\n            right -=1\n\n    return [-1,-1]\n\n```\n\nThis runs in O(n)time and O(1)space(excluding input). Each element is visited at most once.",
+        "questions": [
+          {
+            "title": "Two Sum II - Implementation",
+            "url": "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Container With Most Water - Read Statement",
+        "text": "Given n non-negative integers representing heights of vertical lines,find two lines that form a container holding the most water.\nThe container's area is min(height[i],height[j])×(j−i).\nExample: For heights  `[1,8,6,2,5,4,8,3,7]`,the max area is 49(between heights 8 and 7,width 7).",
+        "questions": [
+          {
+            "title": "Container With Most Water - Read Statement",
+            "url": "https://leetcode.com/problems/container-with-most-water/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Container With Most Water - Greedy Choice",
+        "text": "Start with pointers at both ends(maximum width). The only way to potentially increase area is to find a taller line.\n1. Compute area with current pointers.\n2. Move the pointer pointing to the shorter line inward.\n3. The key insight: moving the taller line can never help. The area is limited by the shorter line,and width decreases.\nThis greedy choice is provably optimal.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Container With Most Water - Implementation",
+        "text": "",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "3Sum - Read Statement",
+        "text": "Given an integer array,return all unique triplets  `[nums[i],nums[j],nums[k]]`  such that i=j=k and  `nums[i]+nums[j]+nums[k]==0` .\nThe solution must not contain duplicate triplets.",
+        "questions": [
+          {
+            "title": "3Sum - Read Statement",
+            "url": "https://leetcode.com/problems/3sum/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "3Sum - Reduce to Two Sum",
+        "text": "Sort the array first. Then fix one element and use two pointers to find the other two.\n1. Sort the array.\n2. For each index i,find pairs in  `nums[i+1:]`  that sum to  `-nums[i]` .\n3. Use two pointers(like Two Sum II)for the pair search.\n4. Skip duplicates: if  `nums[i]==nums[i-1]`,skip. Similarly skip duplicate left/right values.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "3Sum - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction threeSum(nums):\n    sort(nums)result=[]\n\n    for i from 0 to nums.length - 3:\n        if i > 0 and nums[i]==nums[i-1]:\n            continue\n\n        left=i+1\n        right=nums.length - 1\n        target=-nums[i]\n\n        while left < right:\n            sum=nums[left]+nums[right]\n            if sum==target:\n                result.append([nums[i],nums[left],nums[right]])while left < right and nums[left]==nums[left+1]: left++while left < right and nums[right]==nums[right-1]: right--\n                left++right--\n            else if sum < target:\n                left++else:\n                right--\n\n    return result\n\n```\n\nO(n2)time,O(1)extra space(excluding output).",
+        "questions": [
+          {
+            "title": "3Sum - Implementation",
+            "url": "https://leetcode.com/problems/3sum/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Trapping Rain Water - Read Statement",
+        "text": "Given n non-negative integers representing an elevation map where the width of each bar is 1,compute how much water it can trap after raining.\nExample: For  `[0,1,0,2,1,0,1,3,2,1,2,1]`,the answer is 6 units.",
+        "questions": [
+          {
+            "title": "Trapping Rain Water - Read Statement",
+            "url": "https://leetcode.com/problems/trapping-rain-water/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Trapping Rain Water - Two Pointer Approach",
+        "text": "Water at position i equals min(maxLeft,maxRight)−height[i]. Instead of precomputing arrays,use two pointers with running maximums.\n1. Track  `leftMax`  and  `rightMax`  as you go.\n2. If  `leftMax < rightMax`,process left pointer. Water is bounded by  `leftMax` .\n3. Otherwise process right pointer. Water is bounded by  `rightMax` .\n4. The smaller of the two maxes determines the water level at that position.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Trapping Rain Water - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction trap(height):\n    left=0\n    right=height.length - 1\n    leftMax=0\n    rightMax=0\n    water=0\n\n    while left < right:\n        if height[left] < height[right]:\n            if height[left] >=leftMax:\n                leftMax=height[left]\n            else:\n                water+=leftMax - height[left]\n            left+=1\n        else:\n            if height[right] >=rightMax:\n                rightMax=height[right]\n            else:\n                water+=rightMax - height[right]\n            right -=1\n\n    return water\n\n```\n\nO(n)time,O(1)space(excluding input). Each position visited once.",
+        "questions": [
+          {
+            "title": "Trapping Rain Water - Implementation",
+            "url": "https://leetcode.com/problems/trapping-rain-water/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Linked List Cycle - Read Statement",
+        "text": "Given the head of a linked list,determine if the list has a cycle. A cycle exists if some node can be reached again by following  `next`  pointers.\nReturn  `true`  if there is a cycle,`false`  otherwise. You must solve it with O(1)space(excluding input).",
+        "questions": [
+          {
+            "title": "Linked List Cycle - Read Statement",
+            "url": "https://leetcode.com/problems/linked-list-cycle/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Linked List Cycle - Floyd's Algorithm",
+        "text": "Use two pointers: slow moves 1 step,fast moves 2 steps. If there's a cycle,they will eventually meet.\n1. Initialize both pointers at head.\n2. Move slow by 1,fast by 2.\n3. If fast reaches null,no cycle.\n4. If slow meets fast,there's a cycle.\nWhy it works: in a cycle,fast gains 1 step per iteration. If the cycle has length L,they meet within L iterations.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Linked List Cycle - Implementation",
+        "text": "Here is the implementation using Floyd's algorithm:\ntext\n\n\n```\nfunction hasCycle(head):\n    if head==null:\n        return false\n\n    slow=head\n    fast=head\n\n    while fast !=null and fast.next !=null:\n        slow=slow.next\n        fast=fast.next.next\n\n        if slow==fast:\n            return true\n\n    return false\n\n```\n\nThis runs in O(n)time and O(1)space(excluding input). Floyd's Tortoise and Hare algorithm is the standard approach for cycle detection.",
+        "questions": [
+          {
+            "title": "Linked List Cycle - Implementation",
+            "url": "https://leetcode.com/problems/linked-list-cycle/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Section Recap",
+        "text": "Three patterns: opposite direction,same direction,sorted tricks.\nRecognition:\n\nPairs in sorted array → Opposite pointers\nIn-place modification → Read/write\nCycle detection → Fast/slow\nMerging sorted → Two forward pointers\n\nRequirements: Monotonic property,pointer movement makes progress,can discard search space.\nReduces O(n2)to O(n). Building block for sliding window.",
+        "questions": [],
+        "articles": []
+      }
+    ]
+  },
+  {
+    "section_name": "4. Sliding Window",
+    "units": [
+      {
+        "unit_name": "Intro",
+        "text": "Sliding window maintains a contiguous range of elements,expanding and shrinking to find optimal subarrays or substrings.\nThe core insight: Instead of recomputing from scratch for each starting position(O(n2)),update incrementally as the window slides(O(n)).\nI'll teach you fixed-size windows,variable-size windows,and common patterns like \"longest substring with condition\" and \"minimum window containing.\" You'll learn when sliding window applies and how to implement it without bugs.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Fixed-Size Window",
+        "text": "Fixed window of size k slides across array,updating a running value.\nMax sum of k elements:\ntext\n\n\n```\nfunction maxSumSubarray(arr,k):\n    windowSum=sum of arr[0..k-1]\n    maxSum=windowSum\n    for i from k to n-1:\n        windowSum=windowSum+arr[i] - arr[i-k]\n        maxSum=max(maxSum,windowSum)\nreturn maxSum\n\n```\n\nAdd entering element,remove leaving. O(1)update.\nTime: O(n). Space: O(1).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Fixed Window - Example",
+        "text": "Problem: Max average of k consecutive elements.\ntext\n\n\n```\nfunction findMaxAverage(nums,k):\n    windowSum=sum of nums[0..k-1]\n    maxSum=windowSum\n    for i from k to nums.length - 1:\n        windowSum=windowSum+nums[i] - nums[i-k]\n        maxSum=max(maxSum,windowSum)\nreturn maxSum / k\n\n```\n\nExample: [1,12,−5,−6,50,3],k=4. Sums: 2,51,42. Max=51. Avg=12.75.\nTime: O(n). Space: O(1).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Variable-Size Window",
+        "text": "Variable-size windows expand when adding elements is beneficial and shrink when a constraint is violated.\nTemplate for \"find longest subarray with condition\":\ntext\n\n\n```\nleft=0\nfor right from 0 to n-1:\n    // Expand: add arr[right] to window state\n\n    while window violates condition:\n        // Shrink: remove arr[left] from window state\n        left=left+1\n\n    // Window [left,right] is valid\n    update answer with(right - left+1)\n```\n\ncore idea:  `right`  always moves forward.  `left`  only moves forward(never backward). Each element is added once and removed at most once. Total: O(n).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Longest Substring Without Repeating",
+        "text": "Problem: Longest substring without repeating characters.\ntext\n\n\n```\nfunction lengthOfLongestSubstring(s):\n    charSet=empty set\n    left=0,maxLen=0\n\n    for right from 0 to s.length - 1:\n        while s[right] in charSet:\n            charSet.remove(s[left])left++charSet.add(s[right])maxLen=max(maxLen,right - left+1)\nreturn maxLen\n\n```\n\nExample: \"abcabcbb\" → max 3(\"abc\").\nTime: O(n). Space: O(min(n,alphabet)).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Optimization - Jump Left Pointer",
+        "text": "Jump  `left`  directly using a map of last positions.\ntext\n\n\n```\nfunction lengthOfLongestSubstring(s):\n    charIndex=empty map\n    left=0,maxLen=0\n\n    for right from 0 to s.length - 1:\n        if s[right] in charIndex and charIndex[s[right]] >=left:\n            left=charIndex[s[right]]+1\n        charIndex[s[right]]=right\n        maxLen=max(maxLen,right - left+1)\nreturn maxLen\n\n```\n\nImprovement: Skip multiple characters at once instead of shrinking one by one.\nTime: O(n). Space: O(min(n,alphabet)).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Longest Substring with K Distinct",
+        "text": "Problem: Longest substring with at most k distinct characters.\ntext\n\n\n```\nfunction lengthOfLongestSubstringKDistinct(s,k):\n    charCount=empty map\n    left=0,maxLen=0\n\n    for right from 0 to s.length - 1:\n        charCount[s[right]]++while charCount.size > k:\n            charCount[s[left]]--\n            if charCount[s[left]]==0:\n                charCount.remove(s[left])left++maxLen=max(maxLen,right - left+1)\nreturn maxLen\n\n```\n\nTime: O(n). Space: O(k).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Minimum Window Substring",
+        "text": "Problem: Find the minimum window in s containing all characters of t.\nApproach: Expand until window contains all required characters. Track with a frequency map and counter for satisfied character types. Once valid,shrink from left while maintaining validity,updating the answer.\nTime: O(∣s∣+∣t∣). Each character visited at most twice.\nSpace: O(∣s∣+∣t∣)for frequency maps.\nSee the implementation unit for code.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Pattern - At Most K",
+        "text": "Problem: Count subarrays with at most k distinct elements.\nApproach: For each right endpoint,find smallest valid left. Count: right−left+1 subarrays ending at right.\nTrick: \"Exactly k\"=\"At most k\"−\"At most k−1\". Counting exactly k directly is complex; subtracting two simpler counts avoids edge cases.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "At Most K - Helper Function",
+        "text": "text\n\n\n```\nfunction atMost(nums,k):\n    count=empty map\n    left=0\n    result=0\n\n    for right from 0 to nums.length - 1:\n        count[nums[right]]=count.get(nums[right],0)+1\n\n        while count.size > k:\n            count[nums[left]]=count[nums[left]] - 1\n            if count[nums[left]]==0:\n                count.remove(nums[left])left=left+1\n\n        result=result+(right - left+1)\nreturn result\n\n```\n\nTime: O(n). Space: O(k).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Sliding Window Maximum",
+        "text": "Problem: Return the maximum in each sliding window of size k.\nNaive: O(nk). Optimal: Monotonic deque storing indices in decreasing value order.\nFor each element: remove out-of-window indices from front,remove smaller elements from back(they can never be max),add current index. Front always holds max.\nTime: O(n). Space: O(k).\nSee the implementation unit for code.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Why Monotonic Deque Works",
+        "text": "Deque maintains decreasing values(by index).\nInvariant: If i<j and nums[i]<nums[j],i can never be max while j exists. Remove i.\nFront: Current window's max index.\nExample: [1,3,−1,−3,5],k=3\n\ni=1: 3>1,pop,push: [1]\ni=2: push: [1,2]. Max=3\ni=3: push: [1,2,3]. Max=3\ni=4: 5>all,pop all: [4]. Max=5",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Common Mistakes",
+        "text": "1. Forgetting to shrink. Only expanding gives wrong answers.\n2. Wrong shrink condition. Use  `while`  not  `if`  to restore validity.\n3. Off-by-one in window size. Track  `right - left+1` .\n4. Not handling empty windows. Check edge cases.\n5. Updating answer at wrong time. Update after shrinking for minimum,after expanding for maximum.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "When Sliding Window Applies",
+        "text": "Look for these signals:\n1. Contiguous sequence: The problem asks about subarrays or substrings,not subsequences.\n2. Window optimization: Find longest,shortest,or optimal value over a contiguous range.\n3. Monotonic validity: Adding elements only makes the window valid or invalid in one direction. Removing from the other end can restore validity.\n4. Original order: You process elements as they appear. No sorting or rearranging.\nIf shrinking the window can't restore a broken constraint,sliding window won't work. Consider DP instead.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Maximum Average Subarray - Read Statement",
+        "text": "Sliding window applies when:\n1. Contiguous elements: Answer involves subarray/substring.\n2. Incremental updates: Add/remove has simple effect.\n3. Monotonic constraint: Shrinking left maintains/restores validity.\nKeywords: \"subarray\",\"substring\",\"consecutive\",\"max/min length\",\"at most K\".\nDoes NOT apply: Non-contiguous(subsequences),removing left can worsen things,need all windows(use DP).",
+        "questions": [
+          {
+            "title": "Maximum Average Subarray - Read Statement",
+            "url": "https://leetcode.com/problems/maximum-average-subarray-i/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Maximum Average Subarray - Fixed Window",
+        "text": "Maintain a running sum of k elements. Slide the window by adding the new element and removing the old one.\n1. Compute sum of first k elements.\n2. For each position from k to n−1:\n\nAdd  `nums[i]`(entering the window).\nSubtract  `nums[i-k]`(leaving the window).\nUpdate max sum if needed.\n\n3. Return max sum divided by k.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Maximum Average Subarray - Implementation",
+        "text": "text\n\n\n```\nfunction findMaxAverage(nums,k):\n    windowSum=sum of nums[0..k-1]\n    maxSum=windowSum\n\n    for i from k to nums.length - 1:\n        windowSum+=nums[i] - nums[i - k]\n        maxSum=max(maxSum,windowSum)\nreturn maxSum / k\n\n```\n\nThis runs in O(n)time and O(1)space(excluding input). Each element is added once and removed at most once.",
+        "questions": [
+          {
+            "title": "Maximum Average Subarray - Implementation",
+            "url": "https://leetcode.com/problems/maximum-average-subarray-i/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Longest Substring Without Repeating - Read Statement",
+        "text": "Given a string  `s`,find the length of the longest substring without repeating characters.\nExample: For  `\"abcabcbb\"`,the answer is 3(`\"abc\"`). For  `\"bbbbb\"`,the answer is 1.",
+        "questions": [
+          {
+            "title": "Longest Substring Without Repeating - Read Statement",
+            "url": "https://leetcode.com/problems/longest-substring-without-repeating-characters/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Longest Substring Without Repeating - Variable Window",
+        "text": "Expand the window until a duplicate appears,then shrink from the left until the duplicate is removed.\n1. Use a set or map to track characters in the current window.\n2. Expand right pointer and add character.\n3. If character already in set,shrink left pointer and remove characters until it's valid.\n4. Track the maximum window size.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Longest Substring Without Repeating - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction lengthOfLongestSubstring(s):\n    seen=empty set\n    left=0\n    maxLen=0\n\n    for right from 0 to s.length - 1:\n        while s[right] in seen:\n            seen.remove(s[left])left+=1\n\n        seen.add(s[right])maxLen=max(maxLen,right - left+1)\nreturn maxLen\n\n```\n\nO(n)time(each character added/removed once),O(min(n,alphabet))space for the set.",
+        "questions": [
+          {
+            "title": "Longest Substring Without Repeating - Implementation",
+            "url": "https://leetcode.com/problems/longest-substring-without-repeating-characters/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Minimum Window Substring - Read Statement",
+        "text": "Given strings  `s`  and  `t`,return the minimum window substring of  `s`  that contains all characters of  `t`(including duplicates). If no such window exists,return  `\"\"` .\nExample: For  `s=\"ADOBECODEBANC\"`  and  `t=\"ABC\"`,return  `\"BANC\"` .",
+        "questions": [
+          {
+            "title": "Minimum Window Substring - Read Statement",
+            "url": "https://leetcode.com/problems/minimum-window-substring/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Minimum Window Substring - Approach",
+        "text": "Use a frequency map to track required characters. Expand until all characters are covered,then shrink to minimize.\n1. Build a frequency map of  `t` .\n2. Track how many characters are \"satisfied\"(have enough count in window).\n3. Expand right until all characters are satisfied.\n4. Shrink left while maintaining validity,updating minimum.\n5. Continue until right reaches the end.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Minimum Window Substring - Implementation",
+        "text": "",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Sliding Window Maximum - Read Statement",
+        "text": "Given an array  `nums`  and a window size k,return the maximum value in each sliding window as it moves from left to right.\nExample: For  `[1,3,-1,-3,5,3,6,7]`  and k=3,output is  `[3,3,5,5,6,7]` . The naive O(nk)approach is too slow.",
+        "questions": [
+          {
+            "title": "Sliding Window Maximum - Read Statement",
+            "url": "https://leetcode.com/problems/sliding-window-maximum/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Sliding Window Maximum - Monotonic Deque",
+        "text": "Use a deque that maintains indices in decreasing order of their values. The front always holds the maximum.\n1. Remove indices outside the current window from front.\n2. Remove indices from back while their values are smaller than the current element(they can never be maximum).\n3. Add current index to back.\n4. Front of deque is the maximum for current window.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Sliding Window Maximum - Implementation",
+        "text": "Here is the implementation using a monotonic deque:\ntext\n\n\n```\nfunction maxSlidingWindow(nums,k):\n    deque=empty deque(stores indices)result=[]\n\n    for i from 0 to nums.length - 1:\n        // Remove indices outside window\n        while deque not empty and deque.front()<=i - k:\n            deque.popFront()// Remove smaller elements\n        while deque not empty and nums[deque.back()] < nums[i]:\n            deque.popBack()deque.pushBack(i)\nif i >=k - 1:\n            result.append(nums[deque.front()])\nreturn result\n\n```\n\nO(n)time(each index added/removed once),O(k)space for deque.",
+        "questions": [
+          {
+            "title": "Sliding Window Maximum - Implementation",
+            "url": "https://leetcode.com/problems/sliding-window-maximum/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Longest Repeating Character Replacement - Read Statement",
+        "text": "Given a string  `s`  and integer k,you can replace at most k characters to make any substring contain only one repeating character. Return the length of the longest such substring.\nExample: For  `\"AABABBA\"`  and k=1,return 4. Replace one  `A`  in  `\"ABAB\"`  to get  `\"AAAA\"`  or  `\"BBBB\"` .",
+        "questions": [
+          {
+            "title": "Longest Repeating Character Replacement - Read Statement",
+            "url": "https://leetcode.com/problems/longest-repeating-character-replacement/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Longest Repeating Character Replacement - Key Insight",
+        "text": "A window is valid if  `windowSize - maxFreq <=k` . You keep the most frequent character and replace the rest.\n1. Track frequency of each character in window.\n2. Track the maximum frequency seen.\n3. If  `windowSize - maxFreq > k`,window is invalid. Shrink from left.\n4. Update result with valid window size.\nKey optimization: you don't need to decrease  `maxFreq`  when shrinking. A smaller window with a smaller max frequency won't beat the current best.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Longest Repeating Character Replacement - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction characterReplacement(s,k):\n    count=array of 26 zeros\n    maxFreq=0\n    left=0\n    result=0\n\n    for right from 0 to s.length - 1:\n        count[s[right]]+=1\n        maxFreq=max(maxFreq,count[s[right]])while(right - left+1)- maxFreq > k:\n            count[s[left]] -=1\n            left+=1\n\n        result=max(result,right - left+1)\nreturn result\n\n```\n\nO(n)time,O(26)=O(1)space for the count array.",
+        "questions": [
+          {
+            "title": "Longest Repeating Character Replacement - Implementation",
+            "url": "https://leetcode.com/problems/longest-repeating-character-replacement/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Section Recap",
+        "text": "Fixed and variable sliding windows,plus monotonic deque for range max.\nFixed: Initialize size k,slide by add/remove. O(n)time.\nVariable: Expand right,shrink left when invalid. Each element touched once.\nPatterns:\n\nLongest/shortest with condition → Variable\nAll windows size k → Fixed\nMax in each window → Monotonic deque\n\nTransforms O(n2)to O(n)by reusing computation.",
+        "questions": [],
+        "articles": []
+      }
+    ]
+  },
+  {
+    "section_name": "5. Divide and Conquer",
+    "units": [
+      {
+        "unit_name": "Intro",
+        "text": "Divide and conquer(D&C)solves problems by breaking them into smaller subproblems of the same type,solving each recursively,then combining the results.\nThe three steps:\n1. Divide: Split the problem into smaller instances.\n2. Conquer: Solve subproblems recursively. Base case handles smallest instances directly.\n3. Combine: Merge subproblem solutions into the final answer.\nI'll show you classic D&C algorithms,analyze their complexity with the Master Theorem,and teach you when D&C beats other approaches.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Merge Sort as D&C",
+        "text": "Merge sort is the textbook D&C example.\nDivide: Split the array into two halves.\nConquer: Recursively sort each half.\nCombine: Merge the two sorted halves.\ntext\n\n\n```\nfunction mergeSort(arr,left,right):\n    if left >=right:\n        return\n    mid=(left+right)/ 2\n    mergeSort(arr,left,mid)mergeSort(arr,mid+1,right)merge(arr,left,mid,right)\n```\n\nWhy D&C works here: Merging two sorted arrays is O(n). Sorting each half is a smaller version of the same problem. The recurrence T(n)=2T(n/2)+O(n)gives T(n)=O(nlogn).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Binary Search as D&C",
+        "text": "Binary search is D&C where you only solve one subproblem.\nDivide: Compare target with middle element.\nConquer: Search in the left or right half(not both).\nCombine: No combination needed. The answer comes directly from the subproblem.\ntext\n\n\n```\nfunction binarySearch(arr,target,low,high):\n    if low > high:\n        return -1\n    mid=(low+high)/ 2\n    if arr[mid]==target:\n        return mid\n    else if arr[mid] < target:\n        return binarySearch(arr,target,mid+1,high)else:\n        return binarySearch(arr,target,low,mid - 1)\n```\n\nRecurrence: T(n)=T(n/2)+O(1)gives T(n)=O(logn).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "The Master Theorem",
+        "text": "Master Theorem: T(n)=aT(n/b)+f(n)Let c=logb​a:\n1. If f(n)=O(nc−ϵ): T(n)=Θ(nc)2. If f(n)=Θ(nc): T(n)=Θ(nclogn)3. If f(n)=Ω(nc+ϵ): T(n)=Θ(f(n))Merge sort: 2T(n/2)+n. a=2,b=2,c=1,f=n. Case 2: Θ(nlogn).\nBinary search: T(n/2)+1. a=1,b=2,c=0,f=1. Case 2: Θ(logn).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Counting Inversions",
+        "text": "Problem: Count pairs(i,j)where i<j but arr[i]>arr[j].\nD&C: Modify merge sort. During merge,when taking from right array,all remaining left elements form inversions.\ntext\n\n\n```\nfunction countInversions(arr,left,right):\n    if left >=right: return 0\n    mid=(left+right)/ 2\n    count=countInversions(arr,left,mid)count+=countInversions(arr,mid+1,right)count+=mergeAndCount(arr,left,mid,right)\nreturn count\n\n```\n\nTime: O(nlogn).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Counting Inversions - Merge",
+        "text": "Merge step counts cross-inversions while merging sorted halves. When R[j]<L[i],all remaining L elements form inversions with R[j]. Add  `L.length - i`  to count.\ntext\n\n\n```\nwhile i < L.length and j < R.length:\n    if L[i] <=R[j]:\n        arr[k]=L[i]; i++else:\n        arr[k]=R[j]\n        inversions+=L.length - i\n        j++k++\n```\n\nCopy remaining elements after the loop.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Closest Pair of Points",
+        "text": "Problem: Given n points in 2D,find the closest pair.\nBrute force: Check all pairs. O(n2).\nD&C approach:\n1. Sort points by x-coordinate.\n2. Divide: Split into left and right halves by x.\n3. Conquer: Recursively find closest pair in each half.\n4. Combine: Check pairs crossing the dividing line within a strip of width 2d(where d is the min from both halves).\nThe strip check: Sort strip points by y. For each point,only check the next 7 points(geometry limits candidates).\nTime: O(nlog2n)with careful implementation(can be O(nlogn)with optimization).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Maximum Subarray - D&C",
+        "text": "Problem: Find contiguous subarray with maximum sum.\nD&C: Split in half. Max subarray is in left half,right half,or crossing middle.\nCrossing: Extend left from mid,extend right from mid+1,sum both max extensions.\ntext\n\n\n```\nfunction maxCrossing(arr,left,mid,right):\n    leftMax=extend left from mid\n    rightMax=extend right from mid+1\n    return leftMax+rightMax\n\n```\n\nTime: O(nlogn). Kadane's is O(n),but D&C illustrates the technique.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Karatsuba Multiplication",
+        "text": "Problem: Multiply two n-digit numbers.\nGrade school: O(n2)digit operations.\nKaratsuba's insight: Split each number into two halves. x=a⋅10n/2+b,y=c⋅10n/2+d.\nxy=ac⋅10n+(ad+bc)⋅10n/2+bd\nThis needs 4 multiplications. Karatsuba reduces it to 3:(ad+bc)=(a+b)(c+d)−ac−bd\nRecurrence: T(n)=3T(n/2)+O(n)By Master Theorem: T(n)=O(nlog2​3)≈O(n1.585)This beats O(n2)for large n. Modern libraries use even faster algorithms(Toom-Cook,FFT).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "QuickSelect",
+        "text": "Problem: Find k-th smallest without fully sorting.\nApproach: Partition like quicksort,recurse only one side.\ntext\n\n\n```\nfunction quickSelect(arr,left,right,k):\n    if left==right: return arr[left]\n    pivotIdx=partition(arr,left,right)\nif k==pivotIdx: return arr[k]\n    else if k < pivotIdx:\n        return quickSelect(arr,left,pivotIdx - 1,k)else:\n        return quickSelect(arr,pivotIdx+1,right,k)\n```\n\nExpected: O(n). Worst: O(n2). Use median-of-medians for O(n)guaranteed.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "When D&C Beats Alternatives",
+        "text": "D&C works well when:\n1. Subproblems are independent: Unlike DP where subproblems overlap.\n2. Combining is efficient: If combining is O(n2),D&C may not help.\n3. Problem structure is recursive: Naturally splits into similar subproblems.\nD&C vs DP:\n\nD&C: Subproblems don't overlap. Solve each once.\nDP: Subproblems overlap. Memoize to avoid recomputation.\n\nD&C vs Greedy:\n\nD&C: Consider all subproblems.\nGreedy: Make one choice,never backtrack.\n\nRed flags for D&C: If the combination step dominates(e.g.,must consider all pairs),D&C may not reduce complexity.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "D&C on Trees",
+        "text": "D&C applies to trees via centroid decomposition.\nCentroid: A node whose removal splits the tree into subtrees of size≤n/2.\nApproach:\n1. Find the centroid.\n2. Solve the problem for paths through the centroid.\n3. Remove the centroid,recurse on each subtree.\nWhy it works: The centroid exists for any tree. After O(logn)levels of decomposition,all nodes are processed.\nApplications: Counting paths with specific properties,tree distance queries.\nThis is an advanced technique covered in the Graph Theory roadmap. The core idea is that D&C works on any structure where you can split into balanced parts.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Maximum Subarray - Read Statement",
+        "text": "Given an integer array  `nums`,find the subarray with the largest sum and return the sum.\nExample: For  `[-2,1,-3,4,-1,2,1,-5,4]`,the answer is 6 from subarray  `[4,-1,2,1]` . While Kadane's algorithm solves it in O(n),the D&C approach is instructive.",
+        "questions": [
+          {
+            "title": "Maximum Subarray - Read Statement",
+            "url": "https://leetcode.com/problems/maximum-subarray/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Maximum Subarray - D&C Approach",
+        "text": "Split the array at the midpoint. The maximum subarray is either:\n1. Entirely in the left half.\n2. Entirely in the right half.\n3. Crossing the midpoint.\nRecursively solve left and right. For the crossing case,find max sum extending left from mid and max sum extending right from mid,then combine.\nT(n)=2T(n/2)+O(n)=O(nlogn).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Maximum Subarray - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction maxSubArray(nums):\n    return divideConquer(nums,0,nums.length - 1)function divideConquer(nums,left,right):\n    if left==right:\n        return nums[left]\n\n    mid=(left+right)/ 2\n    leftMax=divideConquer(nums,left,mid)rightMax=divideConquer(nums,mid+1,right)crossMax=maxCrossing(nums,left,mid,right)\nreturn max(leftMax,rightMax,crossMax)function maxCrossing(nums,left,mid,right):\n    leftSum=-infinity,sum=0\n    for i from mid down to left:\n        sum+=nums[i]\n        leftSum=max(leftSum,sum)rightSum=-infinity,sum=0\n    for i from mid+1 to right:\n        sum+=nums[i]\n        rightSum=max(rightSum,sum)\nreturn leftSum+rightSum\n\n```",
+        "questions": [
+          {
+            "title": "Maximum Subarray - Implementation",
+            "url": "https://leetcode.com/problems/maximum-subarray/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Merge k Sorted Lists - Read Statement",
+        "text": "Given an array of k linked lists,each sorted in ascending order,merge all lists into one sorted list and return it.\nExample: For  `[[1,4,5],[1,3,4],[2,6]]`,return  `[1,1,2,3,4,4,5,6]` .",
+        "questions": [
+          {
+            "title": "Merge k Sorted Lists - Read Statement",
+            "url": "https://leetcode.com/problems/merge-k-sorted-lists/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Merge k Sorted Lists - D&C Approach",
+        "text": "Instead of merging one by one(O(kN)total),divide the lists in half and merge pairwise.\n1. Split k lists into two groups of k/2.\n2. Recursively merge each group.\n3. Merge the two resulting lists.\nThis gives O(Nlogk)where N is total elements. Each element is touched O(logk)times across all merge levels.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Merge k Sorted Lists - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction mergeKLists(lists):\n    if lists is empty:\n        return null\n    return mergeRange(lists,0,lists.length - 1)function mergeRange(lists,left,right):\n    if left==right:\n        return lists[left]\n\n    mid=(left+right)/ 2\n    l1=mergeRange(lists,left,mid)l2=mergeRange(lists,mid+1,right)\nreturn mergeTwoLists(l1,l2)function mergeTwoLists(l1,l2):\n    dummy=new ListNode()curr=dummy\n    while l1 and l2:\n        if l1.val <=l2.val:\n            curr.next=l1\n            l1=l1.next\n        else:\n            curr.next=l2\n            l2=l2.next\n        curr=curr.next\n    curr.next=l1 or l2\n    return dummy.next\n\n```\n\nO(Nlogk)time,O(logk)space for recursion.",
+        "questions": [
+          {
+            "title": "Merge k Sorted Lists - Implementation",
+            "url": "https://leetcode.com/problems/merge-k-sorted-lists/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Sort List - Read Statement",
+        "text": "Given the head of a linked list,sort it in ascending order.\nFollow up: Can you sort it in O(nlogn)time and O(1)space? Merge sort is ideal for linked lists since you don't need random access.",
+        "questions": [
+          {
+            "title": "Sort List - Read Statement",
+            "url": "https://leetcode.com/problems/sort-list/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Sort List - Merge Sort on Lists",
+        "text": "1. Find the middle node using slow/fast pointers.\n2. Split the list into two halves.\n3. Recursively sort each half.\n4. Merge the sorted halves.\nUnlike arrays,splitting a linked list is O(n)but doesn't require extra space. The merge step is also in-place.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Sort List - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction sortList(head):\n    if head==null or head.next==null:\n        return head\n\n    // Find middle with slow/fast\n    slow=head,fast=head.next\n    while fast and fast.next:\n        slow=slow.next\n        fast=fast.next.next\n\n    // Split\n    mid=slow.next\n    slow.next=null\n\n    // Recurse and merge\n    left=sortList(head)right=sortList(mid)\nreturn merge(left,right)function merge(l1,l2):\n    dummy=new ListNode()curr=dummy\n    while l1 and l2:\n        if l1.val < l2.val:\n            curr.next=l1\n            l1=l1.next\n        else:\n            curr.next=l2\n            l2=l2.next\n        curr=curr.next\n    curr.next=l1 or l2\n    return dummy.next\n\n```\n\nO(nlogn)time,O(logn)stack space.",
+        "questions": [
+          {
+            "title": "Sort List - Implementation",
+            "url": "https://leetcode.com/problems/sort-list/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Different Ways to Add Parentheses - Read Statement",
+        "text": "Given a string expression with numbers and operators(+,−,∗),compute all possible results from different ways to group numbers and operators with parentheses.\nExample: For  `\"2*3-4*5\"`,output is  `[-34,-14,-10,-10,10]`  from different groupings.",
+        "questions": [
+          {
+            "title": "Different Ways to Add Parentheses - Read Statement",
+            "url": "https://leetcode.com/problems/different-ways-to-add-parentheses/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Different Ways to Add Parentheses - D&C Approach",
+        "text": "Every operator is a potential split point. For each operator:\n1. Recursively compute all results for the left subexpression.\n2. Recursively compute all results for the right subexpression.\n3. Combine each left result with each right result using that operator.\nBase case: a pure number returns itself as the only result.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Different Ways to Add Parentheses - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction diffWaysToCompute(expression):\n    results=[]\n\n    for i from 0 to expression.length - 1:\n        c=expression[i]\n        if c in ['+','-','*']:\n            left=diffWaysToCompute(expression[0..i-1])right=diffWaysToCompute(expression[i+1..])for l in left:\n                for r in right:\n                    if c=='+': results.append(l+r)\nif c=='-': results.append(l - r)\nif c=='*': results.append(l * r)\nif results is empty:\n        results.append(parseInt(expression))\nreturn results\n\n```\n\nAdd memoization for repeated subexpressions to optimize. Time complexity is Catalan-like.",
+        "questions": [
+          {
+            "title": "Different Ways to Add Parentheses - Implementation",
+            "url": "https://leetcode.com/problems/different-ways-to-add-parentheses/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Construct Binary Tree - Read Statement",
+        "text": "Given two integer arrays  `preorder`  and  `inorder`  representing the preorder and inorder traversals of a binary tree,construct and return the tree.\nExample: For preorder  `[3,9,20,15,7]`  and inorder  `[9,3,15,20,7]`,build the tree with root 3.",
+        "questions": [
+          {
+            "title": "Construct Binary Tree - Read Statement",
+            "url": "https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Construct Binary Tree - D&C Approach",
+        "text": "The first element of preorder is the root. Find this root in inorder to determine left and right subtrees.\n1. Root=preorder[0].\n2. Find root's index in inorder. Elements to the left form the left subtree. Elements to the right form the right subtree.\n3. Recursively build left subtree with corresponding preorder and inorder slices.\n4. Recursively build right subtree similarly.\nUse a hashmap for O(1)root lookup in inorder.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Construct Binary Tree - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction buildTree(preorder,inorder):\n    inorderMap=map each value to its index in inorder\n    return build(0,0,inorder.length - 1)function build(preStart,inStart,inEnd):\n    if inStart > inEnd:\n        return null\n\n    rootVal=preorder[preStart]\n    root=new TreeNode(rootVal)inRoot=inorderMap[rootVal]\n    leftSize=inRoot - inStart\n\n    root.left=build(preStart+1,inStart,inRoot - 1)root.right=build(preStart+leftSize+1,inRoot+1,inEnd)\nreturn root\n\n```\n\nO(n)time with hashmap,O(n)space for the map and recursion stack.",
+        "questions": [
+          {
+            "title": "Construct Binary Tree - Implementation",
+            "url": "https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Section Recap",
+        "text": "You've learned the divide and conquer approach: divide,conquer,combine.\nClassic algorithms:\n\nMerge sort: O(nlogn)sorting.\nBinary search: O(logn)lookup.\nQuickSelect: O(n)expected selection.\nKaratsuba: O(n1.585)multiplication.\n\nMaster Theorem: T(n)=aT(n/b)+f(n)solves most D&C recurrences.\nWhen to use D&C:\n\nProblem splits into independent subproblems.\nSubproblem structure matches original problem.\nCombination step is efficient.\n\nD&C is a thinking framework. When you see a problem,ask: \"Can I split this,solve pieces,and merge?\" Many efficient algorithms follow this pattern.",
+        "questions": [],
+        "articles": []
+      }
+    ]
+  },
+  {
+    "section_name": "6. Backtracking",
+    "units": [
+      {
+        "unit_name": "Intro",
+        "text": "Backtracking builds solutions incrementally,abandoning a path as soon as it cannot lead to a valid solution.\nThe core idea: Try a choice. If it leads to a dead end,undo it(backtrack)and try another choice. This explores the entire solution space systematically without explicitly generating all possibilities.\nI'll teach you the backtracking template,pruning strategies,and classic problems: permutations,combinations,subsets,N-Queens,and Sudoku.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Backtracking Template",
+        "text": "Template:\ntext\n\n\n```\nfunction backtrack(state,choices):\n    if state is complete:\n        record solution\n        return\n    for choice in choices:\n        if valid:\n            make choice\n            backtrack(new state,remaining)undo choice\n\n```\n\nKey elements:\n1. State: partial solution\n2. Choices: what to add next\n3. Constraints: which choices valid\n4. Goal: when complete\n\"Undo choice\" is what makes it backtracking.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Subsets",
+        "text": "",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Permutations",
+        "text": "Problem: Return all permutations of distinct integers.\nApproach: At each position,try each unused element.\ntext\n\n\n```\nfunction backtrack(nums,current,used,result):\n    if current.length==nums.length:\n        result.add(copy of current)return\n    for i from 0 to nums.length - 1:\n        if used[i]: continue\n        used[i]=true\n        current.add(nums[i])backtrack(nums,current,used,result)current.removeLast()used[i]=false\n\n```\n\nTime: O(n!⋅n). Space: O(n).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Combinations",
+        "text": "Problem: Return all combinations of k numbers from 1 to n.\ntext\n\n\n```\nfunction backtrack(n,k,start,current,result):\n    if current.length==k:\n        result.add(copy of current)return\n    for i from start to n:\n        current.add(i)backtrack(n,k,i+1,current,result)current.removeLast()\n```\n\nPruning: Skip if remaining elements < needed:  `if n - i+1 < k - current.length: return` .\nTime: O((kn​)⋅k). Space: O(k).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Combination Sum",
+        "text": "Problem: Find combinations summing to target. Numbers reusable.\ntext\n\n\n```\nfunction backtrack(candidates,remaining,start,current,result):\n    if remaining==0:\n        result.add(copy of current)return\n    if remaining < 0:\n        return\n    for i from start to candidates.length - 1:\n        current.add(candidates[i])backtrack(candidates,remaining - candidates[i],i,current,result)current.removeLast()\n```\n\n `start=i`  allows reuse. Sort and skip if current > remaining.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "N-Queens",
+        "text": "Problem: Place n queens so none attack each other.\nApproach: Place one queen per row via backtracking. Track attacked columns with a set. Track diagonals using row−col and row+col(constant along each diagonal). Skip attacked positions.\nTime: O(n!)worst case,pruning reduces significantly.\nSpace: O(n)for sets and recursion.\nSee the implementation unit for code.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Sudoku Solver",
+        "text": "Problem: Fill empty cells so each row,column,and 3×3 box has digits 1-9 exactly once.\nApproach: For each empty cell,try digits 1-9. Check validity(no duplicate in row,column,box). If valid,place and recurse. Backtrack if no digit works.\nTime: O(9empty)worst case,constraints prune heavily.\nSpace: O(empty)for recursion.\nSee the implementation unit for code.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Pruning Strategies",
+        "text": "Pruning eliminates invalid branches early.\nEarly termination: Stop if remaining choices can't complete solution.\nConstraint propagation: Check validity before recursing.\nOrdering: Try promising choices first(e.g.,cells with fewest candidates).\nSymmetry breaking: Force canonical order to avoid duplicates.\ntext\n\n\n```\n// Combinations: not enough elements\nif n - start+1 < k - current.length:\n    return\n\n```\n\nGood pruning makes exponential problems tractable.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Backtracking vs DP",
+        "text": "Backtracking:\n\nExplores all solutions\nConstraint satisfaction(Sudoku,N-Queens)Worst case exponential\n\nDynamic Programming:\n\nOverlapping subproblems\nOptimization(min cost,max value)Polynomial if state space is polynomial\n\nOverlap: Some problems use both. Generate candidates via backtracking,optimize choices via DP.\nRule: If subproblems repeat identically,consider DP. If each state is unique,backtracking may be your only option.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Word Search",
+        "text": "Problem: Given a grid and word,check if word exists as a path of adjacent cells(no reuse).\nApproach: DFS from each cell matching the first character. Mark cells visited by modifying temporarily,restore after. Explore all four directions. Return true if any path completes the word.\nTime: O(m⋅n⋅4L)where L is word length.\nSpace: O(L)for recursion stack.\nSee the implementation unit for code.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Generate Parentheses",
+        "text": "Problem: Generate all strings of n pairs of balanced parentheses.\nApproach: Track open and close counts. Add '(' if open < n. Add ')' if close < open.\ntext\n\n\n```\nfunction backtrack(n,open,close,current,result):\n    if current.length==2 * n:\n        result.add(current)return\n    if open < n:\n        backtrack(n,open+1,close,current+\"(\",result)\nif close < open:\n        backtrack(n,open,close+1,current+\")\",result)\n```\n\nCount: Catalan number Cn​=n+11​(n2n​).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Subsets - Read Statement",
+        "text": "Given an integer array  `nums`  of unique elements,return all possible subsets(the power set).\nThe solution must not contain duplicate subsets. Return in any order.\nExample: For  `[1,2,3]`,return  `[[],[1],[2],[3],[1,2],[1,3],[2,3],[1,2,3]]` .",
+        "questions": [
+          {
+            "title": "Subsets - Read Statement",
+            "url": "https://leetcode.com/problems/subsets/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Subsets - Include/Exclude Pattern",
+        "text": "",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Subsets - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction subsets(nums):\n    result=[]\n    backtrack(0,[])\nreturn result\n\nfunction backtrack(index,current):\n    if index==nums.length:\n        result.append(copy of current)return\n\n    // Include nums[index]\n    current.append(nums[index])backtrack(index+1,current)current.pop()// Exclude nums[index]\n    backtrack(index+1,current)\n```\n\nO(n⋅2n)time to generate all subsets and copy them. O(n)space for recursion stack.",
+        "questions": [
+          {
+            "title": "Subsets - Implementation",
+            "url": "https://leetcode.com/problems/subsets/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Permutations - Read Statement",
+        "text": "Given an array  `nums`  of distinct integers,return all possible permutations in any order.\nExample: For  `[1,2,3]`,return all 6 permutations:  `[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]` .",
+        "questions": [
+          {
+            "title": "Permutations - Read Statement",
+            "url": "https://leetcode.com/problems/permutations/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Permutations - Used Array Pattern",
+        "text": "At each position,try all unused elements. Track which elements are used with a boolean array.\n1. If current permutation has n elements,add to results.\n2. For each unused element,mark it used,add to current,recurse,then backtrack.\nThe number of permutations is n!.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Permutations - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction permute(nums):\n    result=[]\n    used=array of n false values\n    backtrack([])\nreturn result\n\nfunction backtrack(current):\n    if current.length==nums.length:\n        result.append(copy of current)return\n\n    for i from 0 to nums.length - 1:\n        if used[i]:\n            continue\n\n        used[i]=true\n        current.append(nums[i])backtrack(current)current.pop()used[i]=false\n\n```\n\nO(n⋅n!)time,O(n)space for recursion and used array.",
+        "questions": [
+          {
+            "title": "Permutations - Implementation",
+            "url": "https://leetcode.com/problems/permutations/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Combination Sum - Read Statement",
+        "text": "Given an array of distinct integers  `candidates`  and a target,return all unique combinations that sum to target. Each number can be used unlimited times.\nExample: For  `[2,3,6,7]`  and target 7,return  `[[2,2,3],[7]]` .",
+        "questions": [
+          {
+            "title": "Combination Sum - Read Statement",
+            "url": "https://leetcode.com/problems/combination-sum/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Combination Sum - Approach",
+        "text": "Similar to subsets,but:\n1. You can reuse elements(stay at same index after including).\n2. You stop when sum equals target or exceeds it.\n3. Use a start index to avoid duplicate combinations(don't go backward).\nPruning: if current sum exceeds target,stop exploring that branch.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Combination Sum - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction combinationSum(candidates,target):\n    result=[]\n    backtrack(0,[],0)\nreturn result\n\nfunction backtrack(start,current,currentSum):\n    if currentSum==target:\n        result.append(copy of current)return\n\n    if currentSum > target:\n        return\n\n    for i from start to candidates.length - 1:\n        current.append(candidates[i])backtrack(i,current,currentSum+candidates[i])current.pop()\n```\n\nNote:  `backtrack(i,...)`  not  `backtrack(i+1,...)`  allows reuse. Time depends on the number of valid combinations.",
+        "questions": [
+          {
+            "title": "Combination Sum - Implementation",
+            "url": "https://leetcode.com/problems/combination-sum/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "N-Queens - Read Statement",
+        "text": "Place n queens on an n×n chessboard so that no two queens attack each other(same row,column,or diagonal).\nReturn all distinct solutions. Each solution is a board configuration where  `'Q'`  and  `'.'`  indicate a queen and empty square.",
+        "questions": [
+          {
+            "title": "N-Queens - Read Statement",
+            "url": "https://leetcode.com/problems/n-queens/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "N-Queens - Constraint Tracking",
+        "text": "Place queens row by row. For each row,try each column and check if it's safe.\nTrack three constraints:\n1.  `cols` : columns with queens.\n2.  `diag1` : main diagonals(row - col is constant).\n3.  `diag2` : anti-diagonals(row+col is constant).\nIf column and both diagonals are free,place the queen and recurse.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "N-Queens - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction solveNQueens(n):\n    result=[]\n    board=n x n grid of '.'\n    cols=set(),diag1=set(),diag2=set()backtrack(0)\nreturn result\n\nfunction backtrack(row):\n    if row==n:\n        result.append(board as string array)return\n\n    for col from 0 to n - 1:\n        if col in cols or(row - col)in diag1 or(row+col)in diag2:\n            continue\n\n        board[row][col]='Q'\n        cols.add(col)diag1.add(row - col)diag2.add(row+col)backtrack(row+1)board[row][col]='.'\n        cols.remove(col)diag1.remove(row - col)diag2.remove(row+col)\n```\n\nTime is O(n!)with pruning. Space is O(n)for sets and recursion.",
+        "questions": [
+          {
+            "title": "N-Queens - Implementation",
+            "url": "https://leetcode.com/problems/n-queens/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Word Search - Read Statement",
+        "text": "Given an m×n board of characters and a string word,return  `true`  if word exists in the grid.\nThe word must be constructed from letters of sequentially adjacent cells(horizontal or vertical). Each cell can be used only once.",
+        "questions": [
+          {
+            "title": "Word Search - Read Statement",
+            "url": "https://leetcode.com/problems/word-search/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Word Search - Grid Backtracking",
+        "text": "Start from each cell matching the first character. Use DFS/backtracking to explore all four directions.\n1. Mark current cell as visited(or change its value).\n2. Check if we've matched the entire word.\n3. Recurse in all four directions for the next character.\n4. Backtrack: restore the cell's original value.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Word Search - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction exist(board,word):\n    for i from 0 to rows - 1:\n        for j from 0 to cols - 1:\n            if backtrack(i,j,0):\n                return true\n    return false\n\nfunction backtrack(i,j,index):\n    if index==word.length:\n        return true\n\n    if i < 0 or i >=rows or j < 0 or j >=cols:\n        return false\n\n    if board[i][j] !=word[index]:\n        return false\n\n    temp=board[i][j]\n    board[i][j]='#'  // Mark visited\n\n    found=backtrack(i+1,j,index+1)or\n            backtrack(i-1,j,index+1)or\n            backtrack(i,j+1,index+1)or\n            backtrack(i,j-1,index+1)board[i][j]=temp  // Restore\n    return found\n\n```\n\nO(m⋅n⋅4L)worst case where L is word length. O(L)space for recursion.",
+        "questions": [
+          {
+            "title": "Word Search - Implementation",
+            "url": "https://leetcode.com/problems/word-search/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Section Recap",
+        "text": "You've learned backtracking: try,recurse,undo.\nTemplate:\ntext\n\n\n```\nfunction backtrack(state):\n    if complete: record solution\n    for choice in valid_choices:\n        make choice\n        backtrack(new_state)undo choice\n\n```\n\nProblems: Subsets,permutations,combinations,N-Queens,Sudoku,word search.\nPruning: Stop early if invalid,order choices smartly,break symmetry.\nBacktracking explores all possibilities systematically with controlled recursion.",
+        "questions": [],
+        "articles": []
+      }
+    ]
+  },
+  {
+    "section_name": "7. Complete Search",
+    "units": [
+      {
+        "unit_name": "Intro",
+        "text": "Complete search(brute force)examines all possible solutions to find the answer. It's often the first approach and sometimes the only approach.\nWhen to use:\n\nSmall input size(n≤20 for O(2n),n≤10 for O(n!)).\nNo efficient algorithm exists.\nAs a baseline to verify optimized solutions.\n\nI'll show you enumeration techniques,meet-in-the-middle optimization,and how to estimate if brute force will pass time limits.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Estimating Time Limits",
+        "text": "Modern computers do about 108 simple operations per second.\nRule of thumb for 1-second limit:\n\nO(n): n≤108\nO(nlogn): n≤107\nO(n2): n≤104\nO(n3): n≤500\nO(2n): n≤25\nO(n!): n≤10\n\nExample: If n=20 and you need O(2n),that's ≈106 operations. Should pass in well under a second.\nAlways check constraints first. If brute force fits,use it. Simple code has fewer bugs.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Enumerating All Subsets",
+        "text": "A subset of n elements can be represented as an n-bit integer. Bit i is 1 if element i is included.\ntext\n\n\n```\nfor mask from 0 to 2^n - 1:\n    subset=[]\n    for i from 0 to n-1:\n        if mask &(1 << i):\n            subset.add(elements[i])// process subset\n\n```\n\nExample: n=3,elements [a,b,c].\n\nmask=0(binary 000): []\nmask=1(binary 001): [a]\nmask=5(binary 101): [a,c]\nmask=7(binary 111): [a,b,c]\n\nTime: O(n⋅2n). Generate all 2n subsets,each takes O(n)to process.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Enumerating All Permutations",
+        "text": "Using C++`next_permutation` :\ntext\n\n\n```\nsort(arr.begin(),arr.end())do {\n    // process current permutation\n} while(next_permutation(arr.begin(),arr.end()))\n```\n\nUsing Python  `itertools` :\ntext\n\n\n```\nfrom itertools import permutations\nfor perm in permutations(arr):\n    # process perm\n\n```\n\nManual recursion: Use the backtracking template with  `used`  array.\nTime: O(n!⋅n). There are n! permutations,each taking O(n)to process.\nWhen feasible: n≤10 gives≤3.6×106 permutations.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Meet in the Middle",
+        "text": "Meet in the middle: split problem,solve halves,combine.\nSubset sum: Find if any subset sums to target.\nBrute force: 2n subsets. n=40⇒1012. Too slow.\nMeet in middle:\n1. Split into halves of 20.\n2. Generate 220 sums each.\n3. For sum s in first,check if target−s in second(hash set).\nTime: O(2n/2⋅n). For n=40: ∼4×107. Feasible.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Meet in the Middle - Example",
+        "text": "Problem: Find if any subset of 40 numbers sums to target.\n1. Split into two halves of 20.\n2. Generate all 220 sums for each half.\n3. Sort second half. For each sum s in first half,binary search for target−s.\ntext\n\n\n```\nfor s in firstHalfSums:\n    if binarySearch(secondHalfSums,target - s):\n        return true\n\n```\n\nTime: O(2n/2⋅n)instead of O(2n). For n=40: 107 vs 1012.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Pruning in Complete Search",
+        "text": "Even in brute force,pruning helps.\nBound checking: If the current partial solution already exceeds a limit,stop.\ntext\n\n\n```\n// Subset sum: if current sum exceeds target,prune\nif currentSum > target:\n    return\n\n```\n\nOrdering: Try more promising options first. If you find a solution early,you can potentially stop or prune more aggressively.\nSymmetry elimination: If problem has symmetry,only explore canonical representatives.\nExample: Placing identical items. Instead of permuting them,only consider sorted placements.\nPruning doesn't change worst-case complexity but often dramatically reduces average case.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Iterative Deepening",
+        "text": "Iterative deepening: depth-limited DFS with increasing limits.\ntext\n\n\n```\nfor depth from 0 to infinity:\n    if DFS(start,goal,depth):\n        return found\n\nfunction DFS(node,goal,depth):\n    if node==goal: return true\n    if depth==0: return false\n    for neighbor in node.neighbors:\n        if DFS(neighbor,goal,depth-1):\n            return true\n    return false\n\n```\n\nCombines BFS optimality with DFS memory(O(d)). Repeated work dominated by final level.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Branch and Bound",
+        "text": "Branch and bound: complete search with bounds pruning suboptimal branches.\n1. Track best solution(incumbent).\n2. Compute optimistic bound for partial solutions.\n3. Prune if bound≥incumbent.\nTSP example:\n\nIncumbent: best tour found\nBound: path cost+MST of remaining cities\nPrune if bound≥incumbent\n\nGuarantees optimal while exploring fewer nodes than brute force.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Generate Parentheses - Read Statement",
+        "text": "Given n pairs of parentheses,generate all combinations of well-formed parentheses.\nExample: For n=3,return  `[\"((()))\",\"(()())\",\"(())()\",\"()(())\",\"()()()\"]` . The number of valid combinations is the nth Catalan number.",
+        "questions": [
+          {
+            "title": "Generate Parentheses - Read Statement",
+            "url": "https://leetcode.com/problems/generate-parentheses/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Generate Parentheses - State Space Search",
+        "text": "Track two counts: open parentheses used and close parentheses used.\n1. You can add  `(`  if  `open < n` .\n2. You can add  `)`  if  `close < open`(ensures validity).\n3. When  `open==close==n`,add the string to results.\nThis naturally generates only valid combinations.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Generate Parentheses - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction generateParenthesis(n):\n    result=[]\n    backtrack(\"\",0,0)\nreturn result\n\nfunction backtrack(current,open,close):\n    if current.length==2 * n:\n        result.append(current)return\n\n    if open < n:\n        backtrack(current+\"(\",open+1,close)\nif close < open:\n        backtrack(current+\")\",open,close+1)\n```\n\nThe number of valid strings is Cn​=n+11​(n2n​). Each string has length 2n.",
+        "questions": [
+          {
+            "title": "Generate Parentheses - Implementation",
+            "url": "https://leetcode.com/problems/generate-parentheses/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Letter Combinations - Read Statement",
+        "text": "Given a string containing digits 2-9,return all possible letter combinations that the number could represent(like on a phone keypad).\nExample: For  `\"23\"`,return  `[\"ad\",\"ae\",\"af\",\"bd\",\"be\",\"bf\",\"cd\",\"ce\",\"cf\"]` .",
+        "questions": [
+          {
+            "title": "Letter Combinations - Read Statement",
+            "url": "https://leetcode.com/problems/letter-combinations-of-a-phone-number/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Letter Combinations - Approach",
+        "text": "Map each digit to its letters: 2→ abc,3→ def,etc.\n1. For each digit,try each of its mapped letters.\n2. Recurse to the next digit.\n3. When all digits are processed,add the combination to results.\nIf there are n digits with average m letters each,you generate O(mn)combinations.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Letter Combinations - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction letterCombinations(digits):\n    if digits is empty:\n        return []\n\n    mapping={\n        '2': \"abc\",'3': \"def\",'4': \"ghi\",'5': \"jkl\",'6': \"mno\",'7': \"pqrs\",'8': \"tuv\",'9': \"wxyz\"\n    }\n    result=[]\n    backtrack(0,\"\")\nreturn result\n\nfunction backtrack(index,current):\n    if index==digits.length:\n        result.append(current)return\n\n    for letter in mapping[digits[index]]:\n        backtrack(index+1,current+letter)\n```\n\nO(4n)time in worst case(digits 7 and 9 have 4 letters). O(n)space for recursion.",
+        "questions": [
+          {
+            "title": "Letter Combinations - Implementation",
+            "url": "https://leetcode.com/problems/letter-combinations-of-a-phone-number/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Sudoku Solver - Read Statement",
+        "text": "Write a program to solve a Sudoku puzzle by filling empty cells. A valid solution:\n\nEach row contains 1-9 with no repeats.\nEach column contains 1-9 with no repeats.\nEach 3×3 sub-box contains 1-9 with no repeats.\n\nEmpty cells are marked with  `'.'` .",
+        "questions": [
+          {
+            "title": "Sudoku Solver - Read Statement",
+            "url": "https://leetcode.com/problems/sudoku-solver/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Sudoku Solver - Constraint Propagation",
+        "text": "Use three sets to track constraints:\n1.  `rows[i]` : digits used in row i.\n2.  `cols[j]` : digits used in column j.\n3.  `boxes[i/3][j/3]` : digits used in that 3×3 box.\nFor each empty cell,try digits 1-9. If a digit satisfies all constraints,place it and recurse. Backtrack if no valid digit exists.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Sudoku Solver - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction solveSudoku(board):\n    solve(board)function solve(board):\n    for i from 0 to 8:\n        for j from 0 to 8:\n            if board[i][j]=='.':\n                for digit from '1' to '9':\n                    if isValid(board,i,j,digit):\n                        board[i][j]=digit\n\n                        if solve(board):\n                            return true\n\n                        board[i][j]='.'\n\n                return false  // No valid digit,backtrack\n\n    return true  // All cells filled\n\nfunction isValid(board,row,col,digit):\n    // Check row,column,and 3x3 box\n    boxRow=(row / 3)* 3\n    boxCol=(col / 3)* 3\n    // Return true if digit not in row,col,or box\n\n```\n\nWorst case explores many branches,but pruning makes it fast in practice.",
+        "questions": [
+          {
+            "title": "Sudoku Solver - Implementation",
+            "url": "https://leetcode.com/problems/sudoku-solver/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Partition to K Equal Sum - Read Statement",
+        "text": "Given an integer array  `nums`  and integer k,return  `true`  if you can partition the array into k non-empty subsets with equal sums.\nExample: For  `[4,3,2,3,5,2,1]`  and k=4,return  `true` . Four subsets:(5),(1,4),(2,3),(2,3).",
+        "questions": [
+          {
+            "title": "Partition to K Equal Sum - Read Statement",
+            "url": "https://leetcode.com/problems/partition-to-k-equal-sum-subsets/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Partition to K Equal Sum - Pruning Strategies",
+        "text": "Key optimizations:\n1. If sum is not divisible by k,return false.\n2. Sort in descending order. Larger elements fail faster.\n3. If any element exceeds target sum,return false.\n4. Skip duplicate consecutive values to avoid redundant work.\n5. When k−1 subsets are filled,the last one is guaranteed.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Partition to K Equal Sum - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction canPartitionKSubsets(nums,k):\n    total=sum(nums)\nif total%k !=0:\n        return false\n\n    target=total / k\n    sort nums descending\n    if nums[0] > target:\n        return false\n\n    buckets=array of k zeros\n    return backtrack(0)function backtrack(index):\n    if index==nums.length:\n        return true\n\n    for i from 0 to k - 1:\n        if buckets[i]+nums[index] <=target:\n            buckets[i]+=nums[index]\n            if backtrack(index+1):\n                return true\n            buckets[i] -=nums[index]\n\n        if buckets[i]==0:\n            break  // Pruning: empty buckets are interchangeable\n\n    return false\n\n```\n\nTime is O(k⋅2n)worst case,but pruning helps significantly.",
+        "questions": [
+          {
+            "title": "Partition to K Equal Sum - Implementation",
+            "url": "https://leetcode.com/problems/partition-to-k-equal-sum-subsets/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Closest Subsequence Sum - Read Statement",
+        "text": "Given an integer array  `nums`  and an integer  `goal`,choose a subsequence such that the sum is closest to  `goal` . Return the minimum absolute difference.\nConstraints:  `nums.length`  up to 40. Brute force 240 is too slow. It requires meet-in-the-middle.",
+        "questions": [
+          {
+            "title": "Closest Subsequence Sum - Read Statement",
+            "url": "https://leetcode.com/problems/closest-subsequence-sum/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Closest Subsequence Sum - Meet in the Middle",
+        "text": "Split the array into two halves. Generate all 220 subset sums for each half.\n1. Compute all sums for the first half: O(2n/2).\n2. Compute all sums for the second half: O(2n/2).\n3. Sort one list.\n4. For each sum s1​ in the first list,binary search for goal−s1​ in the second list to find the closest match.\nTotal time: O(2n/2⋅n).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Closest Subsequence Sum - Implementation",
+        "text": "Here is the implementation using meet-in-the-middle:\ntext\n\n\n```\nfunction minAbsDifference(nums,goal):\n    n=nums.length\n    half=n / 2\n\n    left=generateAllSums(nums[0..half-1])right=generateAllSums(nums[half..n-1])sort(right)result=infinity\n\n    for s1 in left:\n        target=goal - s1\n        // Binary search for closest to target in right\n        idx=lowerBound(right,target)\nif idx < right.length:\n            result=min(result,abs(s1+right[idx] - goal))\nif idx > 0:\n            result=min(result,abs(s1+right[idx-1] - goal))\nreturn result\n\nfunction generateAllSums(arr):\n    sums=[0]\n    for num in arr:\n        newSums=[]\n        for s in sums:\n            newSums.append(s+num)sums=sums+newSums\n    return sums\n\n```\n\nO(2n/2⋅n)time,O(2n/2)space.",
+        "questions": [
+          {
+            "title": "Closest Subsequence Sum - Implementation",
+            "url": "https://leetcode.com/problems/closest-subsequence-sum/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Section Recap",
+        "text": "You've learned complete search: enumerate everything,optionally optimize.\nKey techniques:\n\nBitmask subsets: O(2n)enumeration.\nPermutations: O(n!)enumeration.\nMeet in the middle: Reduce O(2n)to O(2n/2).\nPruning: Cut branches that can't lead to solutions.\nIterative deepening: BFS optimality with DFS memory.\nBranch and bound: Prune with optimistic bounds.\n\nWhen to use:\n\nSmall n(check time limits).\nNo known efficient algorithm.\nNeed guaranteed correctness.\n\nComplete search is the last resort and the first proof of correctness. Learn it and you'll never be stuck.",
+        "questions": [],
+        "articles": []
+      }
+    ]
+  },
+  {
+    "section_name": "8. Bit Manipulation",
+    "units": [
+      {
+        "unit_name": "Intro",
+        "text": "Bit manipulation operates directly on the binary representation of integers. It's fast(single CPU instruction),compact,and enables clever tricks.\nUse cases:\n\nSubset enumeration with bitmasks.\nChecking properties(odd/even,power of two).\nCompact state representation(visited sets,DP states).\nXOR tricks for finding duplicates.\n\nI'll teach you bitwise operators,common patterns,and classic problems that rely on bit tricks.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Bitwise Operators",
+        "text": "AND(&): Both bits must be 1.\n `1010 & 1100=1000` \nOR(|): At least one bit is 1.\n `1010 | 1100=1110` \nXOR(^): Exactly one bit is 1.\n `1010 ^ 1100=0110` \nNOT(~): Flip all bits.\n `~1010=...0101`(depends on integer size)Left shift(<<): Multiply by 2.\n `5 << 1=10`(1012​→10102​)Right shift(>>): Divide by 2.\n `5 >> 1=2`(1012​→102​)These are O(1)operations,much faster than arithmetic on large numbers.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Common Bit Tricks",
+        "text": "Check if i-th bit is set:\ntext\n\n\n```(n >> i)& 1\n// or: n &(1 << i)\n```\n\nSet the i-th bit:\ntext\n\n\n```\nn=n |(1 << i)\n```\n\nClear the i-th bit:\ntext\n\n\n```\nn=n & ~(1 << i)\n```\n\nToggle the i-th bit:\ntext\n\n\n```\nn=n ^(1 << i)\n```\n\nCheck if power of two:\ntext\n\n\n```\nn > 0 and(n &(n - 1))==0\n\n```\n\nClear the lowest set bit:\ntext\n\n\n```\nn=n &(n - 1)\n```\n\nIsolate the lowest set bit:\ntext\n\n\n```\nlowBit=n &(-n)\n```\n\nThese run in O(1)time.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Counting Set Bits",
+        "text": "Problem: Count the number of 1 bits in an integer(population count).\nMethod 1: Loop and check each bit. O(logn).\ntext\n\n\n```\ncount=0\nwhile n > 0:\n    count=count+(n & 1)n=n >> 1\nreturn count\n\n```\n\nMethod 2: Clear lowest set bit repeatedly. O(k)where k is the number of 1 bits.\ntext\n\n\n```\ncount=0\nwhile n > 0:\n    n=n &(n - 1)count=count+1\nreturn count\n\n```\n\nMethod 3: Built-in functions.\n\nC++:  `__builtin_popcount(n)` \nPython:  `bin(n).count('1')` \nJava:  `Integer.bitCount(n)` \n\nBuilt-ins use hardware instructions and are fastest.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "XOR Properties",
+        "text": "Key properties:\n1. a⊕a=0(self-inverse)2. a⊕0=a(identity)3. Commutative: a⊕b=b⊕a\n4. Associative:(a⊕b)⊕c=a⊕(b⊕c)Application: Finding the unique element.\nIf all elements appear twice except one,XOR them all. Pairs cancel out,leaving the unique element.\ntext\n\n\n```\nresult=0\nfor num in nums:\n    result=result ^ num\nreturn result\n\n```\n\nWhy it works: a⊕a=0,so pairs vanish. Only the unique element remains.\nTime: O(n).\nSpace: O(1)(excluding input array).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Single Number II",
+        "text": "Problem: Every element appears three times except one. Find it.\nApproach: Count bits. For each bit position,sum the bits across all numbers. If divisible by 3,the unique element has 0 there. Otherwise,it has 1.\ntext\n\n\n```\nfunction singleNumber(nums):\n    result=0\n    for i from 0 to 31:\n        bitSum=0\n        for num in nums:\n            bitSum=bitSum+((num >> i)& 1)\nif bitSum mod 3 !=0:\n            result=result |(1 << i)\nreturn result\n\n```\n\nTime: O(32n)=O(n).\nSpace: O(1)(excluding input array).\nAlternative: Use two variables to simulate a base-3 counter per bit.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Bitmask DP",
+        "text": "Bitmasks represent sets: bit i indicates element i membership.\nTSP example:  `dp[mask][i]`=min cost visiting cities in  `mask`,ending at i.\ntext\n\n\n```\nfor mask from 0 to 2^n - 1:\n    for last in mask:\n        for next not in mask:\n            newMask=mask |(1 << next)dp[newMask][next]=min(dp[newMask][next],dp[mask][last]+dist[last][next])\n```\n\nTime: O(n2⋅2n). Space: O(n⋅2n). Feasible for n≤20.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Subset Iteration with Bitmasks",
+        "text": "Iterate all subsets of a mask:\ntext\n\n\n```\nsub=mask\nwhile sub > 0:\n    // process subset 'sub'\n    sub=(sub - 1)& mask\n// don't forget empty subset\n\n```\n\nWhy it works: Decrementing flips trailing 1s and sets next 0 to 1. The  `& mask`  keeps only bits from the original mask.\nExample: mask=1011,subsets: 1011,1010,1001,1000,0011,0010,0001,0000.\nTime: O(3n)for iterating all subsets of all masks from 0 to 2n−1.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Missing Number",
+        "text": "Problem: Array contains n distinct numbers from 0 to n. One is missing. Find it.\nXOR approach: XOR all array elements with 0,1,2,...,n. Pairs cancel,leaving the missing number.\ntext\n\n\n```\nfunction missingNumber(nums):\n    n=nums.length\n    result=n\n    for i from 0 to n-1:\n        result=result ^ i ^ nums[i]\n    return result\n\n```\n\nExample: [3,0,1],n=3.\n\nXOR: 3⊕0⊕1⊕0⊕1⊕2⊕3=2.\nMissing: 2.\n\nAlternative: Sum formula. Expected sum=n(n+1)/2. Subtract actual sum.\nBoth are O(n)time,O(1)space(excluding input). XOR avoids potential overflow.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Two Numbers Appearing Once",
+        "text": "Problem: All appear twice except two numbers. Find both.\n1. XOR all → a⊕b\n2. Find set bit(differs between a,b)3. Partition by that bit,XOR each group\ntext\n\n\n```\nxorAll=XOR of all nums\ndiffBit=xorAll &(-xorAll)a=b=0\nfor num in nums:\n    if num & diffBit: a ^=num\n    else: b ^=num\nreturn [a,b]\n\n```\n\nNumbers with same bit cancel in each partition.\nTime: O(n). Space: O(1).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Power of Two",
+        "text": "A power of two has exactly one bit set: 1,2,4,8,16,...\nMethod:  `n &(n - 1)`  clears the lowest set bit. If the result is 0,there was only one bit.\ntext\n\n\n```\nfunction isPowerOfTwo(n):\n    return n > 0 and(n &(n - 1))==0\n\n```\n\nExample:\n\nn=8=10002​. n−1=01112​. 1000&0111=0000. True.\nn=6=01102​. n−1=01012​. 0110&0101=0100=0. False.\n\nNote: Check n>0 because 0 is not a power of two but 0&(−1)=0.\nTime: O(1).",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Reverse Bits",
+        "text": "Problem: Reverse the bits of a 32-bit unsigned integer.\ntext\n\n\n```\nfunction reverseBits(n):\n    result=0\n    for i from 0 to 31:\n        result=(result << 1)|(n & 1)n=n >> 1\n    return result\n\n```\n\nOptimization: Process in chunks. Precompute reversed bytes,combine:\ntext\n\n\n```\nreversed=(table[n & 0xFF] << 24)|(table[(n >> 8)& 0xFF] << 16)|(table[(n >> 16)& 0xFF] << 8)|(table[n >> 24])\n```\n\nTime: O(1)with lookup table. Space: O(1)or O(256)for table.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Single Number - Read Statement",
+        "text": "Given a non-empty array where every element appears twice except for one,find that single element.\nYou must implement a solution with O(n)time and O(1)space(excluding input).\nExample: For  `[4,1,2,1,2]`,return 4.",
+        "questions": [
+          {
+            "title": "Single Number - Read Statement",
+            "url": "https://leetcode.com/problems/single-number/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Single Number - XOR Properties",
+        "text": "XOR has two key properties:\n1. a⊕a=0(self-inverse).\n2. a⊕0=a(identity).\nXOR all elements. Pairs cancel out(a⊕a=0),leaving only the unique element.\nExample: 4⊕1⊕2⊕1⊕2=4⊕(1⊕1)⊕(2⊕2)=4⊕0⊕0=4.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Single Number - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction singleNumber(nums):\n    result=0\n    for num in nums:\n        result=result XOR num\n    return result\n\n```\n\nThis runs in O(n)time with O(1)space(excluding input). XOR is associative and commutative,so order doesn't matter.",
+        "questions": [
+          {
+            "title": "Single Number - Implementation",
+            "url": "https://leetcode.com/problems/single-number/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Number of 1 Bits - Read Statement",
+        "text": "Given a positive integer n,return the number of set bits(1s)in its binary representation. This is also known as the Hamming weight.\nExample: For n=11(binary  `1011`),return 3.",
+        "questions": [
+          {
+            "title": "Number of 1 Bits - Read Statement",
+            "url": "https://leetcode.com/problems/number-of-1-bits/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Number of 1 Bits - Brian Kernighan's Trick",
+        "text": "The expression  `n &(n - 1)`  clears the lowest set bit.\nExample: n=12(binary  `1100`). n−1=11(binary  `1011`). n&(n−1)=1000(binary  `1000`).\nCount how many times you can apply this operation until n becomes 0. Each operation removes exactly one set bit.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Number of 1 Bits - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction hammingWeight(n):\n    count=0\n    while n !=0:\n        n=n &(n - 1)count+=1\n    return count\n\n```\n\nThis runs in O(k)time where k is the number of set bits. Worst case is O(logn)for 32/64 bit integers.",
+        "questions": [
+          {
+            "title": "Number of 1 Bits - Implementation",
+            "url": "https://leetcode.com/problems/number-of-1-bits/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Power of Two - Read Statement",
+        "text": "Given an integer n,return  `true`  if it is a power of two,otherwise  `false` .\nA power of two has exactly one set bit in binary: 1,2,4,8,16,... are  `1,10,100,1000,10000,...`  in binary.",
+        "questions": [
+          {
+            "title": "Power of Two - Read Statement",
+            "url": "https://leetcode.com/problems/power-of-two/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Power of Two - Bit Trick",
+        "text": "A power of two has exactly one set bit. Using Brian Kernighan's trick: if  `n &(n - 1)==0`,then n has at most one set bit.\nBut we also need n>0(since 0 has no set bits but isn't a power of two).\nThe check is:  `n > 0 &&(n &(n - 1))==0` .",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Power of Two - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction isPowerOfTwo(n):\n    return n > 0 and(n &(n - 1))==0\n\n```\n\nThis runs in O(1)time. No loops needed.\nAlternative:  `n > 0 &&(highestOneBit(n)==n)`  or check if  `n`  is in the set {1,2,4,8,...}.",
+        "questions": [
+          {
+            "title": "Power of Two - Implementation",
+            "url": "https://leetcode.com/problems/power-of-two/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Single Number III - Read Statement",
+        "text": "Given an array where every element appears twice except for two elements that appear once,find those two elements.\nYou must achieve O(n)time and O(1)space(excluding input).\nExample: For  `[1,2,1,3,2,5]`,return  `[3,5]` .",
+        "questions": [
+          {
+            "title": "Single Number III - Read Statement",
+            "url": "https://leetcode.com/problems/single-number-iii/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Single Number III - Approach",
+        "text": "1. XOR all elements. Result is a⊕b where a and b are the two unique numbers.\n2. Find any set bit in this XOR(the rightmost is easiest:  `xor &(-xor)`).\n3. This bit differs between a and b. Partition all numbers by this bit.\n4. XOR within each group. One group gives a,the other gives b.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Single Number III - Implementation",
+        "text": "Here is the implementation:\ntext\n\n\n```\nfunction singleNumber(nums):\n    xorAll=0\n    for num in nums:\n        xorAll=xorAll XOR num\n\n    // xorAll=a XOR b\n    // Find rightmost set bit\n    rightmostBit=xorAll &(-xorAll)a=0,b=0\n    for num in nums:\n        if(num & rightmostBit)!=0:\n            a=a XOR num\n        else:\n            b=b XOR num\n\n    return [a,b]\n\n```\n\nO(n)time,O(1)space(excluding input). Two passes through the array.",
+        "questions": [
+          {
+            "title": "Single Number III - Implementation",
+            "url": "https://leetcode.com/problems/single-number-iii/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Maximum XOR of Two Numbers - Read Statement",
+        "text": "Given an integer array  `nums`,return the maximum XOR of any two elements.\nExample: For  `[3,10,5,25,2,8]`,return 28 from 5⊕25.\nConstraints: up to 2×105 elements. O(n2)is too slow.",
+        "questions": [
+          {
+            "title": "Maximum XOR of Two Numbers - Read Statement",
+            "url": "https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Maximum XOR of Two Numbers - Trie Approach",
+        "text": "Build a binary trie where each number is represented by its bits from most significant to least.\nFor each number,traverse the trie greedily choosing the opposite bit when possible(to maximize XOR).\n1. Insert all numbers into the trie(32 bits each).\n2. For each number,query the trie for the maximum XOR partner.\n3. Track the overall maximum.",
+        "questions": [],
+        "articles": []
+      },
+      {
+        "unit_name": "Maximum XOR of Two Numbers - Implementation",
+        "text": "Here is the implementation using a trie:\ntext\n\n\n```\nclass TrieNode:\n    children=[null,null]  // 0 and 1\n\nfunction findMaximumXOR(nums):\n    root=new TrieNode()// Insert all numbers\n    for num in nums:\n        node=root\n        for i from 31 down to 0:\n            bit=(num >> i)& 1\n            if node.children[bit]==null:\n                node.children[bit]=new TrieNode()node=node.children[bit]\n\n    maxXor=0\n    for num in nums:\n        node=root\n        currentXor=0\n        for i from 31 down to 0:\n            bit=(num >> i)& 1\n            oppositeBit=1 - bit\n            if node.children[oppositeBit] !=null:\n                currentXor |=(1 << i)node=node.children[oppositeBit]\n            else:\n                node=node.children[bit]\n        maxXor=max(maxXor,currentXor)\nreturn maxXor\n\n```\n\nO(32n)=O(n)time,O(32n)space for trie.",
+        "questions": [
+          {
+            "title": "Maximum XOR of Two Numbers - Implementation",
+            "url": "https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/"
+          }
+        ],
+        "articles": []
+      },
+      {
+        "unit_name": "Section Recap",
+        "text": "You've learned bitwise operations and common patterns.\nOperators: AND,OR,XOR,NOT,shifts.\nCommon tricks:\n\nCheck/set/clear/toggle bit i.\nCount set bits(popcount).\nClear or isolate lowest set bit.\nCheck power of two.\n\nXOR magic: Self-inverse property finds unique elements.\nBitmask DP: Represent sets as integers for compact state.\nWhen to use:\n\nSubset enumeration.\nCompact state representation.\nFinding duplicates or missing elements.\nLow-level optimization.\n\nBit manipulation is a powerful tool. Learn it and you'll find clever solutions to problems that seem to require complex data structures.",
+        "questions": [],
+        "articles": []
+      }
+    ]
+  }
+]

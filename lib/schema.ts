@@ -179,3 +179,45 @@ export type NewVideoSolution = typeof videoSolutions.$inferInsert;
 // --- CHAT HISTORY TYPES ---
 export type UserChat = typeof userChats.$inferSelect;
 export type NewUserChat = typeof userChats.$inferInsert;
+
+// --- CP LADDER TRACKING ---
+export const cpLadderTracking = pgTable("cp_ladder_tracking", {
+  id: serial("id").primaryKey(),
+  userId: text("user_id").notNull(),
+  listSlug: text("list_slug").notNull(), // e.g., '1 C++ STL'
+  questionId: text("question_id").notNull(), // e.g., '0', '1' (index) or title
+  status: text("status", { enum: ["none", "attempted", "solved"] })
+    .default("none")
+    .notNull(),
+  bookmarked: boolean("bookmarked").default(false),
+  note: text("note").default(""),
+  completedAt: timestamp("completed_at").defaultNow(),
+});
+
+// --- ROADMAP PROGRESS ---
+export const roadmapProgress = pgTable("roadmap_progress", {
+  id: serial("id").primaryKey(),
+  userId: text("user_id").notNull(),
+  roadmapSlug: text("roadmap_slug").notNull(), // e.g., 'javascript'
+  nodeId: text("node_id").notNull(), // e.g., 'variables'
+  completed: boolean("completed").default(false),
+  completedAt: timestamp("completed_at").defaultNow(),
+});
+
+// --- USER PROFILES / SETTINGS ---
+export const userProfiles = pgTable("user_profiles", {
+  userId: text("user_id").primaryKey(), // Clerk User ID
+  cfHandle: text("cf_handle"),
+  cfRatingData: jsonb("cf_rating_data"), // Cache of codeforces rating history
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export type CpLadderTracking = typeof cpLadderTracking.$inferSelect;
+export type NewCpLadderTracking = typeof cpLadderTracking.$inferInsert;
+
+export type RoadmapProgress = typeof roadmapProgress.$inferSelect;
+export type NewRoadmapProgress = typeof roadmapProgress.$inferInsert;
+
+export type UserProfile = typeof userProfiles.$inferSelect;
+export type NewUserProfile = typeof userProfiles.$inferInsert;

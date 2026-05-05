@@ -1,5 +1,5 @@
-
-import "dotenv/config"; // <-- REQUIRED to load .env
+import { config } from "dotenv";
+config({ path: ".env.local" }); // <-- REQUIRED to load .env.local
 import { defineConfig } from "drizzle-kit";
 
 export default defineConfig({
