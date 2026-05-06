@@ -240,147 +240,153 @@ export default function CpLadderClient({ slug, displayName, problems, availableL
             </div>
           </div>
 
-          {/* Column headers */}
-          <div className="grid grid-cols-[1fr_85px_85px_85px_85px] bg-muted/40 border-b border-border">
-            <div className="pl-8 pr-5 py-3 text-sm font-semibold text-white uppercase tracking-wider">
-              Problems
-            </div>
-            <div className="py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider text-center">
-              Solution
-            </div>
-            <div className="py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider text-center">
-              Status
-            </div>
-            <div className="py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider text-center">
-              BookMark
-            </div>
-            <div className="py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider text-center">
-              Note
+          <div className="overflow-x-auto">
+            <div className="min-w-[650px]">
+              {/* Column headers */}
+              <div className="grid grid-cols-[1fr_85px_85px_85px_85px] bg-muted/40 border-b border-border">
+                <div className="pl-8 pr-5 py-3 text-sm font-semibold text-white uppercase tracking-wider">
+                  Problems
+                </div>
+                <div className="py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider text-center">
+                  Solution
+                </div>
+                <div className="py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider text-center">
+                  Status
+                </div>
+                <div className="py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider text-center">
+                  BookMark
+                </div>
+                <div className="py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider text-center">
+                  Note
+                </div>
+              </div>
+
+              {/* Rows */}
+              {visibleProblems.length === 0 ? (
+                <div className="py-16 text-center text-zinc-500">
+                  No problems match the current filter.
+                </div>
+              ) : (
+                visibleProblems.map(({ p, i, m }) => {
+                  const statusCfg = STATUS_CONFIG[m.status];
+                  const isSolved = m.status === "solved";
+                  const isAttempted = m.status === "attempted";
+
+                  return (
+                    <div
+                      key={i}
+                      className={cn(
+                        "grid grid-cols-[1fr_85px_85px_85px_85px] border-b border-border/60 transition-colors",
+                        isSolved ? "bg-[#0d2b1a] hover:bg-[#0f3320]" : "bg-card hover:bg-muted/50"
+                      )}
+                    >
+                      {/* Problem title — the whole title is the link */}
+                      <div className="pl-8 pr-5 py-3.5 flex items-center gap-3">
+                        <a
+                          href={p.solveLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={cn(
+                            "text-base font-semibold transition-colors tracking-tight",
+                            isSolved
+                              ? "text-green-300 hover:text-green-200"
+                              : isAttempted
+                                ? "text-yellow-400 hover:text-yellow-300"
+                                : "text-foreground hover:text-blue-400"
+                          )}
+                        >
+                          {p.title}
+                        </a>
+                        {m.note && (
+                          <span
+                            className="w-1.5 h-1.5 rounded-full bg-yellow-400 shrink-0"
+                            title="Has note"
+                          />
+                        )}
+                      </div>
+
+                      {/* Solution Video */}
+                      <div className="flex items-center justify-center">
+                        <button
+                          onClick={() =>
+                            setVideoModal({ open: true, url: p.videoUrl, title: p.title })
+                          }
+                          className={cn(
+                            "p-2 rounded-lg transition-colors",
+                            isSolved ? "hover:bg-green-900/40" : "hover:bg-zinc-800"
+                          )}
+                          title="Watch Solution"
+                        >
+                          <Youtube className="h-5 w-5 text-red-600" />
+                        </button>
+                      </div>
+
+                      {/* Status */}
+                      <div className="flex items-center justify-center">
+                        <button
+                          onClick={() => cycleStatus(i)}
+                          className={cn(
+                            "p-2 rounded-lg transition-all",
+                            statusCfg.color,
+                            isSolved
+                              ? "bg-green-500/10"
+                              : isAttempted
+                                ? "bg-yellow-400/10"
+                                : "hover:bg-zinc-800"
+                          )}
+                          title={statusCfg.label}
+                        >
+                          {statusCfg.icon}
+                        </button>
+                      </div>
+
+                      {/* Bookmark */}
+                      <div className="flex items-center justify-center">
+                        <button
+                          onClick={() => toggleBookmark(i)}
+                          className={cn(
+                            "p-2 rounded-lg transition-all",
+                            m.bookmarked
+                              ? "text-yellow-400 bg-yellow-400/10"
+                              : cn(
+                                  "text-zinc-500 hover:text-yellow-400",
+                                  isSolved ? "hover:bg-green-900/40" : "hover:bg-zinc-800"
+                                )
+                          )}
+                          title={m.bookmarked ? "Remove Bookmark" : "Bookmark"}
+                        >
+                          {m.bookmarked ? (
+                            <Bookmark size={17} fill="currentColor" />
+                          ) : (
+                            <Bookmark size={17} />
+                          )}
+                        </button>
+                      </div>
+
+                      {/* Notes */}
+                      <div className="flex items-center justify-center">
+                        <button
+                          onClick={() => openNote(i)}
+                          className={cn(
+                            "p-2 rounded-lg transition-all",
+                            m.note
+                              ? "text-yellow-300 bg-yellow-400/10"
+                              : cn(
+                                  "text-zinc-500 hover:text-zinc-300",
+                                  isSolved ? "hover:bg-green-900/40" : "hover:bg-zinc-800"
+                                )
+                          )}
+                          title={m.note ? "Edit Note" : "Add Note"}
+                        >
+                          <StickyNote size={17} />
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
             </div>
           </div>
-
-          {/* Rows */}
-          {visibleProblems.length === 0 ? (
-            <div className="py-16 text-center text-zinc-500">
-              No problems match the current filter.
-            </div>
-          ) : (
-            visibleProblems.map(({ p, i, m }) => {
-              const statusCfg = STATUS_CONFIG[m.status];
-              const isSolved = m.status === "solved";
-              const isAttempted = m.status === "attempted";
-
-              return (
-                <div
-                  key={i}
-                  className={cn(
-                    "grid grid-cols-[1fr_85px_85px_85px_85px] border-b border-border/60 transition-colors",
-                    isSolved ? "bg-[#0d2b1a] hover:bg-[#0f3320]" : "bg-card hover:bg-muted/50"
-                  )}
-                >
-                  {/* Problem title — the whole title is the link */}
-                  <div className="pl-8 pr-5 py-3.5 flex items-center gap-3">
-                    <a
-                      href={p.solveLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={cn(
-                        "text-base font-semibold transition-colors tracking-tight",
-                        isSolved
-                          ? "text-green-300 hover:text-green-200"
-                          : isAttempted
-                            ? "text-yellow-400 hover:text-yellow-300"
-                            : "text-foreground hover:text-blue-400"
-                      )}
-                    >
-                      {p.title}
-                    </a>
-                    {m.note && (
-                      <span
-                        className="w-1.5 h-1.5 rounded-full bg-yellow-400 shrink-0"
-                        title="Has note"
-                      />
-                    )}
-                  </div>
-
-                  {/* Solution Video */}
-                  <div className="flex items-center justify-center">
-                    <button
-                      onClick={() => setVideoModal({ open: true, url: p.videoUrl, title: p.title })}
-                      className={cn(
-                        "p-2 rounded-lg transition-colors",
-                        isSolved ? "hover:bg-green-900/40" : "hover:bg-zinc-800"
-                      )}
-                      title="Watch Solution"
-                    >
-                      <Youtube className="h-5 w-5 text-red-600" />
-                    </button>
-                  </div>
-
-                  {/* Status */}
-                  <div className="flex items-center justify-center">
-                    <button
-                      onClick={() => cycleStatus(i)}
-                      className={cn(
-                        "p-2 rounded-lg transition-all",
-                        statusCfg.color,
-                        isSolved
-                          ? "bg-green-500/10"
-                          : isAttempted
-                            ? "bg-yellow-400/10"
-                            : "hover:bg-zinc-800"
-                      )}
-                      title={statusCfg.label}
-                    >
-                      {statusCfg.icon}
-                    </button>
-                  </div>
-
-                  {/* Bookmark */}
-                  <div className="flex items-center justify-center">
-                    <button
-                      onClick={() => toggleBookmark(i)}
-                      className={cn(
-                        "p-2 rounded-lg transition-all",
-                        m.bookmarked
-                          ? "text-yellow-400 bg-yellow-400/10"
-                          : cn(
-                              "text-zinc-500 hover:text-yellow-400",
-                              isSolved ? "hover:bg-green-900/40" : "hover:bg-zinc-800"
-                            )
-                      )}
-                      title={m.bookmarked ? "Remove Bookmark" : "Bookmark"}
-                    >
-                      {m.bookmarked ? (
-                        <Bookmark size={17} fill="currentColor" />
-                      ) : (
-                        <Bookmark size={17} />
-                      )}
-                    </button>
-                  </div>
-
-                  {/* Notes */}
-                  <div className="flex items-center justify-center">
-                    <button
-                      onClick={() => openNote(i)}
-                      className={cn(
-                        "p-2 rounded-lg transition-all",
-                        m.note
-                          ? "text-yellow-300 bg-yellow-400/10"
-                          : cn(
-                              "text-zinc-500 hover:text-zinc-300",
-                              isSolved ? "hover:bg-green-900/40" : "hover:bg-zinc-800"
-                            )
-                      )}
-                      title={m.note ? "Edit Note" : "Add Note"}
-                    >
-                      <StickyNote size={17} />
-                    </button>
-                  </div>
-                </div>
-              );
-            })
-          )}
         </div>
       </div>
 
