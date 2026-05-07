@@ -460,8 +460,10 @@ function ActivityHeatmap({ mounted }: { mounted: boolean }) {
     const sortedDates = data
       .filter((d) => d.count > 0)
       .map((d) => {
-        // use UTC dates for clean math
-        const dStr = d.date.toISOString().split("T")[0];
+        const y = d.date.getFullYear();
+        const m = String(d.date.getMonth() + 1).padStart(2, "0");
+        const day = String(d.date.getDate()).padStart(2, "0");
+        const dStr = `${y}-${m}-${day}`;
         return new Date(dStr).getTime();
       })
       .sort((a, b) => a - b);

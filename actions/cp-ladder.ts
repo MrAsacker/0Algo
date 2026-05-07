@@ -150,7 +150,10 @@ export async function getCpLadderActivity() {
     const activityMap: Record<string, number> = {};
     for (const r of records) {
       if (r.completedAt) {
-        const dateStr = r.completedAt.toISOString().split("T")[0];
+        const y = r.completedAt.getFullYear();
+        const m = String(r.completedAt.getMonth() + 1).padStart(2, "0");
+        const day = String(r.completedAt.getDate()).padStart(2, "0");
+        const dateStr = `${y}-${m}-${day}`;
         activityMap[dateStr] = (activityMap[dateStr] || 0) + 1;
       }
     }
