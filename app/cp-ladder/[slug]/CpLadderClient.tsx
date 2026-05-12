@@ -92,18 +92,24 @@ export default function CpLadderClient({ slug, displayName, problems, availableL
 
   // ── Load from DB or localStorage ──
   useEffect(() => {
+    // 1. Fast path: optimistic load from localStorage
+    try {
+      const stored = localStorage.getItem(storageKey);
+      if (stored) {
+        setMeta(JSON.parse(stored));
+      }
+    } catch {}
+
+    // 2. Slow path: fetch from DB in background and update if needed
     async function loadData() {
       if (userId) {
         const dbData = await getCpLadderProgress(slug);
         if (dbData && Object.keys(dbData).length > 0) {
           setMeta(dbData as any);
-          return;
+          // Sync to localStorage
+          localStorage.setItem(storageKey, JSON.stringify(dbData));
         }
       }
-      try {
-        const stored = localStorage.getItem(storageKey);
-        if (stored) setMeta(JSON.parse(stored));
-      } catch {}
     }
     loadData();
   }, [storageKey, slug, userId]);

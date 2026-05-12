@@ -255,6 +255,17 @@ export default function RoadmapClient({ slug, data, availableRoadmaps }: Roadmap
   const { userId } = useAuth();
 
   useEffect(() => {
+    // 1. Fast path: optimistic load from localStorage
+    let localMap: Record<string, boolean> = {};
+    try {
+      const stored = localStorage.getItem(progressKey);
+      if (stored) {
+        localMap = JSON.parse(stored);
+        setCompletedUnits(localMap);
+      }
+    } catch {}
+
+    // 2. Slow path: fetch from DB and sync
     async function loadProgress() {
       if (userId) {
         const dbNodes = await getRoadmapProgress(slug);
@@ -264,26 +275,18 @@ export default function RoadmapClient({ slug, data, availableRoadmaps }: Roadmap
             map[id] = true;
           });
           setCompletedUnits(map);
-          return;
+          // Sync to localStorage
+          localStorage.setItem(progressKey, JSON.stringify(map));
         }
-      }
-      // Fallback to localStorage
-      let localMap: Record<string, boolean> = {};
-      try {
-        const stored = localStorage.getItem(progressKey);
-        if (stored) {
-          localMap = JSON.parse(stored);
-          setCompletedUnits(localMap);
-        }
-      } catch {}
 
-      // ── One-time migration: push localStorage data to DB ──
-      if (userId && Object.keys(localMap).some((k) => localMap[k])) {
-        const MIGRATION_KEY = `roadmap_db_migrated_v1_${slug}`;
-        if (!localStorage.getItem(MIGRATION_KEY)) {
-          localStorage.setItem(MIGRATION_KEY, "1");
-          for (const [nodeId, completed] of Object.entries(localMap)) {
-            if (completed) toggleRoadmapNode(slug, nodeId, true);
+        // ── One-time migration: push localStorage data to DB ──
+        if (Object.keys(localMap).some((k) => localMap[k])) {
+          const MIGRATION_KEY = `roadmap_db_migrated_v1_${slug}`;
+          if (!localStorage.getItem(MIGRATION_KEY)) {
+            localStorage.setItem(MIGRATION_KEY, "1");
+            for (const [nodeId, completed] of Object.entries(localMap)) {
+              if (completed) toggleRoadmapNode(slug, nodeId, true);
+            }
           }
         }
       }

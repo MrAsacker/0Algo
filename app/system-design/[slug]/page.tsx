@@ -12,102 +12,22 @@ import rehypeHighlight from "rehype-highlight";
 import Slugger from "github-slugger";
 import TOC, { TocItem } from "@/components/TOC";
 import { cn } from "@/lib/utils";
-import matter from "gray-matter";
 import GlobalChatWidget from "@/components/GlobalChatWidget";
+import { getAllSystemDesignChapters } from "../utils";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;
 
-const CONTENT_ROOT = path.join(process.cwd(), "public", "system-design");
-
-async function readMarkdownAndFolderBySlug(slug: string): Promise<{
-  content: string;
-  folder: string;
-  video?: string | null;
-  podcast?: string | null;
-} | null> {
-  try {
-    const dirents = await fs.readdir(CONTENT_ROOT, { withFileTypes: true });
-    const folders = dirents.filter((d) => d.isDirectory()).map((d) => d.name);
-    for (const folder of folders) {
-      try {
-        const dirPath = path.join(CONTENT_ROOT, folder);
-        const files = await fs.readdir(dirPath);
-        const mdFile = files.find((f) => f.toLowerCase().endsWith(".md"));
-        if (!mdFile) continue;
-        const raw = await fs.readFile(path.join(dirPath, mdFile), "utf8");
-        const parsed = matter(raw);
-        const fmSlug = (parsed.data?.slug as string | undefined)?.trim();
-        if (!fmSlug) continue;
-        if (fmSlug === slug) {
-          const video = (parsed.data?.video as string | undefined)?.trim() || null;
-          const podcast = (parsed.data?.podcast as string | undefined)?.trim() || null;
-          return { content: parsed.content, folder, video, podcast };
-        }
-      } catch {
-        continue;
-      }
-    }
-    return null;
-  } catch {
-    return null;
-  }
-}
-
 export async function generateStaticParams() {
-  try {
-    const dirents = await fs.readdir(CONTENT_ROOT, { withFileTypes: true });
-    const folders = dirents.filter((d) => d.isDirectory()).map((d) => d.name);
-    const slugs: { slug: string }[] = [];
-    for (const folder of folders) {
-      try {
-        const dirPath = path.join(CONTENT_ROOT, folder);
-        const files = await fs.readdir(dirPath);
-        const mdFile = files.find((f) => f.toLowerCase().endsWith(".md"));
-        if (!mdFile) continue;
-        const raw = await fs.readFile(path.join(dirPath, mdFile), "utf8");
-        const parsed = matter(raw);
-        const fmSlug = (parsed.data?.slug as string | undefined)?.trim();
-        if (fmSlug) slugs.push({ slug: fmSlug });
-      } catch {
-        continue;
-      }
-    }
-    return slugs;
-  } catch {
-    return [] as Array<{ slug: string }>;
-  }
+  const chapters = await getAllSystemDesignChapters();
+  return chapters.map((c) => ({ slug: c.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  try {
-    const dirents = await fs.readdir(CONTENT_ROOT, { withFileTypes: true });
-    const folders = dirents.filter((d) => d.isDirectory()).map((d) => d.name);
-    for (const folder of folders) {
-      try {
-        const dirPath = path.join(CONTENT_ROOT, folder);
-        const files = await fs.readdir(dirPath);
-        const mdFile = files.find((f) => f.toLowerCase().endsWith(".md"));
-        if (!mdFile) continue;
-        const raw = await fs.readFile(path.join(dirPath, mdFile), "utf8");
-        const parsed = matter(raw);
-        const fmSlug = (parsed.data?.slug as string | undefined)?.trim();
-        if (fmSlug === slug) {
-          const fmTitle = (parsed.data?.title as string | undefined)?.trim();
-          let title = fmTitle || "System Design";
-          if (!fmTitle) {
-            const h1 = parsed.content.match(/^#\s+(.+)$/m) || parsed.content.match(/^##\s+(.+)$/m);
-            if (h1?.[1]) title = h1[1].trim();
-          }
-          return { title };
-        }
-      } catch {
-        continue;
-      }
-    }
-  } catch { }
-  return { title: "System Design" };
+  const chapters = await getAllSystemDesignChapters();
+  const chapter = chapters.find((c) => c.slug === slug);
+  return { title: chapter?.title || "System Design" };
 }
 
 export default async function SystemDesignDetailPage({
@@ -117,9 +37,11 @@ export default async function SystemDesignDetailPage({
 }) {
   const resolved = await params;
   const slug = decodeURIComponent(resolved.slug);
-  const result = await readMarkdownAndFolderBySlug(slug);
-  if (!result) return notFound();
-  const { content, folder, video, podcast } = result;
+  const chapters = await getAllSystemDesignChapters();
+  const chapter = chapters.find((c) => c.slug === slug);
+  if (!chapter) return notFound();
+
+  const { content, folder, video, podcast } = chapter;
 
   function toYouTubeEmbed(url: string): string | null {
     try {
@@ -162,49 +84,7 @@ export default async function SystemDesignDetailPage({
     }
   }
 
-  interface ChapterItem {
-    slug: string;
-    title: string;
-  }
-  async function getChapters(): Promise<ChapterItem[]> {
-    try {
-      const dirents = await fs.readdir(CONTENT_ROOT, { withFileTypes: true });
-      const folders = dirents.filter((d) => d.isDirectory()).map((d) => d.name);
-      const items: Array<ChapterItem & { order: number }> = [];
-      for (const folder of folders) {
-        const files = await fs.readdir(path.join(CONTENT_ROOT, folder));
-        const md = files.find((f) => f.toLowerCase().endsWith(".md"));
-        if (!md) continue;
-        try {
-          const mdContent = await fs.readFile(path.join(CONTENT_ROOT, folder, md), "utf8");
-          const parsed = matter(mdContent);
-          const fmSlug = (parsed.data?.slug as string | undefined)?.trim();
-          if (!fmSlug) continue;
-          let title = folder.replace(/[-_]+/g, " ");
-          const h1 = parsed.content.match(/^#\s+(.+)$/m) || parsed.content.match(/^##\s+(.+)$/m);
-          if (h1?.[1]) title = h1[1].trim();
-          const folderOrderMatch = folder.match(/^(\d{1,3})/);
-          const titleOrderMatch = title.match(/chapter\s*(\d{1,3})/i);
-          const orderFromFolder = folderOrderMatch ? parseInt(folderOrderMatch[1], 10) : NaN;
-          const orderFromTitle = titleOrderMatch ? parseInt(titleOrderMatch[1], 10) : NaN;
-          const order = Number.isFinite(orderFromFolder)
-            ? orderFromFolder
-            : Number.isFinite(orderFromTitle)
-              ? orderFromTitle
-              : Number.MAX_SAFE_INTEGER;
-          items.push({ slug: fmSlug, title, order });
-        } catch { }
-      }
-      items.sort((a, b) => {
-        if (a.order !== b.order) return a.order - b.order;
-        return a.title.localeCompare(b.title);
-      });
-      return items.map(({ slug, title }) => ({ slug, title }));
-    } catch {
-      return [];
-    }
-  }
-  const chapters = await getChapters();
+  const displayChapters = chapters.map(({ slug, title }) => ({ slug, title }));
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -214,7 +94,7 @@ export default async function SystemDesignDetailPage({
           <div className="p-3">
             <nav aria-label="Chapters" className="text-sm">
               <ul className="space-y-1">
-                {chapters.map((c) => (
+                {displayChapters.map((c) => (
                   <li key={c.slug} className="leading-6">
                     <Link
                       href={`/system-design/${encodeURIComponent(c.slug)}`}
@@ -315,7 +195,7 @@ export default async function SystemDesignDetailPage({
           >
             <div className="font-medium mb-2 text-muted-foreground">Chapters</div>
             <ul className="space-y-1">
-              {chapters.map((c) => (
+              {displayChapters.map((c) => (
                 <li key={c.slug} className="leading-6">
                   <Link
                     href={`/system-design/${encodeURIComponent(c.slug)}`}
@@ -334,6 +214,5 @@ export default async function SystemDesignDetailPage({
       </div>
       <GlobalChatWidget />
     </div>
-
   );
 }

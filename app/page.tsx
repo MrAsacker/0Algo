@@ -152,7 +152,7 @@ export default function Home() {
 
             {/* 4. Buttons */}
             <motion.div variants={itemVariants} className="z-20 flex gap-3">
-              <Link href="/dashboard">
+              <Link href="/cp-ladder">
                 <Button
                   size="sm"
                   className="shadow-2xl h-12 px-8 font-mono text-[16px] font-bold uppercase tracking-wider transition group hover:-translate-y-0.5 hover:brightness-110 flex items-center gap-2"

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useId, useRef } from "react";
+import React, { useEffect, useState, useId, useRef, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Trophy, Zap, Play, Code2, RefreshCw, CheckCircle2, Edit2 } from "lucide-react";
 import type { LadderMeta } from "./ladder-utils";
@@ -47,8 +47,25 @@ function CfWidget() {
   const inputRef = useRef<HTMLInputElement>(null);
   const { userId } = useAuth();
 
-  // Load CF handle from DB first, fallback to localStorage
+  // Load CF handle from localStorage first (fast), then verify/update with DB
   useEffect(() => {
+    const stored = localStorage.getItem("cf_handle");
+    if (stored) {
+      setSavedHandle(stored);
+      const cached = localStorage.getItem("cf_rating_data");
+      if (cached) {
+        try {
+          const data = JSON.parse(cached);
+          if (data.handle === stored) {
+            setRating(data.rating);
+            setRank(data.rank);
+            setMaxRating(data.maxRating);
+            setMaxRank(data.maxRank);
+          }
+        } catch {}
+      }
+    }
+
     async function loadProfile() {
       if (userId) {
         const profile = await getUserProfile();
@@ -60,29 +77,18 @@ function CfWidget() {
             setRank(d.rank ?? "");
             setMaxRating(d.maxRating ?? null);
             setMaxRank(d.maxRank ?? "");
+
+            // Sync to local storage for next time
+            localStorage.setItem("cf_handle", profile.cfHandle);
+            localStorage.setItem("cf_rating_data", JSON.stringify(d));
             return;
           }
           fetchRating(profile.cfHandle, true);
           return;
         }
       }
-      // Fallback to localStorage
-      const stored = localStorage.getItem("cf_handle");
-      if (stored) {
-        setSavedHandle(stored);
-        const cached = localStorage.getItem("cf_rating_data");
-        if (cached) {
-          try {
-            const data = JSON.parse(cached);
-            if (data.handle === stored) {
-              setRating(data.rating);
-              setRank(data.rank);
-              setMaxRating(data.maxRating);
-              setMaxRank(data.maxRank);
-              return;
-            }
-          } catch {}
-        }
+      // If we had a stored handle but no DB profile (or logged out), fetch fresh data
+      if (stored && !rating) {
         fetchRating(stored, true);
       }
     }
@@ -421,76 +427,122 @@ function LadderCard({
 }
 
 // ── Activity Heatmap Wrapper ─────────────────────────────────────────────────
-function ActivityHeatmap({ mounted }: { mounted: boolean }) {
+function ActivityHeatmap() {
   const [data, setData] = useState<CalendarHeatmapData[]>([]);
+  const [loading, setLoading] = useState(true);
   const { userId } = useAuth();
 
+  // Fetch immediately on mount — no dependency on parent progress loading
   useEffect(() => {
-    if (!mounted) return;
+    let cancelled = false;
     async function loadActivity() {
-      // Try DB first
-      if (userId) {
-        const dbActivity = await getCpLadderActivity();
-        if (dbActivity && Object.keys(dbActivity).length > 0) {
-          const heatmapData: CalendarHeatmapData[] = Object.entries(dbActivity).map(
-            ([dateStr, count]) => ({ date: new Date(dateStr + "T12:00:00"), count })
-          );
-          setData(heatmapData);
-          return;
-        }
-      }
-      // Fallback to localStorage
+      setLoading(true);
       try {
-        const raw = localStorage.getItem("cp_ladder_activity");
-        const activity: Record<string, number> = raw ? JSON.parse(raw) : {};
-        const heatmapData: CalendarHeatmapData[] = Object.entries(activity).map(
-          ([dateStr, count]) => ({ date: new Date(dateStr + "T12:00:00"), count })
-        );
-        setData(heatmapData);
+        // Optimistic load from localStorage
+        if (!cancelled) {
+          const raw = localStorage.getItem("cp_ladder_activity");
+          const activity: Record<string, number> = raw ? JSON.parse(raw) : {};
+          const heatmapData: CalendarHeatmapData[] = Object.entries(activity).map(
+            ([dateStr, count]) => ({
+              date: new Date(dateStr + "T12:00:00"),
+              count,
+            })
+          );
+          if (heatmapData.length > 0) {
+            setData(heatmapData);
+            setLoading(false);
+          }
+        }
+
+        // Try DB in background
+        if (userId) {
+          const dbActivity = await getCpLadderActivity();
+          if (!cancelled && dbActivity && Object.keys(dbActivity).length > 0) {
+            const heatmapData: CalendarHeatmapData[] = Object.entries(dbActivity).map(
+              ([dateStr, count]) => ({
+                date: new Date(dateStr + "T12:00:00"),
+                count,
+              })
+            );
+            setData(heatmapData);
+            setLoading(false);
+
+            // Sync to local storage
+            localStorage.setItem("cp_ladder_activity", JSON.stringify(dbActivity));
+          }
+        }
       } catch {}
+      if (!cancelled) setLoading(false);
     }
     loadActivity();
-  }, [mounted, userId]);
+    return () => {
+      cancelled = true;
+    };
+  }, [userId]);
 
-  const totalSolved = data.reduce((s, d) => s + d.count, 0);
-  const activeDays = data.filter((d) => d.count > 0).length;
-
-  let maxStreak = 0;
-  if (data.length > 0) {
-    const sortedDates = data
-      .filter((d) => d.count > 0)
-      .map((d) => {
-        const y = d.date.getFullYear();
-        const m = String(d.date.getMonth() + 1).padStart(2, "0");
-        const day = String(d.date.getDate()).padStart(2, "0");
-        const dStr = `${y}-${m}-${day}`;
-        return new Date(dStr).getTime();
-      })
-      .sort((a, b) => a - b);
-
+  // ── All stats in a single useMemo pass ──────────────────────────────────
+  const { totalSolved, activeDays, maxStreak, currentStreak } = useMemo(() => {
+    let totalSolved = 0;
+    let activeDays = 0;
+    let maxStreak = 0;
     let currentStreak = 0;
-    if (sortedDates.length > 0) {
-      currentStreak = 1;
-      maxStreak = 1;
+
+    if (data.length === 0) return { totalSolved, activeDays, maxStreak, currentStreak };
+
+    // Build sorted timestamp array of active days in one pass
+    const activeDatesMs: number[] = [];
+    for (const d of data) {
+      totalSolved += d.count;
+      if (d.count > 0) {
+        activeDays++;
+        const dt = d.date;
+        activeDatesMs.push(new Date(dt.getFullYear(), dt.getMonth(), dt.getDate()).getTime());
+      }
+    }
+    activeDatesMs.sort((a, b) => a - b);
+
+    // Compute streaks
+    if (activeDatesMs.length > 0) {
       const DAY_MS = 86400000;
-      for (let i = 1; i < sortedDates.length; i++) {
-        const diff = sortedDates[i] - sortedDates[i - 1];
+      let streak = 1;
+      maxStreak = 1;
+      for (let i = 1; i < activeDatesMs.length; i++) {
+        const diff = activeDatesMs[i] - activeDatesMs[i - 1];
         if (diff === DAY_MS) {
-          currentStreak++;
-          if (currentStreak > maxStreak) maxStreak = currentStreak;
+          streak++;
+          if (streak > maxStreak) maxStreak = streak;
         } else if (diff > DAY_MS) {
-          currentStreak = 1;
+          streak = 1;
+        }
+      }
+      // Current streak: count back from today
+      const todayMs = new Date(
+        new Date().getFullYear(),
+        new Date().getMonth(),
+        new Date().getDate()
+      ).getTime();
+      const last = activeDatesMs[activeDatesMs.length - 1];
+      if (last === todayMs || last === todayMs - DAY_MS) {
+        currentStreak = 1;
+        for (let i = activeDatesMs.length - 2; i >= 0; i--) {
+          if (activeDatesMs[i + 1] - activeDatesMs[i] === DAY_MS) {
+            currentStreak++;
+          } else break;
         }
       }
     }
-  }
+
+    return { totalSolved, activeDays, maxStreak, currentStreak };
+  }, [data]);
 
   return (
     <CalendarHeatmap
       data={data}
       activeDays={activeDays}
       maxStreak={maxStreak}
+      currentStreak={currentStreak}
       totalSolved={totalSolved}
+      loading={loading}
     />
   );
 }
@@ -504,17 +556,7 @@ export default function CpLadderIndex({ ladders }: { ladders: LadderMeta[] }) {
 
   useEffect(() => {
     async function loadProgress() {
-      // Try DB first
-      if (userId) {
-        const dbCounts = await getAllLaddersSolvedCounts();
-        // Only trust DB if it actually has solved records
-        if (dbCounts && Object.keys(dbCounts).length > 0) {
-          setProgress(dbCounts);
-          setMounted(true);
-          return;
-        }
-      }
-      // Fallback: read from localStorage
+      // 1. Fast path: load from localStorage immediately
       const result: Record<string, number> = {};
       const localData: Record<string, Record<string, any>> = {};
       ladders.forEach(({ slug }) => {
@@ -535,19 +577,28 @@ export default function CpLadderIndex({ ladders }: { ladders: LadderMeta[] }) {
       setProgress(result);
       setMounted(true);
 
-      // ── One-time migration: push localStorage data to DB ──
-      if (userId && Object.values(result).some((v) => v > 0)) {
-        const MIGRATION_KEY = "cp_ladder_db_migrated_v1";
-        if (!localStorage.getItem(MIGRATION_KEY)) {
-          localStorage.setItem(MIGRATION_KEY, "1");
-          for (const [slug, meta] of Object.entries(localData)) {
-            for (const [idx, m] of Object.entries(meta)) {
-              if (m.status && m.status !== "none") {
-                updateCpLadderProgress(slug, idx, {
-                  status: m.status as "none" | "attempted" | "solved",
-                  bookmarked: m.bookmarked ?? false,
-                  note: m.note ?? "",
-                });
+      // 2. Slow path: fetch from DB and merge/sync
+      if (userId) {
+        const dbCounts = await getAllLaddersSolvedCounts();
+        // Only trust DB if it actually has solved records
+        if (dbCounts && Object.keys(dbCounts).length > 0) {
+          setProgress(dbCounts);
+        }
+
+        // ── One-time migration: push localStorage data to DB ──
+        if (Object.values(result).some((v) => v > 0)) {
+          const MIGRATION_KEY = "cp_ladder_db_migrated_v1";
+          if (!localStorage.getItem(MIGRATION_KEY)) {
+            localStorage.setItem(MIGRATION_KEY, "1");
+            for (const [slug, meta] of Object.entries(localData)) {
+              for (const [idx, m] of Object.entries(meta)) {
+                if (m.status && m.status !== "none") {
+                  updateCpLadderProgress(slug, idx, {
+                    status: m.status as "none" | "attempted" | "solved",
+                    bookmarked: m.bookmarked ?? false,
+                    note: m.note ?? "",
+                  });
+                }
               }
             }
           }
@@ -594,7 +645,7 @@ export default function CpLadderIndex({ ladders }: { ladders: LadderMeta[] }) {
         <div className="flex flex-col lg:flex-row items-stretch gap-6">
           {/* Heatmap */}
           <div className="min-w-0 flex-1 h-full">
-            <ActivityHeatmap mounted={mounted} />
+            <ActivityHeatmap />
           </div>
 
           {/* Stats panel */}
