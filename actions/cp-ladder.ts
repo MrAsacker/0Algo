@@ -126,12 +126,16 @@ export async function updateCpLadderProgress(
 }
 
 // ── Activity Heatmap ──────────────────────────────────────────────────────────
-
+// Returns a map of { "YYYY-MM-DD": count } where count = number of problems
+// currently in "solved" status that were last set to solved on that date.
+// When a problem is unsolved, its status changes so it's excluded from the count.
 export async function getCpLadderActivity() {
   const { userId } = await auth();
   if (!userId) return null;
 
   try {
+    // Only count records that are CURRENTLY solved (status = 'solved')
+    // completedAt is updated every time a problem is toggled to solved
     const records = await db
       .select({ completedAt: cpLadderTracking.completedAt })
       .from(cpLadderTracking)
@@ -140,9 +144,13 @@ export async function getCpLadderActivity() {
     const activityMap: Record<string, number> = {};
     for (const r of records) {
       if (r.completedAt) {
-        const y = r.completedAt.getFullYear();
-        const m = String(r.completedAt.getMonth() + 1).padStart(2, "0");
-        const day = String(r.completedAt.getDate()).padStart(2, "0");
+        // completedAt is stored as UTC. Convert to IST (+5:30 = +330 minutes) for display.
+        // We adjust by the IST offset so the day boundary is correct for Indian users.
+        // Note: this is stored UTC so we apply a fixed +330 offset.
+        const local = new Date(r.completedAt.getTime() + 330 * 60 * 1000);
+        const y = local.getUTCFullYear();
+        const m = String(local.getUTCMonth() + 1).padStart(2, "0");
+        const day = String(local.getUTCDate()).padStart(2, "0");
         const dateStr = `${y}-${m}-${day}`;
         activityMap[dateStr] = (activityMap[dateStr] || 0) + 1;
       }
