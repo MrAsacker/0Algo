@@ -435,29 +435,29 @@ function ActivityHeatmap() {
   // Fetch immediately on mount — no dependency on parent progress loading
   useEffect(() => {
     let cancelled = false;
+
+    const readLocalActivity = () => {
+      const raw = localStorage.getItem("cp_ladder_activity");
+      const activity: Record<string, number> = raw ? JSON.parse(raw) : {};
+      return Object.entries(activity).map(([dateStr, count]) => ({
+        date: new Date(dateStr + "T12:00:00"),
+        count,
+      }));
+    };
+
     async function loadActivity() {
       setLoading(true);
       try {
         // Optimistic load from localStorage
         if (!cancelled) {
-          const raw = localStorage.getItem("cp_ladder_activity");
-          const activity: Record<string, number> = raw ? JSON.parse(raw) : {};
-          const heatmapData: CalendarHeatmapData[] = Object.entries(activity).map(
-            ([dateStr, count]) => ({
-              date: new Date(dateStr + "T12:00:00"),
-              count,
-            })
-          );
-          if (heatmapData.length > 0) {
-            setData(heatmapData);
-            setLoading(false);
-          }
+          setData(readLocalActivity());
+          setLoading(false);
         }
 
-        // Try DB in background
+        // Fetch fresh from DB if logged in
         if (userId) {
           const dbActivity = await getCpLadderActivity();
-          if (!cancelled && dbActivity && Object.keys(dbActivity).length > 0) {
+          if (!cancelled && dbActivity) {
             const heatmapData: CalendarHeatmapData[] = Object.entries(dbActivity).map(
               ([dateStr, count]) => ({
                 date: new Date(dateStr + "T12:00:00"),
@@ -465,18 +465,23 @@ function ActivityHeatmap() {
               })
             );
             setData(heatmapData);
-            setLoading(false);
-
-            // Sync to local storage
-            localStorage.setItem("cp_ladder_activity", JSON.stringify(dbActivity));
           }
         }
       } catch {}
       if (!cancelled) setLoading(false);
     }
     loadActivity();
+
+    const handleActivityUpdate = () => {
+      if (!cancelled) {
+        setData(readLocalActivity());
+      }
+    };
+    window.addEventListener("activityUpdated", handleActivityUpdate);
+
     return () => {
       cancelled = true;
+      window.removeEventListener("activityUpdated", handleActivityUpdate);
     };
   }, [userId]);
 

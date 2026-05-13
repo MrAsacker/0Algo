@@ -144,6 +144,30 @@ export default function CpLadderClient({ slug, displayName, problems, availableL
       }
 
       if (userId && updatedIdx !== undefined && updatedMeta) {
+        // Optimistically update the heatmap activity locally
+        const prevStatus = meta[updatedIdx]?.status ?? "none";
+        if (prevStatus !== updatedMeta.status) {
+          try {
+            const actStr = localStorage.getItem("cp_ladder_activity");
+            const activity: Record<string, number> = actStr ? JSON.parse(actStr) : {};
+            const today = new Date();
+            const y = today.getFullYear();
+            const m = String(today.getMonth() + 1).padStart(2, "0");
+            const d = String(today.getDate()).padStart(2, "0");
+            const dateStr = `${y}-${m}-${d}`;
+
+            if (updatedMeta.status === "solved") {
+              activity[dateStr] = (activity[dateStr] || 0) + 1;
+            } else if (prevStatus === "solved") {
+              activity[dateStr] = Math.max(0, (activity[dateStr] || 0) - 1);
+            }
+            localStorage.setItem("cp_ladder_activity", JSON.stringify(activity));
+
+            // Dispatch a custom event so the heatmap component knows to re-render immediately
+            window.dispatchEvent(new Event("activityUpdated"));
+          } catch (e) {}
+        }
+
         updateCpLadderProgress(slug, String(updatedIdx), updatedMeta);
       }
     },
