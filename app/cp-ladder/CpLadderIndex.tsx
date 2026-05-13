@@ -436,35 +436,52 @@ function ActivityHeatmap() {
   useEffect(() => {
     let cancelled = false;
 
-    const readLocalActivity = () => {
-      const raw = localStorage.getItem("cp_ladder_activity");
-      const activity: Record<string, number> = raw ? JSON.parse(raw) : {};
-      return Object.entries(activity).map(([dateStr, count]) => ({
-        date: new Date(dateStr + "T12:00:00"),
-        count,
-      }));
+    const readLocalActivity = (): Record<string, number> => {
+      try {
+        const raw = localStorage.getItem("cp_ladder_activity");
+        return raw ? JSON.parse(raw) : {};
+      } catch {
+        return {};
+      }
     };
+
+    const activityToData = (activity: Record<string, number>): CalendarHeatmapData[] =>
+      Object.entries(activity)
+        .filter(([, c]) => c > 0)
+        .map(([dateStr, count]) => ({
+          date: new Date(dateStr + "T12:00:00"),
+          count,
+        }));
 
     async function loadActivity() {
       setLoading(true);
       try {
-        // Optimistic load from localStorage
+        // 1. Instant paint from localStorage
+        const localActivity = readLocalActivity();
         if (!cancelled) {
-          setData(readLocalActivity());
+          setData(activityToData(localActivity));
           setLoading(false);
         }
 
-        // Fetch fresh from DB if logged in
+        // 2. Fetch from DB and MERGE — never let a stale DB response reduce local counts
         if (userId) {
           const dbActivity = await getCpLadderActivity();
           if (!cancelled && dbActivity) {
-            const heatmapData: CalendarHeatmapData[] = Object.entries(dbActivity).map(
-              ([dateStr, count]) => ({
-                date: new Date(dateStr + "T12:00:00"),
-                count,
-              })
-            );
-            setData(heatmapData);
+            // For each date: take the MAXIMUM of DB count and local count.
+            // This means: if local has 1 solve for today but DB hasn't caught up yet (returns 0),
+            // we keep 1. Once DB propagates, it will return >= local, so this is self-healing.
+            const freshLocal = readLocalActivity();
+            const merged: Record<string, number> = { ...dbActivity };
+            for (const [dateStr, localCount] of Object.entries(freshLocal)) {
+              merged[dateStr] = Math.max(merged[dateStr] ?? 0, localCount);
+            }
+
+            // Persist the merged result so next mount is immediately accurate
+            localStorage.setItem("cp_ladder_activity", JSON.stringify(merged));
+
+            if (!cancelled) {
+              setData(activityToData(merged));
+            }
           }
         }
       } catch {}
@@ -474,7 +491,7 @@ function ActivityHeatmap() {
 
     const handleActivityUpdate = () => {
       if (!cancelled) {
-        setData(readLocalActivity());
+        setData(activityToData(readLocalActivity()));
       }
     };
     window.addEventListener("activityUpdated", handleActivityUpdate);
