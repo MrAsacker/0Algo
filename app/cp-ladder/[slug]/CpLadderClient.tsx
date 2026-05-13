@@ -115,14 +115,20 @@ export default function CpLadderClient({ slug, displayName, problems, availableL
       if (!dbData) return;
 
       // Merge strategy: DB is the authoritative base.
-      // Any problem the user toggled SINCE this mount (tracked in localChanges) keeps its local value.
-      // Everything else takes the DB value, so localStorage stays fresh across devices/sessions.
+      // Any problem the user toggled SINCE this mount (tracked in localChanges) keeps its freshest local value.
       const merged: Record<number, ProblemMeta> = { ...(dbData as any) };
-      for (const idx of localChanges.current) {
-        if (localMeta[idx]) {
-          merged[idx] = localMeta[idx]; // preserve in-flight local changes
+
+      try {
+        const freshStored = localStorage.getItem(storageKey);
+        if (freshStored) {
+          const freshLocalMeta = JSON.parse(freshStored);
+          for (const idx of localChanges.current) {
+            if (freshLocalMeta[idx]) {
+              merged[idx] = freshLocalMeta[idx]; // preserve in-flight local changes
+            }
+          }
         }
-      }
+      } catch {}
 
       setMeta(merged);
       // Always write merged result back to localStorage — this is the key sync step

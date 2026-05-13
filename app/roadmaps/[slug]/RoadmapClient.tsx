@@ -281,9 +281,15 @@ export default function RoadmapClient({ slug, data, availableRoadmaps }: Roadmap
           });
 
           // Preserve any in-flight changes the user made since mount
-          for (const id of localChanges.current) {
-            merged[id] = localMap[id] ?? false;
-          }
+          try {
+            const freshStored = localStorage.getItem(progressKey);
+            if (freshStored) {
+              const freshLocalMap = JSON.parse(freshStored);
+              for (const id of localChanges.current) {
+                merged[id] = freshLocalMap[id] ?? false;
+              }
+            }
+          } catch {}
 
           setCompletedUnits(merged);
           // Sync to localStorage
