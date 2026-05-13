@@ -4,6 +4,7 @@ import { auth } from "@clerk/nextjs/server";
 import { db } from "@/lib/db";
 import { userProfiles, cpLadderTracking } from "@/lib/schema";
 import { and, count, eq, sql } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 
 // ── Codeforces Handle & Rating ────────────────────────────────────────────────
 
@@ -113,6 +114,10 @@ export async function updateCpLadderProgress(
           completedAt: data.status === "solved" ? new Date() : sql`${cpLadderTracking.completedAt}`,
         },
       });
+
+    // Purge the Next.js router cache so subsequent fetches get the fresh count
+    revalidatePath("/cp-ladder", "layout");
+
     return true;
   } catch (error) {
     console.error("Failed to update CP Ladder progress:", error);

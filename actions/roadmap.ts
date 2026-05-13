@@ -4,6 +4,7 @@ import { auth } from "@clerk/nextjs/server";
 import { db } from "@/lib/db";
 import { roadmapProgress } from "@/lib/schema";
 import { and, eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 
 // Get all completed node IDs for a specific roadmap
 export async function getRoadmapProgress(roadmapSlug: string): Promise<string[] | null> {
@@ -65,6 +66,10 @@ export async function toggleRoadmapNode(
         completedAt: completed ? new Date() : null,
       });
     }
+
+    // Purge the Next.js router cache
+    revalidatePath("/roadmaps", "layout");
+
     return true;
   } catch (error) {
     console.error("Failed to toggle roadmap node:", error);
