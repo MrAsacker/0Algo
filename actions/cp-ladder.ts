@@ -172,3 +172,45 @@ export async function getAllLaddersSolvedCounts(): Promise<Record<string, number
     return null;
   }
 }
+
+// ── All-ladders full progress (used by DataPrefetcher to warm localStorage) ──
+
+export async function getAllLaddersProgress(): Promise<Record<
+  string,
+  Record<string, { status: string; bookmarked: boolean; note: string }>
+> | null> {
+  const { userId } = await auth();
+  if (!userId) return null;
+
+  try {
+    // Single DB call — fetch every tracked problem for this user across all ladders
+    const records = await db
+      .select({
+        listSlug: cpLadderTracking.listSlug,
+        questionId: cpLadderTracking.questionId,
+        status: cpLadderTracking.status,
+        bookmarked: cpLadderTracking.bookmarked,
+        note: cpLadderTracking.note,
+      })
+      .from(cpLadderTracking)
+      .where(eq(cpLadderTracking.userId, userId));
+
+    // Group by ladder slug
+    const result: Record<
+      string,
+      Record<string, { status: string; bookmarked: boolean; note: string }>
+    > = {};
+    for (const r of records) {
+      if (!result[r.listSlug]) result[r.listSlug] = {};
+      result[r.listSlug][r.questionId] = {
+        status: r.status,
+        bookmarked: r.bookmarked ?? false,
+        note: r.note ?? "",
+      };
+    }
+    return result;
+  } catch (error) {
+    console.error("Failed to fetch all ladders progress:", error);
+    return null;
+  }
+}

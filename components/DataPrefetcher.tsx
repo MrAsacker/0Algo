@@ -2,17 +2,15 @@
 
 import { useEffect } from "react";
 import { useAuth } from "@clerk/nextjs";
-import {
-  getUserProfile,
-  getCpLadderActivity,
-  getAllLaddersSolvedCounts,
-} from "@/actions/cp-ladder";
+import { getUserProfile, getCpLadderActivity, getAllLaddersProgress } from "@/actions/cp-ladder";
 
 /**
  * Invisible background component mounted in the root layout.
  * When the user is authenticated, it prefetches their CP Ladder stats
  * into localStorage during browser idle time — so every section feels instant.
- * Runs at most once per browser session (tracked via sessionStorage).
+ *
+ * Runs once per session (sessionStorage guard), during requestIdleCallback
+ * so it never competes with critical page rendering.
  */
 export default function DataPrefetcher() {
   const { userId } = useAuth();
@@ -20,19 +18,19 @@ export default function DataPrefetcher() {
   useEffect(() => {
     if (!userId) return;
 
-    // Only run once per session — no need to re-fetch on every page navigation
-    const SESSION_KEY = "prefetch_done_v1";
+    // Only run once per session
+    const SESSION_KEY = "prefetch_done_v2";
     if (sessionStorage.getItem(SESSION_KEY)) return;
 
     const run = async () => {
       sessionStorage.setItem(SESSION_KEY, "1");
 
       try {
-        // Run all three fetches in parallel — they're independent
-        const [profile, activity, counts] = await Promise.all([
+        // Three independent fetches run in parallel
+        const [profile, activity, allProgress] = await Promise.all([
           getUserProfile(),
           getCpLadderActivity(),
-          getAllLaddersSolvedCounts(),
+          getAllLaddersProgress(), // single DB call for ALL ladders' full meta
         ]);
 
         // ── CF Profile ──
@@ -58,28 +56,37 @@ export default function DataPrefetcher() {
           localStorage.setItem("cp_ladder_activity", JSON.stringify(activity));
         }
 
-        // ── Ladder solved counts hint (used by index page fast-path for new devices) ──
-        if (counts) {
-          for (const [slug, count] of Object.entries(counts)) {
-            // Only write if we have no local meta yet (i.e., first visit on this device)
-            const hasLocalMeta = localStorage.getItem(`cp_ladder_${slug}`);
-            if (!hasLocalMeta) {
-              localStorage.setItem(`cp_ladder_${slug}_db_count`, String(count));
-            }
+        // ── Full per-ladder meta — the key fix ──
+        // Write the complete problem-level data for each ladder into localStorage.
+        // This ensures the index page counts and the detail pages both show
+        // accurate data on the very first visit, without waiting for individual fetches.
+        if (allProgress) {
+          for (const [slug, meta] of Object.entries(allProgress)) {
+            const key = `cp_ladder_${slug}`;
+            // Only overwrite if what's in localStorage is older/less complete.
+            // We merge: DB is base, existing local values (from recent user actions) win.
+            let localMeta: Record<string, any> = {};
+            try {
+              const raw = localStorage.getItem(key);
+              if (raw) localMeta = JSON.parse(raw);
+            } catch {}
+
+            // Merge: DB base + local overrides
+            const merged = { ...meta, ...localMeta };
+            localStorage.setItem(key, JSON.stringify(merged));
           }
         }
       } catch {
-        // Silently fail — this is best-effort prefetching, not critical
-        sessionStorage.removeItem(SESSION_KEY); // Allow retry on next navigation
+        // Silently fail — best-effort prefetch, not critical
+        sessionStorage.removeItem(SESSION_KEY); // allow retry next navigation
       }
     };
 
-    // Use requestIdleCallback so we never compete with critical rendering
+    // Run during browser idle time — never blocks rendering
     if (typeof window !== "undefined" && "requestIdleCallback" in window) {
-      // Wait for browser idle, with a 3s max deadline
       (window as any).requestIdleCallback(run, { timeout: 3000 });
     } else {
-      // Fallback: run after 2s on browsers without requestIdleCallback (Safari < 16)
+      // Safari fallback
       const t = setTimeout(run, 2000);
       return () => clearTimeout(t);
     }

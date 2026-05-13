@@ -583,21 +583,19 @@ export default function CpLadderIndex({ ladders }: { ladders: LadderMeta[] }) {
       setProgress(result);
       setMounted(true);
 
-      // 2. Slow path: only use DB counts for ladders we have NO local data for.
-      // For ladders with local meta, we trust local (it's always up-to-date from persist()).
+      // 2. Slow path: fetch DB counts to catch any gaps (e.g., DataPrefetcher hasn't run yet).
+      // DB is now always accurate (UPSERT ensures no stale writes).
       if (userId) {
         const dbCounts = await getAllLaddersSolvedCounts();
         if (dbCounts && Object.keys(dbCounts).length > 0) {
-          // Merge: prefer local count for ladders we have meta for, use DB only for the rest
-          const merged = { ...result };
-          for (const [slug, count] of Object.entries(dbCounts)) {
-            if (!hasLocalMeta.has(slug)) {
-              // No local data at all — use DB value
-              merged[slug] = count;
+          setProgress((prev) => {
+            // Merge: take the higher of local vs DB (protects against rare in-flight race)
+            const merged = { ...prev };
+            for (const [slug, count] of Object.entries(dbCounts)) {
+              merged[slug] = Math.max(prev[slug] ?? 0, count);
             }
-            // If we have local meta, keep our computed count — don't let stale DB overwrite
-          }
-          setProgress(merged);
+            return merged;
+          });
         }
 
         // ── One-time migration: push localStorage data to DB ──
