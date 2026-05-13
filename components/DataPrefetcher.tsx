@@ -71,8 +71,10 @@ export default function DataPrefetcher() {
               if (raw) localMeta = JSON.parse(raw);
             } catch {}
 
-            // Merge: DB base + local overrides
-            const merged = { ...meta, ...localMeta };
+            // Merge: local base + DB overrides.
+            // DB is the absolute source of truth. We spread localMeta first so any
+            // untracked local data stays, but DB data strictly overwrites it.
+            const merged = { ...localMeta, ...meta };
             localStorage.setItem(key, JSON.stringify(merged));
           }
         }

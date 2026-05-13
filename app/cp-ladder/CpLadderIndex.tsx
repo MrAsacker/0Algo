@@ -589,12 +589,10 @@ export default function CpLadderIndex({ ladders }: { ladders: LadderMeta[] }) {
         const dbCounts = await getAllLaddersSolvedCounts();
         if (dbCounts && Object.keys(dbCounts).length > 0) {
           setProgress((prev) => {
-            // Merge: take the higher of local vs DB (protects against rare in-flight race)
-            const merged = { ...prev };
-            for (const [slug, count] of Object.entries(dbCounts)) {
-              merged[slug] = Math.max(prev[slug] ?? 0, count);
-            }
-            return merged;
+            // DB is strictly the source of truth. If DB says 20 and local says 21 (stale),
+            // we MUST use 20. Do not use Math.max, otherwise counts can never decrease
+            // when synced across devices.
+            return { ...prev, ...dbCounts };
           });
         }
 
