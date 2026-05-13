@@ -63,17 +63,24 @@ export default function ActivityHeatmap() {
           setLoading(false);
         }
 
-        // 2. Merge DB data — past dates trust DB, today uses Math.max
+        // 2. Merge DB data
+        // Strategy:
+        //  • Past dates  → DB is authoritative (cross-device sync, handles old unsolves correctly)
+        //  • TODAY       → LOCAL is authoritative. Local is updated synchronously on every toggle
+        //                  (solve OR unsolve), so it's always fresher than the DB which is written
+        //                  fire-and-forget and may still be in-flight. The DB will catch up on the
+        //                  next mount after the write commits.
         if (userId) {
           const dbActivity = await getCpLadderActivity();
           if (!cancelled && dbActivity) {
             const freshLocal = readLocalActivity();
+            // Start from DB (authoritative for all past dates)
             const merged: Record<string, number> = { ...dbActivity };
 
-            // Only protect today against in-flight race conditions
+            // Overwrite today's count with local — local is always current
             const todayKey = todayLocalKey();
             if (freshLocal[todayKey] !== undefined) {
-              merged[todayKey] = Math.max(merged[todayKey] ?? 0, freshLocal[todayKey]);
+              merged[todayKey] = freshLocal[todayKey];
             }
 
             // Persist merged result so next mount is instantly accurate
