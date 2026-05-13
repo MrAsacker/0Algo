@@ -25,13 +25,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <link rel="preconnect" href="https://clerk.accounts.dev" />
           <link rel="preconnect" href="https://codeforces.com" crossOrigin="anonymous" />
           <link rel="dns-prefetch" href="https://rnvracsuifsgqppkgnhv.supabase.co" />
-          {/* Speculation Rules: prerender CP Ladder on hover for instant navigation */}
+          {/* Speculation Rules: prefetch key pages for instant navigation */}
           <script
             type="speculationrules"
             dangerouslySetInnerHTML={{
               __html: JSON.stringify({
-                prerender: [{ where: { href_matches: "/cp-ladder" }, eagerness: "moderate" }],
                 prefetch: [
+                  { where: { href_matches: "/cp-ladder" }, eagerness: "moderate" },
                   { where: { href_matches: "/roadmaps/*" }, eagerness: "conservative" },
                   { where: { href_matches: "/system-design/*" }, eagerness: "conservative" },
                 ],
