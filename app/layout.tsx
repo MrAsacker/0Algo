@@ -21,6 +21,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <html lang="en" suppressHydrationWarning>
         <head>
           <link rel="icon" href="/white-icon.svg" />
+          {/* Preconnect: eliminate DNS+TLS cost on first call to external services */}
+          <link rel="preconnect" href="https://clerk.accounts.dev" />
+          <link rel="preconnect" href="https://codeforces.com" crossOrigin="anonymous" />
+          <link rel="dns-prefetch" href="https://rnvracsuifsgqppkgnhv.supabase.co" />
+          {/* Speculation Rules: prerender CP Ladder on hover for instant navigation */}
+          <script
+            type="speculationrules"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                prerender: [{ where: { href_matches: "/cp-ladder" }, eagerness: "moderate" }],
+                prefetch: [
+                  { where: { href_matches: "/roadmaps/*" }, eagerness: "conservative" },
+                  { where: { href_matches: "/system-design/*" }, eagerness: "conservative" },
+                ],
+              }),
+            }}
+          />
         </head>
         <body
           className={`${appSans.variable} ${appMono.variable} font-sans`}

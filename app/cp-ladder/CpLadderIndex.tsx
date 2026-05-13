@@ -566,9 +566,15 @@ export default function CpLadderIndex({ ladders }: { ladders: LadderMeta[] }) {
             const meta: Record<string, { status: string; bookmarked?: boolean; note?: string }> =
               JSON.parse(raw);
             localData[slug] = meta;
-            result[slug] = Object.values(meta).filter((m) => m.status === "solved").length;
+            // Prefer DB-synced count hint for accuracy, fall back to counting from meta
+            const dbHint = localStorage.getItem(`cp_ladder_${slug}_db_count`);
+            result[slug] =
+              dbHint !== null
+                ? parseInt(dbHint, 10)
+                : Object.values(meta).filter((m) => m.status === "solved").length;
           } else {
-            result[slug] = 0;
+            const dbHint = localStorage.getItem(`cp_ladder_${slug}_db_count`);
+            result[slug] = dbHint !== null ? parseInt(dbHint, 10) : 0;
           }
         } catch {
           result[slug] = 0;
@@ -583,6 +589,17 @@ export default function CpLadderIndex({ ladders }: { ladders: LadderMeta[] }) {
         // Only trust DB if it actually has solved records
         if (dbCounts && Object.keys(dbCounts).length > 0) {
           setProgress(dbCounts);
+          // ── Sync DB counts back to localStorage so next visit is instant ──
+          for (const [slug, count] of Object.entries(dbCounts)) {
+            try {
+              const raw = localStorage.getItem(`cp_ladder_${slug}`);
+              const meta: Record<string, { status: string; bookmarked?: boolean; note?: string }> =
+                raw ? JSON.parse(raw) : {};
+              // If DB says more solved than local, mark the difference
+              // We store the DB count hint so the index reads it instantly
+              localStorage.setItem(`cp_ladder_${slug}_db_count`, String(count));
+            } catch {}
+          }
         }
 
         // ── One-time migration: push localStorage data to DB ──

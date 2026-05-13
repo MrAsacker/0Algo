@@ -3,7 +3,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { db } from "@/lib/db";
 import { userProfiles, cpLadderTracking } from "@/lib/schema";
-import { and, eq } from "drizzle-orm";
+import { and, count, eq, sql } from "drizzle-orm";
 
 // ── Codeforces Handle & Rating ────────────────────────────────────────────────
 
@@ -91,43 +91,28 @@ export async function updateCpLadderProgress(
   if (!userId) return false;
 
   try {
-    const existing = await db
-      .select()
-      .from(cpLadderTracking)
-      .where(
-        and(
-          eq(cpLadderTracking.userId, userId),
-          eq(cpLadderTracking.listSlug, listSlug),
-          eq(cpLadderTracking.questionId, questionId)
-        )
-      )
-      .limit(1);
-
-    if (existing.length > 0) {
-      const record = existing[0];
-      await db
-        .update(cpLadderTracking)
-        .set({
-          status: data.status ?? record.status,
-          bookmarked: data.bookmarked ?? record.bookmarked,
-          note: data.note ?? record.note,
-          completedAt:
-            data.status === "solved" && record.status !== "solved"
-              ? new Date()
-              : record.completedAt,
-        })
-        .where(eq(cpLadderTracking.id, record.id));
-    } else {
-      await db.insert(cpLadderTracking).values({
+    // Single UPSERT: eliminates SELECT+UPDATE double round-trip
+    await db
+      .insert(cpLadderTracking)
+      .values({
         userId,
         listSlug,
         questionId,
         status: data.status ?? "none",
         bookmarked: data.bookmarked ?? false,
         note: data.note ?? "",
-        completedAt: new Date(),
+        completedAt: data.status === "solved" ? new Date() : null,
+      })
+      .onConflictDoUpdate({
+        target: [cpLadderTracking.userId, cpLadderTracking.listSlug, cpLadderTracking.questionId],
+        set: {
+          status: data.status !== undefined ? data.status : sql`${cpLadderTracking.status}`,
+          bookmarked:
+            data.bookmarked !== undefined ? data.bookmarked : sql`${cpLadderTracking.bookmarked}`,
+          note: data.note !== undefined ? data.note : sql`${cpLadderTracking.note}`,
+          completedAt: data.status === "solved" ? new Date() : sql`${cpLadderTracking.completedAt}`,
+        },
       });
-    }
     return true;
   } catch (error) {
     console.error("Failed to update CP Ladder progress:", error);
@@ -171,18 +156,17 @@ export async function getAllLaddersSolvedCounts(): Promise<Record<string, number
   if (!userId) return null;
 
   try {
+    // SQL COUNT+GROUP BY: DB does aggregation — returns 1 row per ladder, not N problem rows
     const records = await db
       .select({
         listSlug: cpLadderTracking.listSlug,
+        solvedCount: count(cpLadderTracking.id),
       })
       .from(cpLadderTracking)
-      .where(and(eq(cpLadderTracking.userId, userId), eq(cpLadderTracking.status, "solved")));
+      .where(and(eq(cpLadderTracking.userId, userId), eq(cpLadderTracking.status, "solved")))
+      .groupBy(cpLadderTracking.listSlug);
 
-    const counts: Record<string, number> = {};
-    for (const r of records) {
-      counts[r.listSlug] = (counts[r.listSlug] || 0) + 1;
-    }
-    return counts;
+    return Object.fromEntries(records.map((r) => [r.listSlug, r.solvedCount]));
   } catch (error) {
     console.error("Failed to fetch ladder counts:", error);
     return null;
