@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
@@ -90,26 +90,43 @@ export default function CpLadderClient({ slug, displayName, problems, availableL
   });
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  // Track which problem indices were changed locally since mount (for merge logic)
+  const localChanges = useRef<Set<number>>(new Set());
+
   // ── Load from DB or localStorage ──
   useEffect(() => {
+    // Reset local changes tracking on slug change
+    localChanges.current = new Set();
+
     // 1. Fast path: optimistic load from localStorage
+    let localMeta: Record<number, ProblemMeta> = {};
     try {
       const stored = localStorage.getItem(storageKey);
       if (stored) {
-        setMeta(JSON.parse(stored));
+        localMeta = JSON.parse(stored);
+        setMeta(localMeta);
       }
     } catch {}
 
-    // 2. Slow path: fetch from DB in background and update if needed
+    // 2. Slow path: fetch from DB and merge into localStorage
     async function loadData() {
-      if (userId) {
-        const dbData = await getCpLadderProgress(slug);
-        if (dbData && Object.keys(dbData).length > 0) {
-          setMeta(dbData as any);
-          // Sync to localStorage
-          localStorage.setItem(storageKey, JSON.stringify(dbData));
+      if (!userId) return;
+      const dbData = await getCpLadderProgress(slug);
+      if (!dbData) return;
+
+      // Merge strategy: DB is the authoritative base.
+      // Any problem the user toggled SINCE this mount (tracked in localChanges) keeps its local value.
+      // Everything else takes the DB value, so localStorage stays fresh across devices/sessions.
+      const merged: Record<number, ProblemMeta> = { ...(dbData as any) };
+      for (const idx of localChanges.current) {
+        if (localMeta[idx]) {
+          merged[idx] = localMeta[idx]; // preserve in-flight local changes
         }
       }
+
+      setMeta(merged);
+      // Always write merged result back to localStorage — this is the key sync step
+      localStorage.setItem(storageKey, JSON.stringify(merged));
     }
     loadData();
   }, [storageKey, slug, userId]);
@@ -121,10 +138,10 @@ export default function CpLadderClient({ slug, displayName, problems, availableL
       // Write full meta synchronously — same event loop as state change
       localStorage.setItem(storageKey, JSON.stringify(next));
 
-      // Keep the _db_count hint in sync so the index page shows the right count
-      // on next refresh (fast-path reads this hint before DB responds)
-      const solvedCount = Object.values(next).filter((m) => m.status === "solved").length;
-      localStorage.setItem(`${storageKey}_db_count`, String(solvedCount));
+      // Track this index as locally changed so the DB merge doesn't overwrite it
+      if (updatedIdx !== undefined) {
+        localChanges.current.add(updatedIdx);
+      }
 
       if (userId && updatedIdx !== undefined && updatedMeta) {
         updateCpLadderProgress(slug, String(updatedIdx), updatedMeta);
