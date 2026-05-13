@@ -118,7 +118,13 @@ export default function CpLadderClient({ slug, displayName, problems, availableL
   const persist = useCallback(
     (next: Record<number, ProblemMeta>, updatedIdx?: number, updatedMeta?: ProblemMeta) => {
       setMeta(next);
+      // Write full meta synchronously — same event loop as state change
       localStorage.setItem(storageKey, JSON.stringify(next));
+
+      // Keep the _db_count hint in sync so the index page shows the right count
+      // on next refresh (fast-path reads this hint before DB responds)
+      const solvedCount = Object.values(next).filter((m) => m.status === "solved").length;
+      localStorage.setItem(`${storageKey}_db_count`, String(solvedCount));
 
       if (userId && updatedIdx !== undefined && updatedMeta) {
         updateCpLadderProgress(slug, String(updatedIdx), updatedMeta);

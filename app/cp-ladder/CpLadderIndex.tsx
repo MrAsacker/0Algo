@@ -556,9 +556,13 @@ export default function CpLadderIndex({ ladders }: { ladders: LadderMeta[] }) {
 
   useEffect(() => {
     async function loadProgress() {
-      // 1. Fast path: load from localStorage immediately
+      // 1. Fast path: always compute directly from meta — it's written synchronously
+      // by persist() so it's always the freshest source of truth.
+      // Never use the _db_count hint (it causes race conditions when DB fetch is stale).
       const result: Record<string, number> = {};
       const localData: Record<string, Record<string, any>> = {};
+      const hasLocalMeta: Set<string> = new Set();
+
       ladders.forEach(({ slug }) => {
         try {
           const raw = localStorage.getItem(`cp_ladder_${slug}`);
@@ -566,15 +570,11 @@ export default function CpLadderIndex({ ladders }: { ladders: LadderMeta[] }) {
             const meta: Record<string, { status: string; bookmarked?: boolean; note?: string }> =
               JSON.parse(raw);
             localData[slug] = meta;
-            // Prefer DB-synced count hint for accuracy, fall back to counting from meta
-            const dbHint = localStorage.getItem(`cp_ladder_${slug}_db_count`);
-            result[slug] =
-              dbHint !== null
-                ? parseInt(dbHint, 10)
-                : Object.values(meta).filter((m) => m.status === "solved").length;
+            hasLocalMeta.add(slug);
+            // Always count from meta — this is what persist() writes synchronously
+            result[slug] = Object.values(meta).filter((m) => m.status === "solved").length;
           } else {
-            const dbHint = localStorage.getItem(`cp_ladder_${slug}_db_count`);
-            result[slug] = dbHint !== null ? parseInt(dbHint, 10) : 0;
+            result[slug] = 0;
           }
         } catch {
           result[slug] = 0;
@@ -583,23 +583,21 @@ export default function CpLadderIndex({ ladders }: { ladders: LadderMeta[] }) {
       setProgress(result);
       setMounted(true);
 
-      // 2. Slow path: fetch from DB and merge/sync
+      // 2. Slow path: only use DB counts for ladders we have NO local data for.
+      // For ladders with local meta, we trust local (it's always up-to-date from persist()).
       if (userId) {
         const dbCounts = await getAllLaddersSolvedCounts();
-        // Only trust DB if it actually has solved records
         if (dbCounts && Object.keys(dbCounts).length > 0) {
-          setProgress(dbCounts);
-          // ── Sync DB counts back to localStorage so next visit is instant ──
+          // Merge: prefer local count for ladders we have meta for, use DB only for the rest
+          const merged = { ...result };
           for (const [slug, count] of Object.entries(dbCounts)) {
-            try {
-              const raw = localStorage.getItem(`cp_ladder_${slug}`);
-              const meta: Record<string, { status: string; bookmarked?: boolean; note?: string }> =
-                raw ? JSON.parse(raw) : {};
-              // If DB says more solved than local, mark the difference
-              // We store the DB count hint so the index reads it instantly
-              localStorage.setItem(`cp_ladder_${slug}_db_count`, String(count));
-            } catch {}
+            if (!hasLocalMeta.has(slug)) {
+              // No local data at all — use DB value
+              merged[slug] = count;
+            }
+            // If we have local meta, keep our computed count — don't let stale DB overwrite
           }
+          setProgress(merged);
         }
 
         // ── One-time migration: push localStorage data to DB ──
