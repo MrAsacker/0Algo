@@ -18,14 +18,37 @@ export default function DashboardClient() {
   useEffect(() => {
     if (!userId) return;
 
-    // 1. Prepare to fetch User Progress (Always fetch fresh from DB)
-    // Ensure you have created the file: app/api/user-progress/route.ts
-    const progressPromise = fetch("/api/user-progress")
-      .then((res) => res.json())
-      .catch((err) => {
-        console.error("Error fetching progress:", err);
-        return { slugs: [] };
-      });
+    // 1. Load User Progress
+    let progressPromise;
+    try {
+      const cachedSlugs = localStorage.getItem("dashboard-progress-v1");
+      if (cachedSlugs) {
+        const parsed = JSON.parse(cachedSlugs);
+        if (Array.isArray(parsed)) {
+          progressPromise = Promise.resolve({ slugs: parsed });
+        }
+      }
+    } catch {}
+
+    if (!progressPromise) {
+      progressPromise = fetch("/api/user-progress")
+        .then((res) => res.json())
+        .catch((err) => {
+          console.error("Error fetching progress:", err);
+          return { slugs: [] };
+        });
+    } else {
+      // Fetch in background to update cache
+      fetch("/api/user-progress")
+        .then((res) => res.json())
+        .then((data) => {
+          if (data && data.slugs) {
+            setCompletedSlugs(data.slugs);
+            localStorage.setItem("dashboard-progress-v1", JSON.stringify(data.slugs));
+          }
+        })
+        .catch(() => {});
+    }
 
     // 2. Prepare to fetch Questions (Check cache first)
     let questionsPromise;

@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useAuth } from "@clerk/nextjs";
 import { getUserProfile, getCpLadderActivity, getAllLaddersProgress } from "@/actions/cp-ladder";
+import { getAllRoadmapsProgress } from "@/actions/roadmap";
 
 /**
  * Invisible background component mounted in the root layout.
@@ -26,12 +27,16 @@ export default function DataPrefetcher() {
       sessionStorage.setItem(SESSION_KEY, "1");
 
       try {
-        // Three independent fetches run in parallel
-        const [profile, activity, allProgress] = await Promise.all([
-          getUserProfile(),
-          getCpLadderActivity(),
-          getAllLaddersProgress(), // single DB call for ALL ladders' full meta
-        ]);
+        // Six independent fetches run in parallel
+        const [profile, activity, allProgress, allRoadmapProgress, questionsRes, progressRes] =
+          await Promise.all([
+            getUserProfile(),
+            getCpLadderActivity(),
+            getAllLaddersProgress(), // single DB call for ALL ladders' full meta
+            getAllRoadmapsProgress(), // single DB call for ALL DSA roadmaps' progress
+            fetch("/api/questions").catch(() => null),
+            fetch("/api/user-progress").catch(() => null),
+          ]);
 
         // ── CF Profile ──
         if (profile?.cfHandle) {
@@ -56,26 +61,56 @@ export default function DataPrefetcher() {
           localStorage.setItem("cp_ladder_activity", JSON.stringify(activity));
         }
 
-        // ── Full per-ladder meta — the key fix ──
-        // Write the complete problem-level data for each ladder into localStorage.
-        // This ensures the index page counts and the detail pages both show
-        // accurate data on the very first visit, without waiting for individual fetches.
+        // ── Full per-ladder meta ──
         if (allProgress) {
           for (const [slug, meta] of Object.entries(allProgress)) {
             const key = `cp_ladder_${slug}`;
-            // Only overwrite if what's in localStorage is older/less complete.
-            // We merge: DB is base, existing local values (from recent user actions) win.
             let localMeta: Record<string, any> = {};
             try {
               const raw = localStorage.getItem(key);
               if (raw) localMeta = JSON.parse(raw);
             } catch {}
 
-            // Merge: local base + DB overrides.
-            // DB is the absolute source of truth. We spread localMeta first so any
-            // untracked local data stays, but DB data strictly overwrites it.
+            // DB is the absolute source of truth.
             const merged = { ...localMeta, ...meta };
             localStorage.setItem(key, JSON.stringify(merged));
+          }
+        }
+
+        // ── Full per-roadmap meta (DSA) ──
+        if (allRoadmapProgress) {
+          for (const [slug, meta] of Object.entries(allRoadmapProgress)) {
+            const key = `roadmap_progress_${slug}`;
+            let localMeta: Record<string, any> = {};
+            try {
+              const raw = localStorage.getItem(key);
+              if (raw) localMeta = JSON.parse(raw);
+            } catch {}
+
+            // DB is the absolute source of truth.
+            const merged = { ...localMeta, ...meta };
+            localStorage.setItem(key, JSON.stringify(merged));
+          }
+        }
+
+        // ── Dashboard / DSA Section ──
+        if (questionsRes && questionsRes.ok) {
+          const qData = await questionsRes.json();
+          if (qData && qData.questions && qData.companies) {
+            localStorage.setItem(
+              "dashboard-cache-v2",
+              JSON.stringify({
+                questions: qData.questions,
+                companies: qData.companies,
+              })
+            );
+          }
+        }
+
+        if (progressRes && progressRes.ok) {
+          const pData = await progressRes.json();
+          if (pData && pData.slugs) {
+            localStorage.setItem("dashboard-progress-v1", JSON.stringify(pData.slugs));
           }
         }
       } catch {

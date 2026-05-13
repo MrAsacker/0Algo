@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
@@ -254,7 +254,12 @@ export default function RoadmapClient({ slug, data, availableRoadmaps }: Roadmap
   const progressKey = `roadmap_progress_${slug}`;
   const { userId } = useAuth();
 
+  const localChanges = useRef<Set<string>>(new Set());
+
   useEffect(() => {
+    // Reset local changes tracking on slug change
+    localChanges.current = new Set();
+
     // 1. Fast path: optimistic load from localStorage
     let localMap: Record<string, boolean> = {};
     try {
@@ -270,13 +275,19 @@ export default function RoadmapClient({ slug, data, availableRoadmaps }: Roadmap
       if (userId) {
         const dbNodes = await getRoadmapProgress(slug);
         if (dbNodes && dbNodes.length > 0) {
-          const map: Record<string, boolean> = {};
+          const merged: Record<string, boolean> = {};
           dbNodes.forEach((id) => {
-            map[id] = true;
+            merged[id] = true;
           });
-          setCompletedUnits(map);
+
+          // Preserve any in-flight changes the user made since mount
+          for (const id of localChanges.current) {
+            merged[id] = localMap[id] ?? false;
+          }
+
+          setCompletedUnits(merged);
           // Sync to localStorage
-          localStorage.setItem(progressKey, JSON.stringify(map));
+          localStorage.setItem(progressKey, JSON.stringify(merged));
         }
 
         // ── One-time migration: push localStorage data to DB ──
@@ -301,6 +312,10 @@ export default function RoadmapClient({ slug, data, availableRoadmaps }: Roadmap
     const next = { ...completedUnits, [unitId]: newVal };
     setCompletedUnits(next);
     localStorage.setItem(progressKey, JSON.stringify(next));
+
+    // Track this change so the DB merge doesn't overwrite it
+    localChanges.current.add(unitId);
+
     if (userId) {
       toggleRoadmapNode(slug, unitId, newVal);
     }

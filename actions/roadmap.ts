@@ -71,3 +71,30 @@ export async function toggleRoadmapNode(
     return false;
   }
 }
+
+// ── All-roadmaps full progress (used by DataPrefetcher to warm localStorage) ──
+
+export async function getAllRoadmapsProgress(): Promise<Record<
+  string,
+  Record<string, boolean>
+> | null> {
+  const { userId } = await auth();
+  if (!userId) return null;
+
+  try {
+    const records = await db
+      .select({ roadmapSlug: roadmapProgress.roadmapSlug, nodeId: roadmapProgress.nodeId })
+      .from(roadmapProgress)
+      .where(and(eq(roadmapProgress.userId, userId), eq(roadmapProgress.completed, true)));
+
+    const result: Record<string, Record<string, boolean>> = {};
+    for (const r of records) {
+      if (!result[r.roadmapSlug]) result[r.roadmapSlug] = {};
+      result[r.roadmapSlug][r.nodeId] = true;
+    }
+    return result;
+  } catch (error) {
+    console.error("Failed to fetch all roadmaps progress:", error);
+    return null;
+  }
+}
