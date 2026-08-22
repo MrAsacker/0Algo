@@ -14,7 +14,7 @@
 
 **0Algo** is a high-performance, full-stack learning platform designed to help engineers **ace technical interviews and master competitive programming**. It features curated DSA questions, CP ladders, interactive roadmaps, and an **AI-powered Assistant** powered by Google Gemini.
 
-[Live Demo →](https://0algo.com)
+[Live Demo →](https://0algo.wtf)
 
 ---
 
