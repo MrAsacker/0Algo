@@ -476,7 +476,7 @@ export default function CpLadderClient({ slug, displayName, problems, availableL
             {/* Embed */}
             <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
               <iframe
-                src={videoModal.url}
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" /* TEMP: rickroll override */
                 title={videoModal.title}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
